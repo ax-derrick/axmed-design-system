@@ -1,0 +1,48 @@
+@use "sass:map";
+
+// Breakpoint map
+$breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px
+);
+
+// Breakpoint mixin
+@mixin breakpoint($size) {
+  @media (min-width: map.get($breakpoints, $size)) {
+    @content;
+  }
+}
+
+// Margin spacing variables (multiples of 4px)
+$spacers: ();
+@for $i from 0 through 12 {
+  $value: $i * 4;
+  $spacers: map.merge($spacers, ($value: #{$value}px));
+}
+
+// Generate margin utilities for each breakpoint
+@each $breakpoint-name, $breakpoint-value in $breakpoints {
+  $prefix: if($breakpoint-name == xs, "", "#{$breakpoint-name}-");
+
+  @include breakpoint($breakpoint-name) {
+    @each $space, $value in $spacers {
+      .p-#{$prefix}#{$space} { padding: $value !important; }
+      .pt-#{$prefix}#{$space} { padding-top: $value !important; }
+      .pb-#{$prefix}#{$space} { padding-bottom: $value !important; }
+      .pl-#{$prefix}#{$space} { padding-left: $value !important; }
+      .pr-#{$prefix}#{$space} { padding-right: $value !important; }
+      .px-#{$prefix}#{$space} {
+        padding-left: $value !important;
+        padding-right: $value !important;
+      }
+      .py-#{$prefix}#{$space} {
+        padding-top: $value !important;
+        padding-bottom: $value !important;
+      }
+    }
+  }
+}

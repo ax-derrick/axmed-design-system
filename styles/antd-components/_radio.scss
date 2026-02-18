@@ -1,0 +1,12 @@
+.ant-radio-wrapper .ant-radio-checked .ant-radio-inner{
+    border-color: var(--blue-400)!important;
+}
+  /* Ensure radio buttons doesn't become transparent on hover */
+.ant-radio-wrapper:hover .ant-radio-inner{
+    border-color: var(--blue-400)!important;
+}
+/* Ensure Radio components use Fig Tree font */
+.ant-radio-wrapper,
+.ant-radio-wrapper * {
+    font-family: var(--font-fig-tree) !important;
+}

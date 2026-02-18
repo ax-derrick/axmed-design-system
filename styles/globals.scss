@@ -1,0 +1,46 @@
+@use "colors" as *;
+@use "margins";
+@use "paddings";
+@use "fonts";
+@use "../design-system/tokens/typography";
+@use "./antd-components/tables";
+@use "./antd-components/modals";
+@use "./antd-components/radio";
+@use "./antd-components/drawer";
+
+:root{
+    @each $key, $value in $theme-colors {
+    #{$key}: $value;
+    }
+    --ant-layout-header-height: 66px;
+    --ant-layout-header-padding: 0 24px;
+}
+.ant-row{
+    max-width: 100%;
+}
+html{
+    font-family: var(--font-fig-tree)!important;
+    font-style:normal;
+}
+body{
+    margin: 0;
+    font-family: var(--font-fig-tree)!important;
+    font-style:normal;
+}
+/* Force form elements to inherit font — browsers default these to system fonts */
+button, input, select, textarea, [contenteditable] {
+    font-family: inherit;
+}
+a{
+    text-decoration: none;
+    color:var(--text-link);
+}
+/* Prevent global <a> color from overriding Ant Design button text */
+.ant-btn a,
+.ant-btn a:hover {
+    color: inherit;
+}
+h1,h2,h3,h4,h5,h6{
+    margin-block-start: 0!important;
+    margin-bottom: 24px;
+}

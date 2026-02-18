@@ -1,0 +1,54 @@
+// =============================================================================
+// Typography Tokens — Axmed Core v.02
+// Primitive font tokens referenced by semantic text variants (AxText component)
+// =============================================================================
+
+:root {
+  // ---------------------------------------------------------------------------
+  // Font Family
+  // ---------------------------------------------------------------------------
+  --font-family-sans: var(--font-fig-tree), "Figtree", sans-serif;
+  --font-family-mono: "Fira Code", monospace;
+
+  // ---------------------------------------------------------------------------
+  // Font Weight (Figtree variable font values)
+  // ---------------------------------------------------------------------------
+  --font-weight-regular: 450;
+  --font-weight-medium: 550;
+  --font-weight-semibold: 650;
+  --font-weight-bold: 700;
+
+  // ---------------------------------------------------------------------------
+  // Font Size
+  // ---------------------------------------------------------------------------
+  --font-size-11: 11px;
+  --font-size-12: 12px;
+  --font-size-13: 13px;
+  --font-size-14: 14px;
+  --font-size-16: 16px;
+  --font-size-20: 20px;
+  --font-size-24: 24px;
+  --font-size-30: 30px;
+  --font-size-36: 36px;
+  --font-size-48: 48px;
+
+  // ---------------------------------------------------------------------------
+  // Line Height
+  // ---------------------------------------------------------------------------
+  --font-line-height-12: 12px;
+  --font-line-height-16: 16px;
+  --font-line-height-20: 20px;
+  --font-line-height-24: 24px;
+  --font-line-height-32: 32px;
+  --font-line-height-40: 40px;
+  --font-line-height-48: 48px;
+  --font-line-height-52: 52px;
+
+  // ---------------------------------------------------------------------------
+  // Letter Spacing
+  // ---------------------------------------------------------------------------
+  --font-letter-spacing-xs: -0.54px;
+  --font-letter-spacing-sm: -0.3px;
+  --font-letter-spacing-md: -0.2px;
+  --font-letter-spacing-lg: 0px;
+}

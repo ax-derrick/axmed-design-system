@@ -1,0 +1,17 @@
+.ant-modal-body{
+    max-height: 80vh;
+    overflow: auto;
+}
+.ant-modal-confirm-paragraph{
+    row-gap: 24px!important;
+}
+
+.small-modal :global(.ant-modal-body) {
+    padding-top: 24px !important;
+}
+.small-modal :global(.ant-modal-close) {
+  top: 22px !important;
+}
+.small-modal .ant-modal-footer {
+  border:0!important;
+}
