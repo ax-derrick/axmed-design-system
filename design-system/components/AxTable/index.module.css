@@ -1,0 +1,52 @@
+.axTable {
+  font-family: "Figtree", sans-serif;
+}
+
+/* Remove default border-radius — tables typically sit inside a parent container
+   (card, filter bar, page section) that handles its own rounding */
+.axTable :global(.ant-table),
+.axTable :global(.ant-table-container),
+.axTable :global(.ant-table-content),
+.axTable :global(.ant-table-content table),
+.axTable :global(.ant-table-header),
+.axTable :global(.ant-table-thead > tr > th:first-child),
+.axTable :global(.ant-table-thead > tr > th:last-child),
+.axTable :global(.ant-table-tbody > tr:last-child > td:first-child),
+.axTable :global(.ant-table-tbody > tr:last-child > td:last-child) {
+  border-radius: 0 !important;
+}
+
+.axTable :global(.ant-table-content) {
+  border: 1px solid var(--neutral-50);
+}
+
+.axTable :global(.ant-table-expanded-row .ant-table-cell) {
+  padding: 0 !important;
+}
+
+/* Selected row: blue highlight + left accent */
+.rowSelected {
+  background-color: var(--blue-25) !important;
+}
+
+.axTable :global(tr).rowSelected > td {
+  background-color: var(--blue-25) !important;
+}
+
+.axTable :global(tr).rowSelected > td:first-child {
+  box-shadow: inset 3px 0 0 0 var(--blue-600);
+}
+
+.axTable :global(.ant-table-tbody) > :global(tr).rowSelected:hover > td {
+  background-color: var(--blue-25) !important;
+}
+
+/* Disabled row: dimmed + non-interactive */
+.rowDisabled {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.axTable :global(.ant-table-tbody) > :global(tr).rowDisabled:hover > td {
+  background-color: transparent !important;
+}
