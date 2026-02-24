@@ -1,4 +1,3 @@
-import React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
 import { Flex } from "antd"
 import {
@@ -11,46 +10,27 @@ import {
 } from "@ant-design/icons"
 
 import AxTag from "./index"
+import { AxText } from "../../index"
 
 const meta: Meta<typeof AxTag> = {
   title: "Design System/AxTag",
   component: AxTag,
   tags: ["autodocs"],
   argTypes: {
-    status: {
+    tone: {
       control: "select",
-      options: [
-        undefined,
-        "submitted",
-        "processing",
-        "in_progress",
-        "completed",
-        "delivered",
-        "cancelled",
-        "pending",
-        "awarded",
-        "confirmed",
-        "in_review",
-        "not_awarded",
-        "withdrawn",
-        "rejected",
-        "in_transit",
-        "shipped",
-        "in_stock",
-        "low_stock",
-        "out_of_stock",
-        "expired",
-        "approved",
-        "needs_refresh",
-        "ready",
-        "po_submitted",
-        "draft",
-      ],
-      description: "Semantic status key with preset color and dot",
+      options: [undefined, "success", "info", "warning", "error", "neutral"],
+      description:
+        "Semantic tone. Sets the color palette and enables a dot by default.\n\n" +
+        "- `success` → green (completed, delivered, awarded, in stock…)\n" +
+        "- `info` → blue (processing, in review, in transit…)\n" +
+        "- `warning` → orange (not awarded, low stock, needs refresh…)\n" +
+        "- `error` → red (cancelled, rejected, withdrawn…)\n" +
+        "- `neutral` → gray (pending, draft, expired…)",
     },
     dot: {
       control: "boolean",
-      description: "Show a colored dot indicator",
+      description: "Show a colored dot indicator (auto-enabled when tone is set)",
     },
     pill: {
       control: "boolean",
@@ -58,7 +38,7 @@ const meta: Meta<typeof AxTag> = {
     },
     color: {
       control: "text",
-      description: "Override the tag color (antd color prop)",
+      description: "Override with any antd color token or hex value",
     },
     dotColor: {
       control: "color",
@@ -66,11 +46,20 @@ const meta: Meta<typeof AxTag> = {
     },
     fill: {
       control: "color",
-      description: "Solid background color (white text, no border)",
+      description: "Solid background color — white text, no border",
     },
     small: {
       control: "boolean",
       description: "Small badge-style tag (11px font, compact padding)",
+    },
+    variant: {
+      control: "select",
+      options: ["outlined", "borderless", "filled"],
+      description: "Antd tag variant",
+    },
+    closable: {
+      control: "boolean",
+      description: "Show close icon",
     },
   },
 }
@@ -78,75 +67,72 @@ const meta: Meta<typeof AxTag> = {
 export default meta
 type Story = StoryObj<typeof AxTag>
 
-// -- Basic --
+// -- Playground --
 
-export const Default: Story = {
+export const Playground: Story = {
+  name: "Playground",
   args: {
     children: "Default Tag",
+    tone: undefined,
+    dot: false,
+    pill: false,
+    small: false,
+    closable: false,
   },
 }
 
-// -- All Status Presets --
+// -- All Tones --
 
-export const OrderStatuses: Story = {
+export const AllTones: Story = {
+  name: "All Tones",
   render: () => (
-    <Flex gap={8} wrap="wrap">
-      <AxTag status="submitted">Submitted</AxTag>
-      <AxTag status="processing">Processing</AxTag>
-      <AxTag status="in_progress">In Progress</AxTag>
-      <AxTag status="completed">Completed</AxTag>
-      <AxTag status="delivered">Delivered</AxTag>
-      <AxTag status="cancelled">Cancelled</AxTag>
-      <AxTag status="pending">Pending</AxTag>
-    </Flex>
-  ),
-}
-
-export const QuoteStatuses: Story = {
-  render: () => (
-    <Flex gap={8} wrap="wrap">
-      <AxTag status="awarded">Awarded</AxTag>
-      <AxTag status="confirmed">Confirmed</AxTag>
-      <AxTag status="in_review">In Buyer Review</AxTag>
-      <AxTag status="not_awarded">Not Awarded</AxTag>
-      <AxTag status="withdrawn">Withdrawn</AxTag>
-      <AxTag status="rejected">Rejected</AxTag>
-    </Flex>
-  ),
-}
-
-export const ShipmentStatuses: Story = {
-  render: () => (
-    <Flex gap={8} wrap="wrap">
-      <AxTag status="submitted">Submitted</AxTag>
-      <AxTag status="in_transit">In Transit</AxTag>
-      <AxTag status="shipped">Shipped</AxTag>
-      <AxTag status="delivered">Delivered</AxTag>
-    </Flex>
-  ),
-}
-
-export const StockStatuses: Story = {
-  render: () => (
-    <Flex gap={8} wrap="wrap">
-      <AxTag status="in_stock">In Stock</AxTag>
-      <AxTag status="low_stock">Low Stock</AxTag>
-      <AxTag status="out_of_stock">Out of Stock</AxTag>
-      <AxTag status="expired">Expired</AxTag>
-    </Flex>
-  ),
-}
-
-export const MiscStatuses: Story = {
-  render: () => (
-    <Flex gap={8} wrap="wrap">
-      <AxTag status="approved">Approved</AxTag>
-      <AxTag status="rejected">Rejected</AxTag>
-      <AxTag status="pending">Pending</AxTag>
-      <AxTag status="draft">Draft</AxTag>
-      <AxTag status="needs_refresh">Needs Refresh</AxTag>
-      <AxTag status="ready">Ready</AxTag>
-      <AxTag status="po_submitted">PO Submitted</AxTag>
+    <Flex vertical gap={16}>
+      <div>
+        <AxText variant="body-xs" color="secondary" style={{ marginBottom: 8, display: "block" }}>success</AxText>
+        <Flex gap={8} wrap="wrap">
+          <AxTag tone="success">Completed</AxTag>
+          <AxTag tone="success">Delivered</AxTag>
+          <AxTag tone="success">Awarded</AxTag>
+          <AxTag tone="success">In Stock</AxTag>
+          <AxTag tone="success">Approved</AxTag>
+        </Flex>
+      </div>
+      <div>
+        <AxText variant="body-xs" color="secondary" style={{ marginBottom: 8, display: "block" }}>info</AxText>
+        <Flex gap={8} wrap="wrap">
+          <AxTag tone="info">Processing</AxTag>
+          <AxTag tone="info">In Progress</AxTag>
+          <AxTag tone="info">In Review</AxTag>
+          <AxTag tone="info">In Transit</AxTag>
+          <AxTag tone="info">Submitted</AxTag>
+        </Flex>
+      </div>
+      <div>
+        <AxText variant="body-xs" color="secondary" style={{ marginBottom: 8, display: "block" }}>warning</AxText>
+        <Flex gap={8} wrap="wrap">
+          <AxTag tone="warning">Not Awarded</AxTag>
+          <AxTag tone="warning">Low Stock</AxTag>
+          <AxTag tone="warning">Needs Refresh</AxTag>
+          <AxTag tone="warning">Expiring Soon</AxTag>
+        </Flex>
+      </div>
+      <div>
+        <AxText variant="body-xs" color="secondary" style={{ marginBottom: 8, display: "block" }}>error</AxText>
+        <Flex gap={8} wrap="wrap">
+          <AxTag tone="error">Cancelled</AxTag>
+          <AxTag tone="error">Rejected</AxTag>
+          <AxTag tone="error">Withdrawn</AxTag>
+          <AxTag tone="error">Out of Stock</AxTag>
+        </Flex>
+      </div>
+      <div>
+        <AxText variant="body-xs" color="secondary" style={{ marginBottom: 8, display: "block" }}>neutral</AxText>
+        <Flex gap={8} wrap="wrap">
+          <AxTag tone="neutral">Pending</AxTag>
+          <AxTag tone="neutral">Draft</AxTag>
+          <AxTag tone="neutral">Expired</AxTag>
+        </Flex>
+      </div>
     </Flex>
   ),
 }
@@ -156,10 +142,11 @@ export const MiscStatuses: Story = {
 export const PillShape: Story = {
   render: () => (
     <Flex gap={8} wrap="wrap">
-      <AxTag status="delivered" pill>Delivered</AxTag>
-      <AxTag status="in_transit" pill>In Transit</AxTag>
-      <AxTag status="cancelled" pill>Cancelled</AxTag>
-      <AxTag status="pending" pill>Pending</AxTag>
+      <AxTag tone="success" pill>Delivered</AxTag>
+      <AxTag tone="info" pill>In Transit</AxTag>
+      <AxTag tone="warning" pill>Low Stock</AxTag>
+      <AxTag tone="error" pill>Cancelled</AxTag>
+      <AxTag tone="neutral" pill>Pending</AxTag>
     </Flex>
   ),
 }
@@ -169,24 +156,12 @@ export const PillShape: Story = {
 export const WithIcons: Story = {
   render: () => (
     <Flex gap={8} wrap="wrap">
-      <AxTag status="completed" icon={<CheckCircleOutlined />} color="success">
-        Delivered
-      </AxTag>
-      <AxTag status="in_transit" icon={<CarOutlined />} color="blue">
-        In Transit
-      </AxTag>
-      <AxTag status="processing" icon={<SyncOutlined spin />} color="processing">
-        Processing
-      </AxTag>
-      <AxTag status="pending" icon={<ClockCircleOutlined />} color="default">
-        Pending
-      </AxTag>
-      <AxTag status="cancelled" icon={<CloseCircleOutlined />} color="error">
-        Cancelled
-      </AxTag>
-      <AxTag status="not_awarded" icon={<ExclamationCircleOutlined />} color="warning">
-        Not Awarded
-      </AxTag>
+      <AxTag tone="success" icon={<CheckCircleOutlined />}>Delivered</AxTag>
+      <AxTag tone="info" icon={<CarOutlined />}>In Transit</AxTag>
+      <AxTag tone="info" icon={<SyncOutlined spin />}>Processing</AxTag>
+      <AxTag tone="neutral" icon={<ClockCircleOutlined />}>Pending</AxTag>
+      <AxTag tone="error" icon={<CloseCircleOutlined />}>Cancelled</AxTag>
+      <AxTag tone="warning" icon={<ExclamationCircleOutlined />}>Not Awarded</AxTag>
     </Flex>
   ),
 }
@@ -196,30 +171,9 @@ export const WithIcons: Story = {
 export const WithoutDots: Story = {
   render: () => (
     <Flex gap={8} wrap="wrap">
-      <AxTag status="completed" dot={false}>Completed</AxTag>
-      <AxTag status="in_transit" dot={false}>In Transit</AxTag>
-      <AxTag status="cancelled" dot={false}>Cancelled</AxTag>
-    </Flex>
-  ),
-}
-
-// -- Custom Colors --
-
-export const CustomColors: Story = {
-  render: () => (
-    <Flex gap={8} wrap="wrap">
-      <AxTag color="#392AB0" dotColor="#392AB0" dot>
-        Axmed Purple
-      </AxTag>
-      <AxTag color="#008EF0" dotColor="#008EF0" dot>
-        Axmed Blue
-      </AxTag>
-      <AxTag color="#E73BC1" dotColor="#E73BC1" dot>
-        Magenta
-      </AxTag>
-      <AxTag color="lime" dotColor="#52C41A" dot>
-        Custom Lime
-      </AxTag>
+      <AxTag tone="success" dot={false}>Completed</AxTag>
+      <AxTag tone="info" dot={false}>In Transit</AxTag>
+      <AxTag tone="error" dot={false}>Cancelled</AxTag>
     </Flex>
   ),
 }
@@ -229,10 +183,10 @@ export const CustomColors: Story = {
 export const OutlinedVariant: Story = {
   render: () => (
     <Flex gap={8} wrap="wrap">
-      <AxTag status="in_stock" variant="outlined">In Stock</AxTag>
-      <AxTag status="low_stock" variant="outlined">Low Stock</AxTag>
-      <AxTag status="out_of_stock" variant="outlined">Out of Stock</AxTag>
-      <AxTag status="expired" variant="outlined">Expired</AxTag>
+      <AxTag tone="success" variant="outlined">In Stock</AxTag>
+      <AxTag tone="warning" variant="outlined">Low Stock</AxTag>
+      <AxTag tone="error" variant="outlined">Out of Stock</AxTag>
+      <AxTag tone="neutral" variant="outlined">Expired</AxTag>
     </Flex>
   ),
 }
@@ -240,14 +194,18 @@ export const OutlinedVariant: Story = {
 // -- Filled Variant --
 
 export const FilledVariant: Story = {
+  args: {
+    dot: true
+  },
+
   render: () => (
     <Flex gap={8} wrap="wrap">
-      <AxTag status="completed" variant="filled" dot={false}>Completed</AxTag>
-      <AxTag status="in_transit" variant="filled" dot={false}>In Transit</AxTag>
-      <AxTag status="cancelled" variant="filled" dot={false}>Cancelled</AxTag>
-      <AxTag status="pending" variant="filled" dot={false}>Pending</AxTag>
+      <AxTag tone="success" variant="filled" dot={false}>Completed</AxTag>
+      <AxTag tone="info" variant="filled" dot={false}>In Transit</AxTag>
+      <AxTag tone="error" variant="filled" dot={false}>Cancelled</AxTag>
+      <AxTag tone="neutral" variant="filled" dot={false}>Pending</AxTag>
     </Flex>
-  ),
+  )
 }
 
 // -- Pill + Icons Combined --
@@ -255,14 +213,29 @@ export const FilledVariant: Story = {
 export const PillWithIcons: Story = {
   render: () => (
     <Flex gap={8} wrap="wrap">
-      <AxTag pill icon={<CheckCircleOutlined />} color="success">
-        Approved
+      <AxTag pill icon={<CheckCircleOutlined />} tone="success">Approved</AxTag>
+      <AxTag pill icon={<SyncOutlined spin />} tone="info">Syncing</AxTag>
+      <AxTag pill icon={<ClockCircleOutlined />} tone="warning">Expiring Soon</AxTag>
+    </Flex>
+  ),
+}
+
+// -- Custom Colors --
+
+export const CustomColors: Story = {
+  render: () => (
+    <Flex gap={8} wrap="wrap">
+      <AxTag color="var(--primary-600)" dotColor="var(--primary-600)" dot>
+        Axmed Purple
       </AxTag>
-      <AxTag pill icon={<SyncOutlined spin />} color="processing">
-        Syncing
+      <AxTag color="var(--text-link)" dotColor="var(--text-link)" dot>
+        Axmed Blue
       </AxTag>
-      <AxTag pill icon={<ClockCircleOutlined />} color="warning">
-        Expiring Soon
+      <AxTag color="magenta" dotColor="#EB2F96" dot>
+        Magenta
+      </AxTag>
+      <AxTag color="cyan" dotColor="#13C2C2" dot>
+        Cyan
       </AxTag>
     </Flex>
   ),
@@ -284,30 +257,29 @@ export const Closeable: Story = {
 // -- Solid Fill --
 
 export const SolidFill: Story = {
-  name: "Solid Fill (Custom Background)",
+  name: "Solid Fill",
   render: () => (
     <Flex gap={8} wrap="wrap">
-      <AxTag fill="#52C41A">Completed</AxTag>
-      <AxTag fill="#1890FF">In Progress</AxTag>
-      <AxTag fill="#F5222D">Cancelled</AxTag>
-      <AxTag fill="#FA8C16">Warning</AxTag>
-      <AxTag fill="#392AB0">Axmed Purple</AxTag>
-      <AxTag fill="#EB2F96">PO Submitted</AxTag>
+      <AxTag fill="var(--green-600)">Completed</AxTag>
+      <AxTag fill="var(--blue-600)">In Progress</AxTag>
+      <AxTag fill="var(--red-600)">Cancelled</AxTag>
+      <AxTag fill="var(--orange-600)">Warning</AxTag>
+      <AxTag fill="var(--primary-600)">Axmed Purple</AxTag>
     </Flex>
   ),
 }
 
-// -- Solid Fill: Category Tags --
+// -- Category Tags --
 
 export const CategoryTags: Story = {
   name: "Solid Fill — Categories",
   render: () => {
     const categoryColors: Record<string, string> = {
-      Antibiotics: "#2F54EB",
+      Antibiotics: "var(--blue-700)",
       Antidiabetics: "#722ED1",
-      Analgesics: "#FA8C16",
+      Analgesics: "var(--orange-600)",
       Antimalarials: "#13C2C2",
-      Gastrointestinal: "#52C41A",
+      Gastrointestinal: "var(--green-600)",
       Respiratory: "#EB2F96",
     }
 
@@ -321,52 +293,29 @@ export const CategoryTags: Story = {
   },
 }
 
-// -- Solid Fill: Order Status Tags --
-
-export const OrderStatusFilled: Story = {
-  name: "Solid Fill — Order Statuses",
-  render: () => {
-    const statusColors: Record<string, string> = {
-      Submitted: "#1890FF",
-      "In Progress": "#FA8C16",
-      Completed: "#52C41A",
-      Cancelled: "#F5222D",
-    }
-
-    return (
-      <Flex gap={8} wrap="wrap">
-        {Object.entries(statusColors).map(([label, color]) => (
-          <AxTag key={label} fill={color}>{label}</AxTag>
-        ))}
-      </Flex>
-    )
-  },
-}
-
-// -- Small Badge Tags --
+// -- Small Badges --
 
 export const SmallBadges: Story = {
   name: "Small Badges",
   render: () => (
     <Flex gap={8} wrap="wrap">
       <AxTag small color="orange">Be first to bid!</AxTag>
-      <AxTag small color="purple">5 active</AxTag>
-      <AxTag small color="processing">Current</AxTag>
-      <AxTag small>+3</AxTag>
-      <AxTag small fill="#52C41A">New</AxTag>
+      <AxTag small tone="info">5 active</AxTag>
+      <AxTag small tone="neutral">+3</AxTag>
+      <AxTag small fill="var(--green-600)">New</AxTag>
     </Flex>
   ),
 }
 
-// -- Small + Pill Combo --
+// -- Small Pill --
 
 export const SmallPill: Story = {
   name: "Small Pill Badges",
   render: () => (
     <Flex gap={8} wrap="wrap">
-      <AxTag small pill color="orange">Closing soon</AxTag>
-      <AxTag small pill fill="#392AB0">Featured</AxTag>
-      <AxTag small pill color="success">Verified</AxTag>
+      <AxTag small pill tone="warning">Closing soon</AxTag>
+      <AxTag small pill fill="var(--primary-600)">Featured</AxTag>
+      <AxTag small pill tone="success">Verified</AxTag>
     </Flex>
   ),
 }
@@ -377,31 +326,40 @@ export const InContext: Story = {
   name: "In Context — Order Row",
   render: () => (
     <Flex vertical gap={16}>
-      <Flex gap={16} align="center" style={{ padding: "12px 16px", background: "#FAFAFA", borderRadius: 8 }}>
+      <Flex gap={16} align="center" style={{ padding: "12px 16px", background: "var(--neutral-50)", borderRadius: 8 }}>
         <div style={{ flex: 1 }}>
-          <div style={{ fontWeight: 550 }}>ORD-2026-003</div>
-          <div style={{ fontSize: 12, color: "#475467" }}>Insulin Glargine 100IU/ml · Novo Nordisk</div>
+          <AxText variant="body-sm" weight="semibold">ORD-2026-003</AxText>
+          <AxText variant="body-xs" color="secondary">Insulin Glargine 100IU/ml · Novo Nordisk</AxText>
         </div>
-        <AxTag status="in_transit" pill>In Transit</AxTag>
-        <div style={{ fontWeight: 550, width: 100, textAlign: "right" }}>$14,820.00</div>
+        <AxTag tone="info" pill>In Transit</AxTag>
+        <AxText variant="body-sm" weight="semibold" style={{ width: 100, textAlign: "right" }}>$14,820.00</AxText>
       </Flex>
 
-      <Flex gap={16} align="center" style={{ padding: "12px 16px", background: "#FAFAFA", borderRadius: 8 }}>
+      <Flex gap={16} align="center" style={{ padding: "12px 16px", background: "var(--neutral-50)", borderRadius: 8 }}>
         <div style={{ flex: 1 }}>
-          <div style={{ fontWeight: 550 }}>ORD-2026-001</div>
-          <div style={{ fontSize: 12, color: "#475467" }}>Amoxicillin 500mg · Cipla Ltd</div>
+          <AxText variant="body-sm" weight="semibold">ORD-2026-001</AxText>
+          <AxText variant="body-xs" color="secondary">Amoxicillin 500mg · Cipla Ltd</AxText>
         </div>
-        <AxTag status="delivered" pill icon={<CheckCircleOutlined />}>Delivered</AxTag>
-        <div style={{ fontWeight: 550, width: 100, textAlign: "right" }}>$5,400.00</div>
+        <AxTag tone="success" pill icon={<CheckCircleOutlined />}>Delivered</AxTag>
+        <AxText variant="body-sm" weight="semibold" style={{ width: 100, textAlign: "right" }}>$5,400.00</AxText>
       </Flex>
 
-      <Flex gap={16} align="center" style={{ padding: "12px 16px", background: "#FAFAFA", borderRadius: 8 }}>
+      <Flex gap={16} align="center" style={{ padding: "12px 16px", background: "var(--neutral-50)", borderRadius: 8 }}>
         <div style={{ flex: 1 }}>
-          <div style={{ fontWeight: 550 }}>ORD-2026-005</div>
-          <div style={{ fontSize: 12, color: "#475467" }}>Paracetamol 500mg · Emzor Pharma</div>
+          <AxText variant="body-sm" weight="semibold">ORD-2026-005</AxText>
+          <AxText variant="body-xs" color="secondary">Paracetamol 500mg · Emzor Pharma</AxText>
         </div>
-        <AxTag status="cancelled" pill>Cancelled</AxTag>
-        <div style={{ fontWeight: 550, width: 100, textAlign: "right" }}>$2,000.00</div>
+        <AxTag tone="error" pill>Cancelled</AxTag>
+        <AxText variant="body-sm" weight="semibold" style={{ width: 100, textAlign: "right" }}>$2,000.00</AxText>
+      </Flex>
+
+      <Flex gap={16} align="center" style={{ padding: "12px 16px", background: "var(--neutral-50)", borderRadius: 8 }}>
+        <div style={{ flex: 1 }}>
+          <AxText variant="body-sm" weight="semibold">ORD-2026-004</AxText>
+          <AxText variant="body-xs" color="secondary">Artemether/Lumefantrine 20/120mg · Sanofi</AxText>
+        </div>
+        <AxTag tone="neutral" pill>Pending</AxTag>
+        <AxText variant="body-sm" weight="semibold" style={{ width: 100, textAlign: "right" }}>$11,470.00</AxText>
       </Flex>
     </Flex>
   ),

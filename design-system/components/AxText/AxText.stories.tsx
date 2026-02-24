@@ -34,6 +34,7 @@ const meta: Meta<typeof AxText> = {
       options: ["primary", "secondary", "link", "inherit"],
       description: "See Foundations/Colors for the full color palette.",
     },
+    italic: { control: "boolean" },
     underline: { control: "boolean" },
     mono: { control: "boolean" },
     as: {
@@ -45,6 +46,23 @@ const meta: Meta<typeof AxText> = {
 
 export default meta
 type Story = StoryObj<typeof AxText>
+
+// =============================================================================
+// Playground — all controls work here
+// =============================================================================
+
+export const Playground: Story = {
+  name: "Playground",
+  args: {
+    variant: "body-md",
+    children: "Toggle the controls on the right to see changes. Try switching variant, weight, color, italic, underline, and mono.",
+    weight: "regular",
+    color: "primary",
+    italic: false,
+    underline: false,
+    mono: false,
+  },
+}
 
 // =============================================================================
 // Sample content

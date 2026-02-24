@@ -7,55 +7,22 @@ import type { TagProps as AntTagProps } from "antd"
 import styles from "./index.module.css"
 
 // ---------------------------------------------------------------------------
-// Status presets — maps semantic status names to antd color + optional dot/icon
+// Tone presets — 5 semantic intents mapped to antd color + dot color
 // ---------------------------------------------------------------------------
 
-type StatusPreset = {
+export type AxTagTone = "success" | "info" | "warning" | "error" | "neutral"
+
+type TonePreset = {
   color: string
-  dotColor?: string
-  icon?: React.ReactNode
+  dotColor: string
 }
 
-const statusPresets: Record<string, StatusPreset> = {
-  // Order statuses
-  submitted: { color: "gold", dotColor: "#FA8C16" },
-  processing: { color: "processing", dotColor: "#1890FF" },
-  in_progress: { color: "processing", dotColor: "#1890FF" },
-  completed: { color: "success", dotColor: "#52C41A" },
-  delivered: { color: "success", dotColor: "#52C41A" },
-  cancelled: { color: "error", dotColor: "#F5222D" },
-  pending: { color: "default", dotColor: "#8C8C8C" },
-
-  // Quote / bid statuses
-  awarded: { color: "success", dotColor: "#52C41A" },
-  confirmed: { color: "success", dotColor: "#52C41A" },
-  in_review: { color: "processing", dotColor: "#1890FF" },
-  not_awarded: { color: "warning", dotColor: "#FA8C16" },
-  withdrawn: { color: "error", dotColor: "#F5222D" },
-  rejected: { color: "error", dotColor: "#F5222D" },
-
-  // Shipment statuses
-  in_transit: { color: "cyan", dotColor: "#13C2C2" },
-  shipped: { color: "cyan", dotColor: "#13C2C2" },
-
-  // Availability / stock
-  in_stock: { color: "success", dotColor: "#52C41A" },
-  low_stock: { color: "warning", dotColor: "#FA8C16" },
-  out_of_stock: { color: "error", dotColor: "#F5222D" },
-  expired: { color: "default", dotColor: "#8C8C8C" },
-
-  // Onboarding / documents
-  approved: { color: "success", dotColor: "#52C41A" },
-
-  // Bid validity
-  needs_refresh: { color: "orange", dotColor: "#FA8C16" },
-  ready: { color: "green", dotColor: "#52C41A" },
-
-  // PO statuses
-  po_submitted: { color: "magenta", dotColor: "#EB2F96" },
-
-  // Draft
-  draft: { color: "default", dotColor: "#8C8C8C" },
+const tonePresets: Record<AxTagTone, TonePreset> = {
+  success: { color: "success",    dotColor: "#52C41A" },
+  info:    { color: "processing", dotColor: "#1890FF" },
+  warning: { color: "warning",    dotColor: "#FA8C16" },
+  error:   { color: "error",      dotColor: "#F5222D" },
+  neutral: { color: "default",    dotColor: "#8C8C8C" },
 }
 
 // ---------------------------------------------------------------------------
@@ -64,20 +31,24 @@ const statusPresets: Record<string, StatusPreset> = {
 
 export type AxTagProps = {
   /**
-   * Semantic status key that maps to a preset color and optional dot color.
-   * Examples: "submitted", "in_transit", "awarded", "low_stock", "cancelled"
-   * When provided, overrides `color` and enables dot by default.
+   * Semantic tone that maps to a color preset and dot color.
+   * - `success`  → green  (completed, delivered, awarded, in stock…)
+   * - `info`     → blue   (processing, in review, in transit…)
+   * - `warning`  → orange (not awarded, low stock, needs refresh…)
+   * - `error`    → red    (cancelled, rejected, withdrawn…)
+   * - `neutral`  → gray   (pending, draft, expired…)
+   * Enables a dot indicator by default. Pass `dot={false}` to suppress it.
    */
-  status?: string
+  tone?: AxTagTone
 
   /**
    * Show a colored dot indicator before the label.
-   * Automatically enabled when `status` is set. Pass `false` to hide it.
+   * Automatically enabled when `tone` is set. Pass `false` to hide it.
    */
   dot?: boolean
 
   /**
-   * Custom dot color. Overrides the preset dot color from `status`.
+   * Custom dot color. Overrides the preset dot color from `tone`.
    */
   dotColor?: string
 
@@ -88,7 +59,7 @@ export type AxTagProps = {
 
   /**
    * Solid fill background color with white text and no border.
-   * Pass a hex/color string. Overrides `color` when set.
+   * Pass a hex/color string or CSS variable.
    * Example: fill="#52C41A" renders a solid green tag with white text.
    */
   fill?: string
@@ -105,7 +76,7 @@ export type AxTagProps = {
 // ---------------------------------------------------------------------------
 
 const AxTag: React.FC<AxTagProps> = ({
-  status,
+  tone,
   dot,
   dotColor,
   pill = false,
@@ -118,13 +89,13 @@ const AxTag: React.FC<AxTagProps> = ({
   style,
   ...props
 }) => {
-  const preset = status ? statusPresets[status] : undefined
+  const preset = tone ? tonePresets[tone] : undefined
 
   // Resolve values: explicit props > preset > defaults
   const resolvedColor = fill ? undefined : (color ?? preset?.color)
   const resolvedDotColor = dotColor ?? preset?.dotColor
-  const showDot = dot ?? (status !== undefined && !icon && !fill)
-  const resolvedIcon = icon ?? preset?.icon
+  const showDot = dot ?? (tone !== undefined && !icon && !fill)
+  const resolvedIcon = icon ?? undefined
 
   const classNames = [
     styles.axTag,
@@ -135,7 +106,6 @@ const AxTag: React.FC<AxTagProps> = ({
     .filter(Boolean)
     .join(" ")
 
-  // When `fill` is set, apply solid background + white text + no border
   const fillStyle: React.CSSProperties | undefined = fill
     ? {
         background: fill,

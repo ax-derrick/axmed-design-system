@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import type { Meta, StoryObj } from "@storybook/react"
-import { Tag, Flex, Tooltip, Badge, Button } from "antd"
+import { Flex, Tooltip, Badge } from "antd"
 import {
   CheckCircleOutlined,
   SyncOutlined,
@@ -13,6 +13,11 @@ import {
 import type { ColumnsType } from "antd/es/table"
 
 import AxTable from "./index"
+import type { AxTableRowState } from "./index"
+import AxText from "../AxText"
+import AxButton from "../AxButton"
+import AxTag from "../AxTag"
+import type { AxTagTone } from "../AxTag"
 
 // ---------------------------------------------------------------------------
 // Sample data — pharmaceutical domain
@@ -35,161 +40,17 @@ interface Medication {
 }
 
 const sampleData: Medication[] = [
-  {
-    key: "1",
-    name: "Amoxicillin",
-    genericName: "Amoxicillin Trihydrate",
-    dosage: "500mg",
-    form: "Capsule",
-    manufacturer: "Cipla Ltd",
-    batchNumber: "AMX-2025-001",
-    expiryDate: "2027-03-15",
-    unitPrice: 0.45,
-    quantity: 12000,
-    status: "In Stock",
-    countries: ["Kenya", "Nigeria", "Ghana", "Tanzania", "Uganda"],
-    category: "Antibiotics",
-  },
-  {
-    key: "2",
-    name: "Metformin",
-    genericName: "Metformin Hydrochloride",
-    dosage: "850mg",
-    form: "Tablet",
-    manufacturer: "Novartis",
-    batchNumber: "MET-2025-014",
-    expiryDate: "2027-06-20",
-    unitPrice: 0.32,
-    quantity: 8500,
-    status: "In Stock",
-    countries: ["Kenya", "South Africa"],
-    category: "Antidiabetics",
-  },
-  {
-    key: "3",
-    name: "Ibuprofen",
-    genericName: "Ibuprofen",
-    dosage: "400mg",
-    form: "Tablet",
-    manufacturer: "GSK",
-    batchNumber: "IBU-2025-007",
-    expiryDate: "2026-11-30",
-    unitPrice: 0.18,
-    quantity: 350,
-    status: "Low Stock",
-    countries: ["Nigeria", "Ghana", "Senegal"],
-    category: "Analgesics",
-  },
-  {
-    key: "4",
-    name: "Artemether/Lumefantrine",
-    genericName: "Artemether + Lumefantrine",
-    dosage: "20/120mg",
-    form: "Tablet",
-    manufacturer: "Sanofi",
-    batchNumber: "ART-2025-003",
-    expiryDate: "2027-01-10",
-    unitPrice: 1.85,
-    quantity: 6200,
-    status: "In Stock",
-    countries: ["Kenya", "Nigeria", "Tanzania", "Mozambique", "DRC", "Uganda"],
-    category: "Antimalarials",
-  },
-  {
-    key: "5",
-    name: "Paracetamol",
-    genericName: "Acetaminophen",
-    dosage: "500mg",
-    form: "Tablet",
-    manufacturer: "Emzor Pharma",
-    batchNumber: "PAR-2025-022",
-    expiryDate: "2026-08-05",
-    unitPrice: 0.08,
-    quantity: 25000,
-    status: "In Stock",
-    countries: ["Nigeria"],
-    category: "Analgesics",
-  },
-  {
-    key: "6",
-    name: "Azithromycin",
-    genericName: "Azithromycin Dihydrate",
-    dosage: "250mg",
-    form: "Capsule",
-    manufacturer: "Pfizer",
-    batchNumber: "AZI-2025-009",
-    expiryDate: "2025-12-01",
-    unitPrice: 0.95,
-    quantity: 0,
-    status: "Expired",
-    countries: ["Kenya", "South Africa", "Ghana"],
-    category: "Antibiotics",
-  },
-  {
-    key: "7",
-    name: "Omeprazole",
-    genericName: "Omeprazole",
-    dosage: "20mg",
-    form: "Capsule",
-    manufacturer: "AstraZeneca",
-    batchNumber: "OME-2025-011",
-    expiryDate: "2027-09-18",
-    unitPrice: 0.55,
-    quantity: 4300,
-    status: "In Stock",
-    countries: ["Kenya", "Nigeria"],
-    category: "Gastrointestinal",
-  },
-  {
-    key: "8",
-    name: "Ciprofloxacin",
-    genericName: "Ciprofloxacin Hydrochloride",
-    dosage: "500mg",
-    form: "Tablet",
-    manufacturer: "Bayer",
-    batchNumber: "CIP-2025-005",
-    expiryDate: "2027-04-22",
-    unitPrice: 0.72,
-    quantity: 180,
-    status: "Low Stock",
-    countries: ["South Africa", "Mozambique"],
-    category: "Antibiotics",
-  },
-  {
-    key: "9",
-    name: "Insulin Glargine",
-    genericName: "Insulin Glargine",
-    dosage: "100IU/ml",
-    form: "Injection",
-    manufacturer: "Novo Nordisk",
-    batchNumber: "INS-2025-002",
-    expiryDate: "2026-07-14",
-    unitPrice: 28.5,
-    quantity: 520,
-    status: "In Stock",
-    countries: ["Kenya", "South Africa", "Nigeria", "Ghana"],
-    category: "Antidiabetics",
-  },
-  {
-    key: "10",
-    name: "Salbutamol",
-    genericName: "Salbutamol Sulphate",
-    dosage: "100mcg",
-    form: "Inhaler",
-    manufacturer: "GSK",
-    batchNumber: "SAL-2025-018",
-    expiryDate: "2025-10-30",
-    unitPrice: 3.2,
-    quantity: 0,
-    status: "Out of Stock",
-    countries: ["Kenya", "Tanzania"],
-    category: "Respiratory",
-  },
+  { key: "1", name: "Amoxicillin", genericName: "Amoxicillin Trihydrate", dosage: "500mg", form: "Capsule", manufacturer: "Cipla Ltd", batchNumber: "AMX-2025-001", expiryDate: "2027-03-15", unitPrice: 0.45, quantity: 12000, status: "In Stock", countries: ["Kenya", "Nigeria", "Ghana", "Tanzania", "Uganda"], category: "Antibiotics" },
+  { key: "2", name: "Metformin", genericName: "Metformin Hydrochloride", dosage: "850mg", form: "Tablet", manufacturer: "Novartis", batchNumber: "MET-2025-014", expiryDate: "2027-06-20", unitPrice: 0.32, quantity: 8500, status: "In Stock", countries: ["Kenya", "South Africa"], category: "Antidiabetics" },
+  { key: "3", name: "Ibuprofen", genericName: "Ibuprofen", dosage: "400mg", form: "Tablet", manufacturer: "GSK", batchNumber: "IBU-2025-007", expiryDate: "2026-11-30", unitPrice: 0.18, quantity: 350, status: "Low Stock", countries: ["Nigeria", "Ghana", "Senegal"], category: "Analgesics" },
+  { key: "4", name: "Artemether/Lumefantrine", genericName: "Artemether + Lumefantrine", dosage: "20/120mg", form: "Tablet", manufacturer: "Sanofi", batchNumber: "ART-2025-003", expiryDate: "2027-01-10", unitPrice: 1.85, quantity: 6200, status: "In Stock", countries: ["Kenya", "Nigeria", "Tanzania", "Mozambique", "DRC", "Uganda"], category: "Antimalarials" },
+  { key: "5", name: "Paracetamol", genericName: "Acetaminophen", dosage: "500mg", form: "Tablet", manufacturer: "Emzor Pharma", batchNumber: "PAR-2025-022", expiryDate: "2026-08-05", unitPrice: 0.08, quantity: 25000, status: "In Stock", countries: ["Nigeria"], category: "Analgesics" },
+  { key: "6", name: "Azithromycin", genericName: "Azithromycin Dihydrate", dosage: "250mg", form: "Capsule", manufacturer: "Pfizer", batchNumber: "AZI-2025-009", expiryDate: "2025-12-01", unitPrice: 0.95, quantity: 0, status: "Expired", countries: ["Kenya", "South Africa", "Ghana"], category: "Antibiotics" },
+  { key: "7", name: "Omeprazole", genericName: "Omeprazole", dosage: "20mg", form: "Capsule", manufacturer: "AstraZeneca", batchNumber: "OME-2025-011", expiryDate: "2027-09-18", unitPrice: 0.55, quantity: 4300, status: "In Stock", countries: ["Kenya", "Nigeria"], category: "Gastrointestinal" },
+  { key: "8", name: "Ciprofloxacin", genericName: "Ciprofloxacin Hydrochloride", dosage: "500mg", form: "Tablet", manufacturer: "Bayer", batchNumber: "CIP-2025-005", expiryDate: "2027-04-22", unitPrice: 0.72, quantity: 180, status: "Low Stock", countries: ["South Africa", "Mozambique"], category: "Antibiotics" },
+  { key: "9", name: "Insulin Glargine", genericName: "Insulin Glargine", dosage: "100IU/ml", form: "Injection", manufacturer: "Novo Nordisk", batchNumber: "INS-2025-002", expiryDate: "2026-07-14", unitPrice: 28.5, quantity: 520, status: "In Stock", countries: ["Kenya", "South Africa", "Nigeria", "Ghana"], category: "Antidiabetics" },
+  { key: "10", name: "Salbutamol", genericName: "Salbutamol Sulphate", dosage: "100mcg", form: "Inhaler", manufacturer: "GSK", batchNumber: "SAL-2025-018", expiryDate: "2025-10-30", unitPrice: 3.2, quantity: 0, status: "Out of Stock", countries: ["Kenya", "Tanzania"], category: "Respiratory" },
 ]
-
-// ---------------------------------------------------------------------------
-// Orders data — for order-style stories
-// ---------------------------------------------------------------------------
 
 interface Order {
   key: string
@@ -211,14 +72,14 @@ const orderData: Order[] = [
 ]
 
 // ---------------------------------------------------------------------------
-// Helpers
+// Shared helpers
 // ---------------------------------------------------------------------------
 
-const statusColorMap: Record<Medication["status"], string> = {
-  "In Stock": "green",
-  "Low Stock": "orange",
-  "Out of Stock": "red",
-  Expired: "default",
+const statusToneMap: Record<Medication["status"], AxTagTone> = {
+  "In Stock": "success",
+  "Low Stock": "warning",
+  "Out of Stock": "error",
+  Expired: "neutral",
 }
 
 const categoryColorMap: Record<string, string> = {
@@ -226,36 +87,43 @@ const categoryColorMap: Record<string, string> = {
   Antidiabetics: "#722ED1",
   Analgesics: "#FA8C16",
   Antimalarials: "#13C2C2",
-  Gastrointestinal: "#52C41A",
+  Gastrointestinal: "var(--green-600)",
   Respiratory: "#EB2F96",
 }
 
-const orderStatusConfig: Record<Order["status"], { color: string; icon: React.ReactNode }> = {
-  Delivered: { color: "green", icon: <CheckCircleOutlined /> },
-  "In Transit": { color: "blue", icon: <CarOutlined /> },
-  Processing: { color: "cyan", icon: <SyncOutlined spin /> },
-  Pending: { color: "default", icon: <ClockCircleOutlined /> },
+const orderStatusConfig: Record<Order["status"], { tone: AxTagTone; icon: React.ReactNode }> = {
+  Delivered: { tone: "success", icon: <CheckCircleOutlined /> },
+  "In Transit": { tone: "info", icon: <CarOutlined /> },
+  Processing: { tone: "info", icon: <SyncOutlined spin /> },
+  Pending: { tone: "neutral", icon: <ClockCircleOutlined /> },
 }
 
-const CountryTags: React.FC<{ countries: string[]; max?: number }> = ({
-  countries,
-  max = 2,
-}) => {
+const CountryTags: React.FC<{ countries: string[]; max?: number }> = ({ countries, max = 2 }) => {
   const visible = countries.slice(0, max)
   const remaining = countries.length - max
-
   return (
     <Flex gap={4} wrap="wrap">
       {visible.map((c) => (
-        <Tag key={c} style={{ margin: 0 }}>{c}</Tag>
+        <AxTag key={c} style={{ margin: 0 }}>{c}</AxTag>
       ))}
       {remaining > 0 && (
         <Tooltip title={countries.slice(max).join(", ")}>
-          <Tag style={{ margin: 0, cursor: "pointer" }}>+{remaining} more</Tag>
+          <AxTag style={{ margin: 0, cursor: "pointer" }}>+{remaining} more</AxTag>
         </Tooltip>
       )}
     </Flex>
   )
+}
+
+// Compute rowStates from an array of selected keys and an array of disabled keys
+function buildRowStates(
+  selectedKeys: React.Key[] = [],
+  disabledKeys: React.Key[] = []
+): Record<string | number, AxTableRowState> {
+  const result: Record<string | number, AxTableRowState> = {}
+  for (const k of disabledKeys) result[k as string | number] = "disabled"
+  for (const k of selectedKeys) result[k as string | number] = "selected"
+  return result
 }
 
 // ---------------------------------------------------------------------------
@@ -269,23 +137,15 @@ const baseColumns: ColumnsType<Medication> = [
     key: "name",
     render: (name: string, record) => (
       <div>
-        <div style={{ fontWeight: 550 }}>{name}</div>
-        <div style={{ fontSize: 12, color: "#475467" }}>
+        <AxText as="div" variant="body-sm" weight="medium">{name}</AxText>
+        <AxText as="div" variant="body-xs" color="secondary">
           {record.dosage} · {record.form}
-        </div>
+        </AxText>
       </div>
     ),
   },
-  {
-    title: "Manufacturer",
-    dataIndex: "manufacturer",
-    key: "manufacturer",
-  },
-  {
-    title: "Batch No.",
-    dataIndex: "batchNumber",
-    key: "batchNumber",
-  },
+  { title: "Manufacturer", dataIndex: "manufacturer", key: "manufacturer" },
+  { title: "Batch No.", dataIndex: "batchNumber", key: "batchNumber" },
   {
     title: "Unit Price",
     dataIndex: "unitPrice",
@@ -305,37 +165,15 @@ const baseColumns: ColumnsType<Medication> = [
     dataIndex: "status",
     key: "status",
     render: (status: Medication["status"]) => (
-      <Tag color={statusColorMap[status]}>{status}</Tag>
+      <AxTag tone={statusToneMap[status]}>{status}</AxTag>
     ),
   },
 ]
 
 const sortableColumns: ColumnsType<Medication> = baseColumns.map((col) => {
-  if (col.key === "name") {
-    return { ...col, sorter: (a: Medication, b: Medication) => a.name.localeCompare(b.name) }
-  }
-  if (col.key === "unitPrice") {
-    return { ...col, sorter: (a: Medication, b: Medication) => a.unitPrice - b.unitPrice }
-  }
-  if (col.key === "quantity") {
-    return { ...col, sorter: (a: Medication, b: Medication) => a.quantity - b.quantity }
-  }
-  return col
-})
-
-const columnsWithFilters: ColumnsType<Medication> = baseColumns.map((col) => {
-  if (col.key === "status") {
-    return {
-      ...col,
-      filters: [
-        { text: "In Stock", value: "In Stock" },
-        { text: "Low Stock", value: "Low Stock" },
-        { text: "Out of Stock", value: "Out of Stock" },
-        { text: "Expired", value: "Expired" },
-      ],
-      onFilter: (value: React.Key | boolean, record: Medication) => record.status === value,
-    }
-  }
+  if (col.key === "name") return { ...col, sorter: (a: Medication, b: Medication) => a.name.localeCompare(b.name) }
+  if (col.key === "unitPrice") return { ...col, sorter: (a: Medication, b: Medication) => a.unitPrice - b.unitPrice }
+  if (col.key === "quantity") return { ...col, sorter: (a: Medication, b: Medication) => a.quantity - b.quantity }
   return col
 })
 
@@ -347,46 +185,28 @@ const meta: Meta<typeof AxTable> = {
   title: "Design System/AxTable",
   component: AxTable,
   tags: ["autodocs"],
-  parameters: {
-    layout: "padded",
-  },
+  parameters: { layout: "padded" },
   argTypes: {
-    selectedRowKeys: {
+    rowStates: {
       control: "object",
-      description: "Keys of visually selected rows (blue highlight + left border)",
-    },
-    disabledRowKeys: {
-      control: "object",
-      description: "Keys of visually disabled rows (reduced opacity)",
+      description: "Visual state per row key. `{ [key]: 'selected' | 'disabled' }`",
     },
     headerBg: {
       control: "color",
-      description: "Header background color",
+      description: "Header background color. Defaults to #FAFAFA.",
     },
-    loading: {
-      control: "boolean",
-      description: "Show loading spinner overlay",
-    },
-    bordered: {
-      control: "boolean",
-      description: "Show all table borders",
-    },
-    size: {
-      control: "select",
-      options: ["large", "middle", "small"],
-      description: "Table density",
-    },
+    loading: { control: "boolean", description: "Show loading spinner overlay" },
+    bordered: { control: "boolean", description: "Show all table borders" },
+    size: { control: "select", options: ["large", "middle", "small"], description: "Table density" },
   },
 }
 
 export default meta
 type Story = StoryObj<typeof AxTable>
 
-// ---------------------------------------------------------------------------
-// Stories
-// ---------------------------------------------------------------------------
-
-// -- Basic --
+// ===========================================================================
+// CORE FEATURES
+// ===========================================================================
 
 export const Basic: Story = {
   args: {
@@ -395,8 +215,6 @@ export const Basic: Story = {
     pagination: false,
   },
 }
-
-// -- Pagination --
 
 export const Pagination: Story = {
   args: {
@@ -410,8 +228,6 @@ export const Pagination: Story = {
   },
 }
 
-// -- Sorting --
-
 export const Sorting: Story = {
   args: {
     columns: sortableColumns,
@@ -420,60 +236,28 @@ export const Sorting: Story = {
   },
 }
 
-// -- Column Filters --
-
 export const ColumnFilters: Story = {
-  args: {
-    columns: columnsWithFilters,
-    dataSource: sampleData,
-    pagination: false,
-  },
+  render: () => (
+    <AxTable<Medication>
+      dataSource={sampleData}
+      pagination={false}
+      columns={baseColumns.map((col) =>
+        col.key === "status"
+          ? {
+              ...col,
+              filters: [
+                { text: "In Stock", value: "In Stock" },
+                { text: "Low Stock", value: "Low Stock" },
+                { text: "Out of Stock", value: "Out of Stock" },
+                { text: "Expired", value: "Expired" },
+              ],
+              onFilter: (value: React.Key | boolean, record: Medication) => record.status === value,
+            }
+          : col
+      )}
+    />
+  ),
 }
-
-// -- Row Selection --
-
-export const RowSelection: Story = {
-  render: () => {
-    const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([])
-
-    return (
-      <AxTable<Medication>
-        columns={baseColumns}
-        dataSource={sampleData}
-        pagination={false}
-        rowSelection={{
-          selectedRowKeys,
-          onChange: (keys) => setSelectedRowKeys(keys),
-        }}
-        selectedRowKeys={selectedRowKeys}
-      />
-    )
-  },
-}
-
-// -- Selected Row Styling --
-
-export const SelectedRowStyling: Story = {
-  args: {
-    columns: baseColumns,
-    dataSource: sampleData,
-    pagination: false,
-    selectedRowKeys: ["2", "4", "7"],
-  },
-}
-
-// -- Disabled Rows --
-
-export const DisabledRows: Story = {
-  args: {
-    columns: baseColumns,
-    dataSource: sampleData,
-    pagination: false,
-    disabledRowKeys: ["6", "10"],
-  },
-}
-
-// -- Expandable Rows with Grid Layout --
 
 export const ExpandableRows: Story = {
   args: {
@@ -482,53 +266,36 @@ export const ExpandableRows: Story = {
     pagination: false,
     expandable: {
       expandedRowRender: (record: Medication) => (
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr 1fr",
-            gap: 16,
-            padding: "16px 24px",
-          }}
-        >
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16, padding: "16px 24px" }}>
           <div>
-            <div style={{ fontSize: 12, color: "#475467", marginBottom: 4 }}>Generic Name</div>
-            <div style={{ fontWeight: 550 }}>{record.genericName}</div>
+            <AxText as="div" variant="body-xs" color="secondary" style={{ marginBottom: 4 }}>Generic Name</AxText>
+            <AxText as="div" variant="body-sm" weight="medium">{record.genericName}</AxText>
           </div>
           <div>
-            <div style={{ fontSize: 12, color: "#475467", marginBottom: 4 }}>Category</div>
-            <Tag
-              color={categoryColorMap[record.category]}
-              style={{ margin: 0 }}
-            >
+            <AxText as="div" variant="body-xs" color="secondary" style={{ marginBottom: 4 }}>Category</AxText>
+            <AxTag fill={categoryColorMap[record.category]} style={{ margin: 0 }}>
               {record.category}
-            </Tag>
+            </AxTag>
           </div>
           <div>
-            <div style={{ fontSize: 12, color: "#475467", marginBottom: 4 }}>Expiry Date</div>
-            <div style={{ fontWeight: 550 }}>
-              {new Date(record.expiryDate).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
-            </div>
+            <AxText as="div" variant="body-xs" color="secondary" style={{ marginBottom: 4 }}>Expiry Date</AxText>
+            <AxText as="div" variant="body-sm" weight="medium">
+              {new Date(record.expiryDate).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+            </AxText>
           </div>
           <div>
-            <div style={{ fontSize: 12, color: "#475467", marginBottom: 4 }}>Countries</div>
+            <AxText as="div" variant="body-xs" color="secondary" style={{ marginBottom: 4 }}>Countries</AxText>
             <CountryTags countries={record.countries} max={3} />
           </div>
           <div>
-            <div style={{ fontSize: 12, color: "#475467", marginBottom: 4 }}>Total Value</div>
-            <div style={{ fontWeight: 550 }}>
-              ${(record.unitPrice * record.quantity).toLocaleString(undefined, {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-              })}
-            </div>
+            <AxText as="div" variant="body-xs" color="secondary" style={{ marginBottom: 4 }}>Total Value</AxText>
+            <AxText as="div" variant="body-sm" weight="medium">
+              ${(record.unitPrice * record.quantity).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+            </AxText>
           </div>
           <div>
-            <div style={{ fontSize: 12, color: "#475467", marginBottom: 4 }}>Batch Number</div>
-            <div style={{ fontWeight: 550 }}>{record.batchNumber}</div>
+            <AxText as="div" variant="body-xs" color="secondary" style={{ marginBottom: 4 }}>Batch Number</AxText>
+            <AxText as="div" variant="body-sm" weight="medium">{record.batchNumber}</AxText>
           </div>
         </div>
       ),
@@ -536,9 +303,142 @@ export const ExpandableRows: Story = {
   },
 }
 
-// -- Country Tags & Category Colors --
+export const HorizontalScroll: Story = {
+  args: {
+    dataSource: sampleData,
+    pagination: false,
+    scroll: { x: 1500 },
+    columns: [
+      { title: "Medication", dataIndex: "name", key: "name", width: 200, fixed: "left" as const },
+      { title: "Generic Name", dataIndex: "genericName", key: "genericName", width: 220 },
+      { title: "Dosage", dataIndex: "dosage", key: "dosage", width: 120 },
+      { title: "Form", dataIndex: "form", key: "form", width: 120 },
+      { title: "Manufacturer", dataIndex: "manufacturer", key: "manufacturer", width: 180 },
+      { title: "Batch No.", dataIndex: "batchNumber", key: "batchNumber", width: 160 },
+      { title: "Expiry Date", dataIndex: "expiryDate", key: "expiryDate", width: 140, render: (d: string) => new Date(d).toLocaleDateString() },
+      { title: "Unit Price", dataIndex: "unitPrice", key: "unitPrice", width: 120, align: "right" as const, render: (p: number) => `$${p.toFixed(2)}` },
+      { title: "Quantity", dataIndex: "quantity", key: "quantity", width: 120, align: "right" as const, render: (q: number) => q.toLocaleString() },
+      {
+        title: "Status",
+        dataIndex: "status",
+        key: "status",
+        width: 130,
+        fixed: "right" as const,
+        render: (s: Medication["status"]) => <AxTag tone={statusToneMap[s]}>{s}</AxTag>,
+      },
+    ],
+  },
+}
 
-export const WithCountryTags: Story = {
+// ===========================================================================
+// ROW STATES
+// ===========================================================================
+
+export const SelectedRows: Story = {
+  name: "Row States — Selected",
+  args: {
+    columns: baseColumns,
+    dataSource: sampleData,
+    pagination: false,
+    rowStates: { "2": "selected", "4": "selected", "7": "selected" },
+  },
+}
+
+export const DisabledRows: Story = {
+  name: "Row States — Disabled",
+  args: {
+    columns: baseColumns,
+    dataSource: sampleData,
+    pagination: false,
+    rowStates: { "6": "disabled", "10": "disabled" },
+  },
+}
+
+export const RowSelectionWithState: Story = {
+  name: "Row States — Interactive Selection",
+  render: () => {
+    const [selectedKeys, setSelectedKeys] = useState<React.Key[]>([])
+
+    return (
+      <AxTable<Medication>
+        columns={baseColumns}
+        dataSource={sampleData}
+        pagination={false}
+        rowSelection={{
+          selectedRowKeys: selectedKeys,
+          onChange: (keys) => setSelectedKeys(keys),
+        }}
+        rowStates={buildRowStates(selectedKeys)}
+      />
+    )
+  },
+}
+
+// ===========================================================================
+// CELL PATTERNS
+// ===========================================================================
+
+export const StatusWithIcons: Story = {
+  name: "Cell Pattern — Status + Icon",
+  args: {
+    dataSource: orderData,
+    pagination: false,
+    columns: [
+      {
+        title: "Order",
+        key: "order",
+        render: (_: unknown, record: Order) => (
+          <div>
+            <AxText as="div" variant="body-sm" weight="medium">{record.product}</AxText>
+            <AxText as="div" variant="body-xs" color="secondary">{record.supplier} · {record.orderNumber}</AxText>
+          </div>
+        ),
+      },
+      {
+        title: "Date",
+        dataIndex: "date",
+        key: "date",
+        render: (date: string) => new Date(date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }),
+      },
+      {
+        title: "Status",
+        dataIndex: "status",
+        key: "status",
+        render: (status: Order["status"]) => {
+          const config = orderStatusConfig[status]
+          return <AxTag tone={config.tone} icon={config.icon}>{status}</AxTag>
+        },
+      },
+      {
+        title: "ETA",
+        dataIndex: "eta",
+        key: "eta",
+        render: (eta: string | null) =>
+          eta ? new Date(eta).toLocaleDateString("en-US", { month: "short", day: "numeric" }) : "—",
+      },
+      {
+        title: "Amount",
+        dataIndex: "amount",
+        key: "amount",
+        align: "right" as const,
+        render: (amount: number) => (
+          <AxText as="span" variant="body-sm" weight="medium">
+            ${amount.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+          </AxText>
+        ),
+      },
+      {
+        title: "",
+        key: "action",
+        width: 80,
+        render: () => <AxButton variant="link" size="small" icon={<EyeOutlined />}>View</AxButton>,
+      },
+    ] as ColumnsType<Order>,
+  },
+}
+
+export const TagsInCells: Story = {
+  name: "Cell Pattern — Category + Country Tags",
   args: {
     dataSource: sampleData,
     pagination: false,
@@ -549,10 +449,8 @@ export const WithCountryTags: Story = {
         key: "name",
         render: (name: string, record: Medication) => (
           <div>
-            <div style={{ fontWeight: 550 }}>{name}</div>
-            <div style={{ fontSize: 12, color: "#475467" }}>
-              {record.dosage} · {record.form}
-            </div>
+            <AxText as="div" variant="body-sm" weight="medium">{name}</AxText>
+            <AxText as="div" variant="body-xs" color="secondary">{record.dosage} · {record.form}</AxText>
           </div>
         ),
       },
@@ -570,13 +468,11 @@ export const WithCountryTags: Story = {
         ],
         onFilter: (value: React.Key | boolean, record: Medication) => record.category === value,
         render: (category: string) => (
-          <Tag color={categoryColorMap[category]} style={{ margin: 0 }}>
-            {category}
-          </Tag>
+          <AxTag fill={categoryColorMap[category]} style={{ margin: 0 }}>{category}</AxTag>
         ),
       },
       {
-        title: "Countries Registered",
+        title: "Countries",
         dataIndex: "countries",
         key: "countries",
         render: (countries: string[]) => <CountryTags countries={countries} />,
@@ -586,7 +482,7 @@ export const WithCountryTags: Story = {
         dataIndex: "status",
         key: "status",
         render: (status: Medication["status"]) => (
-          <Tag color={statusColorMap[status]}>{status}</Tag>
+          <AxTag tone={statusToneMap[status]}>{status}</AxTag>
         ),
       },
       {
@@ -595,8 +491,8 @@ export const WithCountryTags: Story = {
         align: "center" as const,
         render: () => (
           <Flex gap={12} justify="center">
-            <Button type="text" size="small" icon={<EditOutlined />} />
-            <Button type="text" size="small" icon={<EyeOutlined />} />
+            <AxButton variant="text" size="small" icon={<EditOutlined />} />
+            <AxButton variant="text" size="small" icon={<EyeOutlined />} />
           </Flex>
         ),
       },
@@ -604,130 +500,8 @@ export const WithCountryTags: Story = {
   },
 }
 
-// -- Status Icons (Order-style table) --
-
-export const StatusWithIcons: Story = {
-  args: {
-    dataSource: orderData,
-    pagination: false,
-    columns: [
-      {
-        title: "Order",
-        key: "order",
-        render: (_: unknown, record: Order) => (
-          <div>
-            <div style={{ fontWeight: 550 }}>{record.product}</div>
-            <div style={{ fontSize: 12, color: "#475467" }}>
-              {record.supplier} · {record.orderNumber}
-            </div>
-          </div>
-        ),
-      },
-      {
-        title: "Date",
-        dataIndex: "date",
-        key: "date",
-        render: (date: string) =>
-          new Date(date).toLocaleDateString("en-US", {
-            month: "short",
-            day: "numeric",
-            year: "numeric",
-          }),
-      },
-      {
-        title: "Status",
-        dataIndex: "status",
-        key: "status",
-        render: (status: Order["status"]) => {
-          const config = orderStatusConfig[status]
-          return (
-            <Tag icon={config.icon} color={config.color}>
-              {status}
-            </Tag>
-          )
-        },
-      },
-      {
-        title: "ETA",
-        dataIndex: "eta",
-        key: "eta",
-        render: (eta: string | null) =>
-          eta
-            ? new Date(eta).toLocaleDateString("en-US", { month: "short", day: "numeric" })
-            : "—",
-      },
-      {
-        title: "Amount",
-        dataIndex: "amount",
-        key: "amount",
-        align: "right" as const,
-        render: (amount: number) => (
-          <span style={{ fontWeight: 550 }}>
-            ${amount.toLocaleString(undefined, { minimumFractionDigits: 2 })}
-          </span>
-        ),
-      },
-      {
-        title: "",
-        key: "action",
-        width: 80,
-        render: () => (
-          <Button type="link" size="small" icon={<EyeOutlined />}>
-            View
-          </Button>
-        ),
-      },
-    ] as ColumnsType<Order>,
-  },
-}
-
-// -- Headerless Widget Table --
-
-export const HeaderlessWidget: Story = {
-  args: {
-    dataSource: orderData.slice(0, 4),
-    pagination: false,
-    showHeader: false,
-    size: "small",
-    columns: [
-      {
-        key: "order",
-        render: (_: unknown, record: Order) => (
-          <div>
-            <div style={{ fontWeight: 550 }}>{record.product}</div>
-            <div style={{ fontSize: 12, color: "#475467" }}>{record.supplier}</div>
-          </div>
-        ),
-      },
-      {
-        key: "status",
-        width: 130,
-        render: (_: unknown, record: Order) => {
-          const config = orderStatusConfig[record.status]
-          return (
-            <Tag icon={config.icon} color={config.color}>
-              {record.status}
-            </Tag>
-          )
-        },
-      },
-      {
-        key: "amount",
-        width: 100,
-        align: "right" as const,
-        render: (_: unknown, record: Order) => (
-          <span style={{ fontWeight: 550 }}>
-            ${record.amount.toLocaleString()}
-          </span>
-        ),
-      },
-    ] as ColumnsType<Order>,
-  },
-}
-
-// -- Tooltip Column Headers --
-
 export const TooltipHeaders: Story = {
+  name: "Cell Pattern — Tooltip Column Headers",
   args: {
     dataSource: sampleData,
     pagination: false,
@@ -738,10 +512,8 @@ export const TooltipHeaders: Story = {
         key: "name",
         render: (name: string, record: Medication) => (
           <div>
-            <div style={{ fontWeight: 550 }}>{name}</div>
-            <div style={{ fontSize: 12, color: "#475467" }}>
-              {record.dosage} · {record.form}
-            </div>
+            <AxText as="div" variant="body-sm" weight="medium">{name}</AxText>
+            <AxText as="div" variant="body-xs" color="secondary">{record.dosage} · {record.form}</AxText>
           </div>
         ),
       },
@@ -750,7 +522,7 @@ export const TooltipHeaders: Story = {
           <Flex gap={4} align="center">
             Total Volume
             <Tooltip title="Total units available across all registered countries">
-              <InfoCircleOutlined style={{ color: "#8C8C8C" }} />
+              <InfoCircleOutlined style={{ color: "var(--neutral-600)" }} />
             </Tooltip>
           </Flex>
         ),
@@ -764,7 +536,7 @@ export const TooltipHeaders: Story = {
           <Flex gap={4} align="center">
             Unit Price
             <Tooltip title="Price per unit in USD, excluding shipping and duties">
-              <InfoCircleOutlined style={{ color: "#8C8C8C" }} />
+              <InfoCircleOutlined style={{ color: "var(--neutral-600)" }} />
             </Tooltip>
           </Flex>
         ),
@@ -784,16 +556,15 @@ export const TooltipHeaders: Story = {
         dataIndex: "status",
         key: "status",
         render: (status: Medication["status"]) => (
-          <Tag color={statusColorMap[status]}>{status}</Tag>
+          <AxTag tone={statusToneMap[status]}>{status}</AxTag>
         ),
       },
     ],
   },
 }
 
-// -- Custom Cell Renderers --
-
 export const CustomCellRenderers: Story = {
+  name: "Cell Pattern — Custom Renderers",
   args: {
     dataSource: sampleData,
     pagination: false,
@@ -806,10 +577,8 @@ export const CustomCellRenderers: Story = {
           <Flex gap={12} align="center">
             <Badge color={categoryColorMap[record.category]} />
             <div>
-              <div style={{ fontWeight: 550 }}>{name}</div>
-              <div style={{ fontSize: 12, color: "#475467" }}>
-                {record.genericName}
-              </div>
+              <AxText as="div" variant="body-sm" weight="medium">{name}</AxText>
+              <AxText as="div" variant="body-xs" color="secondary">{record.genericName}</AxText>
             </div>
           </Flex>
         ),
@@ -818,7 +587,7 @@ export const CustomCellRenderers: Story = {
         title: "Dosage & Form",
         key: "dosageForm",
         render: (_: unknown, record: Medication) => (
-          <Tag>{`${record.dosage} ${record.form}`}</Tag>
+          <AxTag>{`${record.dosage} ${record.form}`}</AxTag>
         ),
       },
       {
@@ -827,9 +596,14 @@ export const CustomCellRenderers: Story = {
         key: "unitPrice",
         align: "right" as const,
         render: (price: number) => (
-          <span style={{ fontWeight: 550, color: price > 5 ? "#E72315" : "#101828" }}>
+          <AxText
+            as="span"
+            variant="body-sm"
+            weight="medium"
+            style={{ color: price > 5 ? "var(--red-700)" : "var(--text-primary)" }}
+          >
             ${price.toFixed(2)}
-          </span>
+          </AxText>
         ),
       },
       {
@@ -838,10 +612,7 @@ export const CustomCellRenderers: Story = {
         align: "right" as const,
         render: (_: unknown, record: Medication) => {
           const value = record.unitPrice * record.quantity
-          return `$${value.toLocaleString(undefined, {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
-          })}`
+          return `$${value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
         },
       },
       {
@@ -852,12 +623,13 @@ export const CustomCellRenderers: Story = {
           const expiry = new Date(date)
           const isExpired = expiry < new Date()
           return (
-            <span style={{ color: isExpired ? "#E72315" : "#101828" }}>
-              {expiry.toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "short",
-              })}
-            </span>
+            <AxText
+              as="span"
+              variant="body-sm"
+              style={{ color: isExpired ? "var(--red-700)" : "var(--text-primary)" }}
+            >
+              {expiry.toLocaleDateString("en-US", { year: "numeric", month: "short" })}
+            </AxText>
           )
         },
       },
@@ -866,16 +638,62 @@ export const CustomCellRenderers: Story = {
         dataIndex: "status",
         key: "status",
         render: (status: Medication["status"]) => (
-          <Tag color={statusColorMap[status]}>{status}</Tag>
+          <AxTag tone={statusToneMap[status]}>{status}</AxTag>
         ),
       },
     ],
   },
 }
 
-// -- Loading --
+// ===========================================================================
+// LAYOUT VARIANTS
+// ===========================================================================
+
+export const HeaderlessWidget: Story = {
+  name: "Layout — Headerless Widget",
+  args: {
+    dataSource: orderData.slice(0, 4),
+    pagination: false,
+    showHeader: false,
+    size: "small",
+    columns: [
+      {
+        key: "order",
+        render: (_: unknown, record: Order) => (
+          <div>
+            <AxText as="div" variant="body-sm" weight="medium">{record.product}</AxText>
+            <AxText as="div" variant="body-xs" color="secondary">{record.supplier}</AxText>
+          </div>
+        ),
+      },
+      {
+        key: "status",
+        width: 130,
+        render: (_: unknown, record: Order) => {
+          const config = orderStatusConfig[record.status]
+          return <AxTag tone={config.tone} icon={config.icon}>{record.status}</AxTag>
+        },
+      },
+      {
+        key: "amount",
+        width: 100,
+        align: "right" as const,
+        render: (_: unknown, record: Order) => (
+          <AxText as="span" variant="body-sm" weight="medium">
+            ${record.amount.toLocaleString()}
+          </AxText>
+        ),
+      },
+    ] as ColumnsType<Order>,
+  },
+}
+
+// ===========================================================================
+// TABLE STATES
+// ===========================================================================
 
 export const Loading: Story = {
+  name: "State — Loading",
   args: {
     columns: baseColumns,
     dataSource: sampleData,
@@ -884,9 +702,8 @@ export const Loading: Story = {
   },
 }
 
-// -- Empty State --
-
 export const EmptyState: Story = {
+  name: "State — Empty",
   args: {
     columns: baseColumns,
     dataSource: [],
@@ -894,60 +711,14 @@ export const EmptyState: Story = {
   },
 }
 
-// -- Horizontal Scroll --
-
-export const HorizontalScroll: Story = {
-  args: {
-    dataSource: sampleData,
-    pagination: false,
-    scroll: { x: 1500 },
-    columns: [
-      { title: "Medication", dataIndex: "name", key: "name", width: 200, fixed: "left" as const },
-      { title: "Generic Name", dataIndex: "genericName", key: "genericName", width: 220 },
-      { title: "Dosage", dataIndex: "dosage", key: "dosage", width: 120 },
-      { title: "Form", dataIndex: "form", key: "form", width: 120 },
-      { title: "Manufacturer", dataIndex: "manufacturer", key: "manufacturer", width: 180 },
-      { title: "Batch No.", dataIndex: "batchNumber", key: "batchNumber", width: 160 },
-      {
-        title: "Expiry Date",
-        dataIndex: "expiryDate",
-        key: "expiryDate",
-        width: 140,
-        render: (d: string) => new Date(d).toLocaleDateString(),
-      },
-      {
-        title: "Unit Price",
-        dataIndex: "unitPrice",
-        key: "unitPrice",
-        width: 120,
-        align: "right" as const,
-        render: (p: number) => `$${p.toFixed(2)}`,
-      },
-      {
-        title: "Quantity",
-        dataIndex: "quantity",
-        key: "quantity",
-        width: 120,
-        align: "right" as const,
-        render: (q: number) => q.toLocaleString(),
-      },
-      {
-        title: "Status",
-        dataIndex: "status",
-        key: "status",
-        width: 130,
-        fixed: "right" as const,
-        render: (s: Medication["status"]) => <Tag color={statusColorMap[s]}>{s}</Tag>,
-      },
-    ],
-  },
-}
-
-// -- Combined Features --
+// ===========================================================================
+// REAL-WORLD EXAMPLE
+// ===========================================================================
 
 export const CombinedFeatures: Story = {
+  name: "Example — Inventory Table",
   render: () => {
-    const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([])
+    const [selectedKeys, setSelectedKeys] = useState<React.Key[]>([])
 
     const expiredKeys = sampleData
       .filter((m) => m.status === "Expired" || m.status === "Out of Stock")
@@ -964,8 +735,7 @@ export const CombinedFeatures: Story = {
               { text: "Out of Stock", value: "Out of Stock" },
               { text: "Expired", value: "Expired" },
             ],
-            onFilter: (value: React.Key | boolean, record: Medication) =>
-              record.status === value,
+            onFilter: (value: React.Key | boolean, record: Medication) => record.status === value,
           }
         }
         return col
@@ -976,47 +746,31 @@ export const CombinedFeatures: Story = {
       <AxTable<Medication>
         columns={columns}
         dataSource={sampleData}
-        selectedRowKeys={selectedRowKeys}
-        disabledRowKeys={expiredKeys}
+        rowStates={buildRowStates(selectedKeys, expiredKeys)}
         rowSelection={{
-          selectedRowKeys,
-          onChange: (keys) => setSelectedRowKeys(keys),
-          getCheckboxProps: (record) => ({
-            disabled: expiredKeys.includes(record.key),
-          }),
+          selectedRowKeys: selectedKeys,
+          onChange: (keys) => setSelectedKeys(keys),
+          getCheckboxProps: (record) => ({ disabled: expiredKeys.includes(record.key) }),
         }}
         expandable={{
           expandedRowRender: (record) => (
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr 1fr",
-                gap: 16,
-                padding: "16px 24px",
-              }}
-            >
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16, padding: "16px 24px" }}>
               <div>
-                <div style={{ fontSize: 12, color: "#475467", marginBottom: 4 }}>Generic Name</div>
-                <div style={{ fontWeight: 550 }}>{record.genericName}</div>
+                <AxText as="div" variant="body-xs" color="secondary" style={{ marginBottom: 4 }}>Generic Name</AxText>
+                <AxText as="div" variant="body-sm" weight="medium">{record.genericName}</AxText>
               </div>
               <div>
-                <div style={{ fontSize: 12, color: "#475467", marginBottom: 4 }}>Category</div>
-                <Tag color={categoryColorMap[record.category]} style={{ margin: 0 }}>
-                  {record.category}
-                </Tag>
+                <AxText as="div" variant="body-xs" color="secondary" style={{ marginBottom: 4 }}>Category</AxText>
+                <AxTag fill={categoryColorMap[record.category]} style={{ margin: 0 }}>{record.category}</AxTag>
               </div>
               <div>
-                <div style={{ fontSize: 12, color: "#475467", marginBottom: 4 }}>Countries</div>
+                <AxText as="div" variant="body-xs" color="secondary" style={{ marginBottom: 4 }}>Countries</AxText>
                 <CountryTags countries={record.countries} max={3} />
               </div>
             </div>
           ),
         }}
-        pagination={{
-          pageSize: 5,
-          showSizeChanger: true,
-          showTotal: (total) => `${total} medications`,
-        }}
+        pagination={{ pageSize: 5, showSizeChanger: true, showTotal: (total) => `${total} medications` }}
       />
     )
   },

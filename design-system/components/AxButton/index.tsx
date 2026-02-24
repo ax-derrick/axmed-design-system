@@ -11,7 +11,7 @@ type AxButtonVariant = "primary" | "secondary" | "ghost" | "danger" | "link" | "
 export type AxButtonProps = {
   /** Visual variant of the button */
   variant?: AxButtonVariant
-} & Omit<AntButtonProps, "type" | "danger" | "ghost">
+} & Omit<AntButtonProps, "type" | "danger" | "ghost" | "variant">
 
 const variantMap: Record<AxButtonVariant, Partial<AntButtonProps>> = {
   primary: { type: "primary" },

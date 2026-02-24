@@ -7,19 +7,30 @@ import type { AnyObject } from "antd/es/_util/type"
 
 import styles from "./index.module.css"
 
+// ---------------------------------------------------------------------------
+// Row state type
+// ---------------------------------------------------------------------------
+
+/**
+ * Visual state applied to a row.
+ * - `selected`  → blue-25 background + blue-600 left border accent
+ * - `disabled`  → reduced opacity + no pointer events
+ */
+export type AxTableRowState = "selected" | "disabled"
+
+// ---------------------------------------------------------------------------
+// Props
+// ---------------------------------------------------------------------------
+
 export type AxTableProps<RecordType extends AnyObject = AnyObject> = {
   /**
-   * Keys of rows that should appear visually selected
-   * (blue-25 background + blue-600 left border).
-   * This is purely visual — it does NOT control antd rowSelection state.
+   * Visual state per row key.
+   * Pass a record mapping each row key to its state.
+   *
+   * @example
+   * rowStates={{ "1": "selected", "2": "selected", "3": "disabled" }}
    */
-  selectedRowKeys?: React.Key[]
-
-  /**
-   * Keys of rows that should appear visually disabled
-   * (reduced opacity, pointer-events: none).
-   */
-  disabledRowKeys?: React.Key[]
+  rowStates?: Record<string | number, AxTableRowState>
 
   /**
    * Override the header background color.
@@ -27,6 +38,10 @@ export type AxTableProps<RecordType extends AnyObject = AnyObject> = {
    */
   headerBg?: string
 } & AntTableProps<RecordType>
+
+// ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
 
 function getRowKey<RecordType>(
   record: RecordType,
@@ -37,10 +52,13 @@ function getRowKey<RecordType>(
   return (record as any).key
 }
 
+// ---------------------------------------------------------------------------
+// Component
+// ---------------------------------------------------------------------------
+
 function InternalAxTable<RecordType extends AnyObject = AnyObject>(
   {
-    selectedRowKeys = [],
-    disabledRowKeys = [],
+    rowStates,
     headerBg = "#FAFAFA",
     className,
     rowClassName,
@@ -48,9 +66,6 @@ function InternalAxTable<RecordType extends AnyObject = AnyObject>(
   }: AxTableProps<RecordType>,
   ref: React.Ref<any>
 ) {
-  const selectedSet = React.useMemo(() => new Set(selectedRowKeys), [selectedRowKeys])
-  const disabledSet = React.useMemo(() => new Set(disabledRowKeys), [disabledRowKeys])
-
   const mergedRowClassName: AntTableProps<RecordType>["rowClassName"] = (
     record,
     index,
@@ -62,9 +77,10 @@ function InternalAxTable<RecordType extends AnyObject = AnyObject>(
         ? rowClassName(record, index, indent)
         : rowClassName ?? ""
 
+    const state = rowStates?.[key]
     const classes = [base]
-    if (selectedSet.has(key)) classes.push(styles.rowSelected)
-    if (disabledSet.has(key)) classes.push(styles.rowDisabled)
+    if (state === "selected") classes.push(styles.rowSelected)
+    if (state === "disabled") classes.push(styles.rowDisabled)
 
     return classes.filter(Boolean).join(" ")
   }

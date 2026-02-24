@@ -1,12 +1,13 @@
-import React, { useState, useMemo } from "react"
+import { useState, useMemo } from "react"
 import type { Meta, StoryObj } from "@storybook/react"
-import { Button, Tag } from "antd"
 import { PlusOutlined, DownloadOutlined } from "@ant-design/icons"
 import type { ColumnsType } from "antd/es/table"
 
 import AxFilterBar from "./index"
+import AxButton from "../AxButton"
 import AxTable from "../AxTable"
 import AxTag from "../AxTag"
+import AxText from "../AxText"
 
 // ---------------------------------------------------------------------------
 // Sample data
@@ -38,11 +39,13 @@ const medications: Medication[] = [
   { key: "10", name: "Salbutamol", dosage: "100mcg", form: "Inhaler", manufacturer: "GSK", category: "Respiratory", country: ["Kenya", "Tanzania"], unitPrice: 3.2, quantity: 0, status: "Out of Stock" },
 ]
 
-const statusColorMap: Record<Medication["status"], string> = {
-  "In Stock": "green",
-  "Low Stock": "orange",
-  "Out of Stock": "red",
-  Expired: "default",
+import type { AxTagTone } from "../AxTag"
+
+const statusToneMap: Record<Medication["status"], AxTagTone> = {
+  "In Stock": "success",
+  "Low Stock": "warning",
+  "Out of Stock": "error",
+  Expired: "neutral",
 }
 
 const columns: ColumnsType<Medication> = [
@@ -52,13 +55,13 @@ const columns: ColumnsType<Medication> = [
     key: "name",
     render: (name: string, record) => (
       <div>
-        <div style={{ fontWeight: 550 }}>{name}</div>
-        <div style={{ fontSize: 12, color: "#475467" }}>{record.dosage} · {record.form}</div>
+        <AxText variant="body-sm" weight="medium">{name}</AxText>
+        <AxText variant="body-xs" color="secondary">{record.dosage} · {record.form}</AxText>
       </div>
     ),
   },
   { title: "Manufacturer", dataIndex: "manufacturer", key: "manufacturer" },
-  { title: "Category", dataIndex: "category", key: "category", render: (cat: string) => <Tag>{cat}</Tag> },
+  { title: "Category", dataIndex: "category", key: "category", render: (cat: string) => <AxTag>{cat}</AxTag> },
   {
     title: "Unit Price",
     dataIndex: "unitPrice",
@@ -77,7 +80,7 @@ const columns: ColumnsType<Medication> = [
     title: "Status",
     dataIndex: "status",
     key: "status",
-    render: (status: Medication["status"]) => <Tag color={statusColorMap[status]}>{status}</Tag>,
+    render: (status: Medication["status"]) => <AxTag tone={statusToneMap[status]}>{status}</AxTag>,
   },
 ]
 
@@ -138,6 +141,40 @@ const meta: Meta<typeof AxFilterBar> = {
 
 export default meta
 type Story = StoryObj<typeof AxFilterBar>
+
+// ---------------------------------------------------------------------------
+// Playground — all controls work here
+// ---------------------------------------------------------------------------
+
+export const Playground: Story = {
+  name: "Playground",
+  args: {
+    search: { placeholder: "Search for medicine..." },
+    filters: [
+      {
+        key: "category",
+        placeholder: "Category",
+        options: categoryOptions,
+        multiple: true,
+        width: 180,
+      },
+      {
+        key: "status",
+        placeholder: "Status",
+        options: statusOptions,
+        width: 150,
+      },
+    ],
+    sort: {
+      options: sortOptions,
+      value: "recent",
+    },
+    resultCount: "10 medications",
+  },
+  render: (args) => (
+    <AxFilterBar {...args} />
+  ),
+}
 
 // ---------------------------------------------------------------------------
 // Stories
@@ -223,9 +260,9 @@ export const WithActionButton: Story = {
       value: "recent",
     },
     extra: (
-      <Button type="primary" icon={<PlusOutlined />}>
+      <AxButton icon={<PlusOutlined />}>
         Add new
-      </Button>
+      </AxButton>
     ),
     resultCount: "10 products",
   },
@@ -245,10 +282,10 @@ export const WithMultipleActions: Story = {
     ],
     extra: (
       <div style={{ display: "flex", gap: 8 }}>
-        <Button icon={<DownloadOutlined />}>Export</Button>
-        <Button type="primary" icon={<PlusOutlined />}>
+        <AxButton variant="secondary" icon={<DownloadOutlined />}>Export</AxButton>
+        <AxButton icon={<PlusOutlined />}>
           Add new
-        </Button>
+        </AxButton>
       </div>
     ),
     resultCount: "48 records",
@@ -372,7 +409,7 @@ export const WithTable: Story = {
     }, [search, category, status, sortBy])
 
     return (
-      <div style={{ border: "1px solid #F0F0F0", borderRadius: 8, overflow: "hidden" }}>
+      <div style={{ border: "1px solid var(--neutral-150)", borderRadius: 8, overflow: "hidden" }}>
         <AxFilterBar
           search={{
             placeholder: "Search for medicine...",
@@ -446,7 +483,7 @@ export const PortfolioStyle: Story = {
     }, [search, category, country, sortBy])
 
     return (
-      <div style={{ border: "1px solid #F0F0F0", borderRadius: 8, overflow: "hidden" }}>
+      <div style={{ border: "1px solid var(--neutral-150)", borderRadius: 8, overflow: "hidden" }}>
         <AxFilterBar
           search={{
             placeholder: "Search for medicine...",
@@ -479,9 +516,9 @@ export const PortfolioStyle: Story = {
             onChange: setSortBy,
           }}
           extra={
-            <Button type="primary" icon={<PlusOutlined />}>
+            <AxButton icon={<PlusOutlined />}>
               Add new
-            </Button>
+            </AxButton>
           }
           resultCount={`${filtered.length} products`}
         />
@@ -522,7 +559,7 @@ export const OrdersStyle: Story = {
     }, [search, status, sortBy])
 
     return (
-      <div style={{ border: "1px solid #F0F0F0", borderRadius: 8, overflow: "hidden" }}>
+      <div style={{ border: "1px solid var(--neutral-150)", borderRadius: 8, overflow: "hidden" }}>
         <AxFilterBar
           search={{
             placeholder: "Search for order...",

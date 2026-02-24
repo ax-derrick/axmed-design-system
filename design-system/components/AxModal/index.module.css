@@ -1,0 +1,95 @@
+/* ---------------------------------------------------------------------------
+   AxModal — shadcn/Base UI-inspired aesthetic on antd Modal
+   Scoped via rootClassName, same pattern as AxTable.
+   --------------------------------------------------------------------------- */
+
+/* Overlay / mask */
+.axModal :global(.ant-modal-mask) {
+  background: rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Content card — clean aesthetic */
+.axModal :global(.ant-modal-container) {
+  font-family: "Figtree", sans-serif !important;
+  padding: 24px !important;
+  border-radius: 12px !important;
+  border: 1px solid var(--neutral-200) !important;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.08),
+    0 8px 24px rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Header — no border, no bg, tight to title */
+.axModal :global(.ant-modal-header) {
+  margin-bottom: 0 !important;
+  padding: 0 !important;
+  border-bottom: none !important;
+  background: transparent !important;
+}
+
+/* Title block */
+.title {
+  font-family: "Figtree", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--text-primary);
+}
+
+/* Description — muted text below the title */
+.description {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  margin-top: 4px;
+  font-weight: 400;
+}
+
+/* Body — no extra padding, content flows naturally */
+.axModal :global(.ant-modal-body) {
+  padding: 16px 0 0 !important;
+}
+
+/* Footer — right-aligned, no top border */
+.axModal :global(.ant-modal-footer) {
+  margin-top: 24px !important;
+  padding: 0 !important;
+  border-top: none !important;
+  display: flex !important;
+  justify-content: flex-end !important;
+  gap: 8px !important;
+}
+
+/* Remove antd's default button margin in footer */
+.axModal :global(.ant-modal-footer .ant-btn + .ant-btn) {
+  margin-inline-start: 0 !important;
+}
+
+/* Close button — subtle, rounded, top-right */
+.axModal :global(.ant-modal-close) {
+  top: 20px !important;
+  inset-inline-end: 20px !important;
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 6px !important;
+  color: var(--neutral-600) !important;
+  opacity: 0.7;
+  transition: opacity 0.15s ease, background 0.15s ease;
+}
+
+.axModal :global(.ant-modal-close:hover) {
+  opacity: 1;
+  background: var(--neutral-100) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Danger variant — red primary action button in footer */
+.danger :global(.ant-modal-footer .ant-btn-primary) {
+  background: var(--red-600) !important;
+  border-color: var(--red-600) !important;
+}
+
+.danger :global(.ant-modal-footer .ant-btn-primary:hover) {
+  background: var(--red-700) !important;
+  border-color: var(--red-700) !important;
+}
