@@ -77,7 +77,7 @@ function InternalAxTable<RecordType extends AnyObject = AnyObject>(
         ? rowClassName(record, index, indent)
         : rowClassName ?? ""
 
-    const state = rowStates?.[key]
+    const state = rowStates?.[key as string | number]
     const classes = [base]
     if (state === "selected") classes.push(styles.rowSelected)
     if (state === "disabled") classes.push(styles.rowDisabled)
