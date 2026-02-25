@@ -386,10 +386,10 @@ export const Sizes: Story = {
         >
           <Flex vertical gap={8}>
             {[
-              { name: "Amoxicillin 500mg", status: "awarded", price: "$1.20" },
-              { name: "Metformin 850mg", status: "in_review", price: "$0.85" },
-              { name: "Ibuprofen 400mg", status: "submitted", price: "$0.45" },
-              { name: "Artemether 20mg", status: "not_awarded", price: "$3.10" },
+              { name: "Amoxicillin 500mg", tone: "success" as const, label: "Awarded", price: "$1.20" },
+              { name: "Metformin 850mg", tone: "info" as const, label: "In Review", price: "$0.85" },
+              { name: "Ibuprofen 400mg", tone: "info" as const, label: "Submitted", price: "$0.45" },
+              { name: "Artemether 20mg", tone: "warning" as const, label: "Not Awarded", price: "$3.10" },
             ].map((med) => (
               <Flex
                 key={med.name}
@@ -404,8 +404,8 @@ export const Sizes: Story = {
                 <AxText variant="body-sm" weight="medium">{med.name}</AxText>
                 <Flex gap={12} align="center">
                   <AxText variant="body-sm" weight="medium">{med.price}</AxText>
-                  <AxTag status={med.status}>
-                    {med.status.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())}
+                  <AxTag tone={med.tone}>
+                    {med.label}
                   </AxTag>
                 </Flex>
               </Flex>

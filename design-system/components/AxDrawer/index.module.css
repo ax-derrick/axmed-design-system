@@ -1,0 +1,62 @@
+/* ---------------------------------------------------------------------------
+   AxDrawer — themed right-side panel
+   Scoped via rootClassName, same pattern as AxModal.
+   --------------------------------------------------------------------------- */
+
+/* Content panel */
+.axDrawer :global(.ant-drawer-content) {
+  font-family: "Figtree", sans-serif !important;
+}
+
+/* Header — clean border, comfortable padding */
+.axDrawer :global(.ant-drawer-header) {
+  padding: 20px 24px !important;
+  border-bottom: 1px solid var(--neutral-200) !important;
+}
+
+/* Title block */
+.title {
+  font-family: "Figtree", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--text-primary);
+}
+
+/* Description — muted text below the title */
+.description {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  margin-top: 4px;
+  font-weight: 400;
+}
+
+/* Body */
+.axDrawer :global(.ant-drawer-body) {
+  padding: 24px !important;
+}
+
+/* Footer */
+.axDrawer :global(.ant-drawer-footer) {
+  padding: 16px 24px !important;
+  border-top: 1px solid var(--neutral-200) !important;
+}
+
+/* Close button — subtle, rounded */
+.axDrawer :global(.ant-drawer-close) {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 6px !important;
+  color: var(--neutral-600) !important;
+  opacity: 0.7;
+  transition:
+    opacity 0.15s ease,
+    background 0.15s ease;
+}
+
+.axDrawer :global(.ant-drawer-close:hover) {
+  opacity: 1;
+  background: var(--neutral-100) !important;
+  color: var(--text-primary) !important;
+}
