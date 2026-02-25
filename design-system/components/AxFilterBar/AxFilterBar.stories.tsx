@@ -125,7 +125,7 @@ const sortOptions = [
 // ---------------------------------------------------------------------------
 
 const meta: Meta<typeof AxFilterBar> = {
-  title: "Design System/AxFilterBar",
+  title: "Controls/AxFilterBar",
   component: AxFilterBar,
   tags: ["autodocs"],
   parameters: {
@@ -183,6 +183,7 @@ export const Playground: Story = {
 // -- Search Only --
 
 export const SearchOnly: Story = {
+  name: "Feature — Search Only",
   args: {
     search: { placeholder: "Search for medicine..." },
     resultCount: "10 medications",
@@ -192,6 +193,7 @@ export const SearchOnly: Story = {
 // -- Search + Single Filter --
 
 export const WithStatusFilter: Story = {
+  name: "Feature — Search + Filter",
   args: {
     search: { placeholder: "Search for order..." },
     filters: [
@@ -216,6 +218,7 @@ export const WithStatusFilter: Story = {
 // -- Multiple Filters --
 
 export const MultipleFilters: Story = {
+  name: "Feature — Multiple Filters",
   args: {
     search: { placeholder: "Search for medicine..." },
     filters: [
@@ -245,6 +248,7 @@ export const MultipleFilters: Story = {
 // -- With Action Button --
 
 export const WithActionButton: Story = {
+  name: "Feature — With Action Button",
   args: {
     search: { placeholder: "Search for medicine..." },
     filters: [
@@ -271,6 +275,7 @@ export const WithActionButton: Story = {
 // -- Multiple Action Buttons --
 
 export const WithMultipleActions: Story = {
+  name: "Feature — Multiple Actions",
   args: {
     search: { placeholder: "Search..." },
     filters: [
@@ -295,6 +300,7 @@ export const WithMultipleActions: Story = {
 // -- No Search (Filters Only) --
 
 export const FiltersOnly: Story = {
+  name: "Feature — Filters Only",
   args: {
     search: false,
     filters: [
@@ -334,6 +340,7 @@ export const FiltersOnly: Story = {
 // -- Sort Without Label --
 
 export const SortWithoutLabel: Story = {
+  name: "Feature — Sort Without Label",
   args: {
     search: { placeholder: "Search..." },
     sort: {
@@ -348,6 +355,7 @@ export const SortWithoutLabel: Story = {
 // -- No Result Count --
 
 export const WithoutResultCount: Story = {
+  name: "Feature — Without Result Count",
   args: {
     search: { placeholder: "Search for order..." },
     filters: [
@@ -370,7 +378,7 @@ export const WithoutResultCount: Story = {
 // -- Interactive: Filter Bar + Table --
 
 export const WithTable: Story = {
-  name: "Interactive — With Table",
+  name: "Example — With Table",
   render: () => {
     const [search, setSearch] = useState("")
     const [category, setCategory] = useState<string[]>([])
@@ -409,7 +417,7 @@ export const WithTable: Story = {
     }, [search, category, status, sortBy])
 
     return (
-      <div style={{ border: "1px solid var(--neutral-150)", borderRadius: 8, overflow: "hidden" }}>
+      <div style={{ border: "1px solid var(--neutral-200)", borderRadius: 8, overflow: "hidden" }}>
         <AxFilterBar
           search={{
             placeholder: "Search for medicine...",
@@ -483,7 +491,7 @@ export const PortfolioStyle: Story = {
     }, [search, category, country, sortBy])
 
     return (
-      <div style={{ border: "1px solid var(--neutral-150)", borderRadius: 8, overflow: "hidden" }}>
+      <div style={{ border: "1px solid var(--neutral-200)", borderRadius: 8, overflow: "hidden" }}>
         <AxFilterBar
           search={{
             placeholder: "Search for medicine...",
@@ -559,7 +567,7 @@ export const OrdersStyle: Story = {
     }, [search, status, sortBy])
 
     return (
-      <div style={{ border: "1px solid var(--neutral-150)", borderRadius: 8, overflow: "hidden" }}>
+      <div style={{ border: "1px solid var(--neutral-200)", borderRadius: 8, overflow: "hidden" }}>
         <AxFilterBar
           search={{
             placeholder: "Search for order...",

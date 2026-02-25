@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from "@storybook/react"
 import AxText from "./index"
 
 const meta: Meta<typeof AxText> = {
-  title: "Typography/AxText",
+  title: "Foundations/Typography",
   component: AxText,
   tags: ["autodocs"],
   argTypes: {
@@ -31,7 +31,7 @@ const meta: Meta<typeof AxText> = {
     },
     color: {
       control: "select",
-      options: ["primary", "secondary", "link", "inherit"],
+      options: ["primary", "secondary", "link", "disabled", "inherit"],
       description: "See Foundations/Colors for the full color palette.",
     },
     italic: { control: "boolean" },
@@ -292,6 +292,78 @@ export const AllBodySizes: Story = {
           </AxText>
         </div>
       ))}
+    </div>
+  ),
+}
+
+// =============================================================================
+// Colors
+// =============================================================================
+
+export const Colors: Story = {
+  name: "Colors",
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+      <AxText variant="body-lg" color="primary">primary — #262626</AxText>
+      <AxText variant="body-lg" color="secondary">secondary — #667085</AxText>
+      <AxText variant="body-lg" color="link">link — #0099C8</AxText>
+      <AxText variant="body-lg" color="disabled">disabled — #98A2B3</AxText>
+    </div>
+  ),
+}
+
+// =============================================================================
+// text-wrap: balance — headings reflow evenly across lines
+// =============================================================================
+
+export const TextWrapBalance: Story = {
+  name: "Feature — text-wrap balance (headings)",
+  render: () => (
+    <div style={{ display: "flex", gap: 48, alignItems: "flex-start" }}>
+      <div style={{ maxWidth: 280 }}>
+        <AxText variant="heading-sm" color="secondary" as="div" style={{ marginBottom: 12 }}>
+          With balance (default)
+        </AxText>
+        <AxText variant="heading-xl">
+          Build the future of pharmaceutical access
+        </AxText>
+      </div>
+      <div style={{ maxWidth: 280 }}>
+        <AxText variant="heading-sm" color="secondary" as="div" style={{ marginBottom: 12 }}>
+          Without balance
+        </AxText>
+        <AxText variant="heading-xl" style={{ textWrap: "unset" }}>
+          Build the future of pharmaceutical access
+        </AxText>
+      </div>
+    </div>
+  ),
+}
+
+// =============================================================================
+// overflow-wrap — long words don't break narrow containers
+// =============================================================================
+
+export const OverflowProtection: Story = {
+  name: "Feature — overflow-wrap (long words)",
+  render: () => (
+    <div style={{ display: "flex", gap: 48, alignItems: "flex-start" }}>
+      <div style={{ maxWidth: 200, border: "1px solid var(--neutral-200)", padding: 12, borderRadius: 8 }}>
+        <AxText variant="heading-sm" color="secondary" as="div" style={{ marginBottom: 8 }}>
+          With break-word (default)
+        </AxText>
+        <AxText variant="body-md">
+          Contact: procurement@axmed-pharmaceuticals-international.com
+        </AxText>
+      </div>
+      <div style={{ maxWidth: 200, border: "1px solid var(--neutral-200)", padding: 12, borderRadius: 8 }}>
+        <AxText variant="heading-sm" color="secondary" as="div" style={{ marginBottom: 8 }}>
+          Without break-word
+        </AxText>
+        <AxText variant="body-md" style={{ overflowWrap: "normal" }}>
+          Contact: procurement@axmed-pharmaceuticals-international.com
+        </AxText>
+      </div>
     </div>
   ),
 }

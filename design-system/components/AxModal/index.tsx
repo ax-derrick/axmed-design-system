@@ -23,10 +23,10 @@ export type AxModalProps = {
   danger?: boolean
 
   /**
-   * Preset sizes: "sm" (380px), "default" (520px), "lg" (720px).
+   * Preset sizes: "sm" (380px), "md" (520px), "lg" (720px).
    * You can still override with `width` for custom sizes.
    */
-  size?: "sm" | "default" | "lg"
+  size?: "sm" | "md" | "lg"
 } & Omit<AntModalProps, "classNames">
 
 // ---------------------------------------------------------------------------
@@ -35,7 +35,7 @@ export type AxModalProps = {
 
 const sizeWidths: Record<NonNullable<AxModalProps["size"]>, number> = {
   sm: 380,
-  default: 520,
+  md: 520,
   lg: 720,
 }
 
@@ -46,7 +46,7 @@ const sizeWidths: Record<NonNullable<AxModalProps["size"]>, number> = {
 const AxModal: React.FC<AxModalProps> = ({
   description,
   danger = false,
-  size = "default",
+  size = "md",
   width,
   title,
   rootClassName,

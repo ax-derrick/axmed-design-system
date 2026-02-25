@@ -16,7 +16,7 @@ import AxTag from "../AxTag"
 // ---------------------------------------------------------------------------
 
 const meta: Meta<typeof AxModal> = {
-  title: "Design System/AxModal",
+  title: "Overlays/AxModal",
   component: AxModal,
   tags: ["autodocs"],
   parameters: {
@@ -25,8 +25,8 @@ const meta: Meta<typeof AxModal> = {
   argTypes: {
     size: {
       control: "select",
-      options: ["sm", "default", "lg"],
-      description: "Preset width: sm (380px), default (520px), lg (720px)",
+      options: ["sm", "md", "lg"],
+      description: "Preset width: sm (380px), md (520px), lg (720px)",
     },
     danger: {
       control: "boolean",
@@ -55,7 +55,7 @@ export const Playground: Story = {
   args: {
     title: "Modal Title",
     description: "This is a description below the title.",
-    size: "default",
+    size: "md",
     danger: false,
     centered: true,
     okText: "Confirm",
@@ -92,13 +92,6 @@ export const Playground: Story = {
 // ---------------------------------------------------------------------------
 
 export const Confirmation: Story = {
-  args: {
-    size: "default",
-    centered: false,
-    danger: true,
-    description: "vhcvvvh\n"
-  },
-
   name: "Template — Confirmation",
 
   render: () => {
@@ -335,15 +328,15 @@ export const FileUpload: Story = {
 export const Sizes: Story = {
   name: "Feature — Sizes",
   render: () => {
-    const [openSize, setOpenSize] = useState<"sm" | "default" | "lg" | null>(null)
+    const [openSize, setOpenSize] = useState<"sm" | "md" | "lg" | null>(null)
 
     return (
       <Flex gap={8}>
         <AxButton variant="secondary" onClick={() => setOpenSize("sm")}>
           Small (380px)
         </AxButton>
-        <AxButton variant="secondary" onClick={() => setOpenSize("default")}>
-          Default (520px)
+        <AxButton variant="secondary" onClick={() => setOpenSize("md")}>
+          Medium (520px)
         </AxButton>
         <AxButton variant="secondary" onClick={() => setOpenSize("lg")}>
           Large (720px)
@@ -361,10 +354,10 @@ export const Sizes: Story = {
         />
 
         <AxModal
-          title="Default modal"
+          title="Medium modal"
           description="Standard size for forms and content."
-          open={openSize === "default"}
-          size="default"
+          open={openSize === "md"}
+          size="md"
           okText="Save"
           onOk={() => setOpenSize(null)}
           onCancel={() => setOpenSize(null)}

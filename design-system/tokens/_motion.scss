@@ -1,0 +1,49 @@
+// =============================================================================
+// Motion Tokens — Axmed Core
+// Easing curves and durations for consistent, intentional animation.
+// Principle: ease-out for entrances (fast start, decelerate into rest),
+//            ease-in for exits (accelerate out of view).
+// Based on the 12 Principles of Animation and web motion best practices.
+// =============================================================================
+
+:root {
+  // ---------------------------------------------------------------------------
+  // Easing curves
+  // ---------------------------------------------------------------------------
+  // Spring-like entrance — fast start, smooth deceleration
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  // Decisive exit — slow start, accelerates out
+  --ease-in: cubic-bezier(0.55, 0, 1, 0.45);
+  // Symmetric — use sparingly (e.g. progress bars, sliders)
+  --ease-in-out: cubic-bezier(0.45, 0, 0.55, 1);
+
+  // ---------------------------------------------------------------------------
+  // Durations
+  // ---------------------------------------------------------------------------
+  --duration-fast: 100ms;   // micro-interactions: row select, checkbox tick
+  --duration-base: 150ms;   // default: hover states, close buttons
+  --duration-slow: 250ms;   // overlays entering/leaving (modal, drawer)
+
+  // ---------------------------------------------------------------------------
+  // Focus ring
+  // ---------------------------------------------------------------------------
+  --focus-ring-color: var(--primary-focus);   // #9F9AEB (primary-300)
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+}
+
+// ---------------------------------------------------------------------------
+// Honour OS motion preference
+// A single global guard eliminates all animation for users who prefer it,
+// without needing per-component media queries.
+// ---------------------------------------------------------------------------
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

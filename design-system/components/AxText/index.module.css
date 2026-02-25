@@ -17,6 +17,7 @@
   line-height: var(--font-line-height-52);
   font-weight: var(--font-weight-bold);
   letter-spacing: var(--font-letter-spacing-xs);
+  text-wrap: balance;
 }
 
 .heading-3xl {
@@ -24,6 +25,7 @@
   line-height: var(--font-line-height-48);
   font-weight: var(--font-weight-bold);
   letter-spacing: var(--font-letter-spacing-xs);
+  text-wrap: balance;
 }
 
 .heading-2xl {
@@ -31,6 +33,7 @@
   line-height: var(--font-line-height-40);
   font-weight: var(--font-weight-bold);
   letter-spacing: var(--font-letter-spacing-sm);
+  text-wrap: balance;
 }
 
 .heading-xl {
@@ -38,6 +41,7 @@
   line-height: var(--font-line-height-32);
   font-weight: var(--font-weight-bold);
   letter-spacing: var(--font-letter-spacing-md);
+  text-wrap: balance;
 }
 
 .heading-lg {
@@ -45,20 +49,21 @@
   line-height: var(--font-line-height-24);
   font-weight: var(--font-weight-semibold);
   letter-spacing: var(--font-letter-spacing-md);
+  text-wrap: balance;
 }
 
 .heading-md {
   font-size: var(--font-size-14);
   line-height: var(--font-line-height-20);
   font-weight: var(--font-weight-semibold);
-  letter-spacing: var(--font-letter-spacing-lg);
+  text-wrap: balance;
 }
 
 .heading-sm {
   font-size: var(--font-size-13);
   line-height: var(--font-line-height-20);
   font-weight: var(--font-weight-semibold);
-  letter-spacing: var(--font-letter-spacing-lg);
+  text-wrap: balance;
 }
 
 /* ---------------------------------------------------------------------------
@@ -68,31 +73,36 @@
 .body-xl {
   font-size: var(--font-size-16);
   line-height: var(--font-line-height-24);
-  letter-spacing: var(--font-letter-spacing-lg);
+  text-wrap: pretty;
+  overflow-wrap: break-word;
 }
 
 .body-lg {
   font-size: var(--font-size-14);
   line-height: var(--font-line-height-20);
-  letter-spacing: var(--font-letter-spacing-lg);
+  text-wrap: pretty;
+  overflow-wrap: break-word;
 }
 
 .body-md {
   font-size: var(--font-size-13);
   line-height: var(--font-line-height-20);
-  letter-spacing: var(--font-letter-spacing-lg);
+  text-wrap: pretty;
+  overflow-wrap: break-word;
 }
 
 .body-sm {
   font-size: var(--font-size-12);
-  line-height: var(--font-line-height-16);
-  letter-spacing: var(--font-letter-spacing-lg);
+  line-height: var(--font-line-height-20);
+  text-wrap: pretty;
+  overflow-wrap: break-word;
 }
 
 .body-xs {
   font-size: var(--font-size-11);
-  line-height: var(--font-line-height-12);
-  letter-spacing: var(--font-letter-spacing-lg);
+  line-height: var(--font-line-height-18);
+  text-wrap: pretty;
+  overflow-wrap: break-word;
 }
 
 /* ---------------------------------------------------------------------------
@@ -145,6 +155,10 @@
 
 .color-link {
   color: var(--text-link);
+}
+
+.color-disabled {
+  color: var(--text-disabled);
 }
 
 .color-inherit {

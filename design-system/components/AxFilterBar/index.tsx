@@ -89,7 +89,7 @@ const AxFilterBar: React.FC<AxFilterBarProps> = ({
         {search !== false && (
           <Input
             placeholder={search?.placeholder ?? "Search..."}
-            prefix={<SearchOutlined style={{ color: "#BFBFBF" }} />}
+            prefix={<SearchOutlined style={{ color: "var(--neutral-500)" }} />}
             value={search?.value}
             onChange={search?.onChange}
             allowClear

@@ -18,11 +18,11 @@ type TonePreset = {
 }
 
 const tonePresets: Record<AxTagTone, TonePreset> = {
-  success: { color: "success",    dotColor: "#52C41A" },
-  info:    { color: "processing", dotColor: "#1890FF" },
-  warning: { color: "warning",    dotColor: "#FA8C16" },
-  error:   { color: "error",      dotColor: "#F5222D" },
-  neutral: { color: "default",    dotColor: "#8C8C8C" },
+  success: { color: "success",    dotColor: "var(--success)" },
+  info:    { color: "processing", dotColor: "var(--cyan-600)" },
+  warning: { color: "warning",    dotColor: "var(--warning)" },
+  error:   { color: "error",      dotColor: "var(--error)" },
+  neutral: { color: "default",    dotColor: "var(--neutral-500)" },
 }
 
 // ---------------------------------------------------------------------------
@@ -109,7 +109,7 @@ const AxTag: React.FC<AxTagProps> = ({
   const fillStyle: React.CSSProperties | undefined = fill
     ? {
         background: fill,
-        color: "#fff",
+        color: "var(--neutral-0)",
         border: "none",
         ...style,
       }

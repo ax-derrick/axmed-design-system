@@ -9,7 +9,7 @@
   border: 1px solid var(--neutral-200) !important;
   border-radius: 12px !important;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06) !important;
-  background: #fff !important;
+  background: var(--neutral-0) !important;
 }
 
 /* Header — no bottom border, padding provides the breathing room */
@@ -46,8 +46,8 @@
 .axCard:global(.ant-card-hoverable) {
   cursor: pointer;
   transition:
-    box-shadow 0.15s ease,
-    border-color 0.15s ease !important;
+    box-shadow var(--duration-base) var(--ease-out),
+    border-color var(--duration-base) var(--ease-out) !important;
 }
 
 .axCard:global(.ant-card-hoverable:hover) {
@@ -59,18 +59,18 @@
 
 /* Title typography */
 .cardTitle {
-  font-family: "Figtree", sans-serif;
-  font-size: 15px;
-  font-weight: 600;
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-15);
+  font-weight: var(--font-weight-semibold);
   line-height: 1.4;
   color: var(--text-primary);
 }
 
 /* Description — muted subtitle below title */
 .description {
-  font-family: "Figtree", sans-serif;
-  font-size: 13px;
-  font-weight: 400;
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-13);
+  font-weight: var(--font-weight-regular);
   line-height: 1.5;
   color: var(--text-secondary);
   margin-top: 2px;

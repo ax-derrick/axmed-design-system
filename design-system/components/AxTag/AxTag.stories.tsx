@@ -13,7 +13,7 @@ import AxTag from "./index"
 import { AxText } from "../../index"
 
 const meta: Meta<typeof AxTag> = {
-  title: "Design System/AxTag",
+  title: "Data Display/AxTag",
   component: AxTag,
   tags: ["autodocs"],
   argTypes: {
@@ -84,7 +84,7 @@ export const Playground: Story = {
 // -- All Tones --
 
 export const AllTones: Story = {
-  name: "All Tones",
+  name: "Feature — All Tones",
   render: () => (
     <Flex vertical gap={16}>
       <div>
@@ -137,106 +137,79 @@ export const AllTones: Story = {
   ),
 }
 
-// -- Pill Shape --
+// -- Pill & Icons --
 
-export const PillShape: Story = {
+export const PillAndIcons: Story = {
+  name: "Feature — Pill & Icons",
   render: () => (
-    <Flex gap={8} wrap="wrap">
-      <AxTag tone="success" pill>Delivered</AxTag>
-      <AxTag tone="info" pill>In Transit</AxTag>
-      <AxTag tone="warning" pill>Low Stock</AxTag>
-      <AxTag tone="error" pill>Cancelled</AxTag>
-      <AxTag tone="neutral" pill>Pending</AxTag>
+    <Flex vertical gap={16}>
+      <div>
+        <AxText variant="body-xs" color="secondary" style={{ marginBottom: 8, display: "block" }}>pill shape</AxText>
+        <Flex gap={8} wrap="wrap">
+          <AxTag tone="success" pill>Delivered</AxTag>
+          <AxTag tone="info" pill>In Transit</AxTag>
+          <AxTag tone="warning" pill>Low Stock</AxTag>
+          <AxTag tone="error" pill>Cancelled</AxTag>
+          <AxTag tone="neutral" pill>Pending</AxTag>
+        </Flex>
+      </div>
+      <div>
+        <AxText variant="body-xs" color="secondary" style={{ marginBottom: 8, display: "block" }}>with icon</AxText>
+        <Flex gap={8} wrap="wrap">
+          <AxTag tone="success" icon={<CheckCircleOutlined />}>Delivered</AxTag>
+          <AxTag tone="info" icon={<CarOutlined />}>In Transit</AxTag>
+          <AxTag tone="info" icon={<SyncOutlined spin />}>Processing</AxTag>
+          <AxTag tone="neutral" icon={<ClockCircleOutlined />}>Pending</AxTag>
+          <AxTag tone="error" icon={<CloseCircleOutlined />}>Cancelled</AxTag>
+          <AxTag tone="warning" icon={<ExclamationCircleOutlined />}>Not Awarded</AxTag>
+        </Flex>
+      </div>
+      <div>
+        <AxText variant="body-xs" color="secondary" style={{ marginBottom: 8, display: "block" }}>without dot</AxText>
+        <Flex gap={8} wrap="wrap">
+          <AxTag tone="success" dot={false}>Completed</AxTag>
+          <AxTag tone="info" dot={false}>In Transit</AxTag>
+          <AxTag tone="error" dot={false}>Cancelled</AxTag>
+        </Flex>
+      </div>
     </Flex>
   ),
 }
 
-// -- With Icons --
+// -- Variants --
 
-export const WithIcons: Story = {
+export const Variants: Story = {
+  name: "Feature — Variants",
   render: () => (
-    <Flex gap={8} wrap="wrap">
-      <AxTag tone="success" icon={<CheckCircleOutlined />}>Delivered</AxTag>
-      <AxTag tone="info" icon={<CarOutlined />}>In Transit</AxTag>
-      <AxTag tone="info" icon={<SyncOutlined spin />}>Processing</AxTag>
-      <AxTag tone="neutral" icon={<ClockCircleOutlined />}>Pending</AxTag>
-      <AxTag tone="error" icon={<CloseCircleOutlined />}>Cancelled</AxTag>
-      <AxTag tone="warning" icon={<ExclamationCircleOutlined />}>Not Awarded</AxTag>
-    </Flex>
-  ),
-}
-
-// -- Without Dots --
-
-export const WithoutDots: Story = {
-  render: () => (
-    <Flex gap={8} wrap="wrap">
-      <AxTag tone="success" dot={false}>Completed</AxTag>
-      <AxTag tone="info" dot={false}>In Transit</AxTag>
-      <AxTag tone="error" dot={false}>Cancelled</AxTag>
-    </Flex>
-  ),
-}
-
-// -- Outlined Variant --
-
-export const OutlinedVariant: Story = {
-  render: () => (
-    <Flex gap={8} wrap="wrap">
-      <AxTag tone="success" variant="outlined">In Stock</AxTag>
-      <AxTag tone="warning" variant="outlined">Low Stock</AxTag>
-      <AxTag tone="error" variant="outlined">Out of Stock</AxTag>
-      <AxTag tone="neutral" variant="outlined">Expired</AxTag>
-    </Flex>
-  ),
-}
-
-// -- Filled Variant --
-
-export const FilledVariant: Story = {
-  args: {
-    dot: true
-  },
-
-  render: () => (
-    <Flex gap={8} wrap="wrap">
-      <AxTag tone="success" variant="filled" dot={false}>Completed</AxTag>
-      <AxTag tone="info" variant="filled" dot={false}>In Transit</AxTag>
-      <AxTag tone="error" variant="filled" dot={false}>Cancelled</AxTag>
-      <AxTag tone="neutral" variant="filled" dot={false}>Pending</AxTag>
-    </Flex>
-  )
-}
-
-// -- Pill + Icons Combined --
-
-export const PillWithIcons: Story = {
-  render: () => (
-    <Flex gap={8} wrap="wrap">
-      <AxTag pill icon={<CheckCircleOutlined />} tone="success">Approved</AxTag>
-      <AxTag pill icon={<SyncOutlined spin />} tone="info">Syncing</AxTag>
-      <AxTag pill icon={<ClockCircleOutlined />} tone="warning">Expiring Soon</AxTag>
-    </Flex>
-  ),
-}
-
-// -- Custom Colors --
-
-export const CustomColors: Story = {
-  render: () => (
-    <Flex gap={8} wrap="wrap">
-      <AxTag color="var(--primary-600)" dotColor="var(--primary-600)" dot>
-        Axmed Purple
-      </AxTag>
-      <AxTag color="var(--text-link)" dotColor="var(--text-link)" dot>
-        Axmed Blue
-      </AxTag>
-      <AxTag color="magenta" dotColor="#EB2F96" dot>
-        Magenta
-      </AxTag>
-      <AxTag color="cyan" dotColor="#13C2C2" dot>
-        Cyan
-      </AxTag>
+    <Flex vertical gap={16}>
+      <div>
+        <AxText variant="body-xs" color="secondary" style={{ marginBottom: 8, display: "block" }}>outlined</AxText>
+        <Flex gap={8} wrap="wrap">
+          <AxTag tone="success" variant="outlined">In Stock</AxTag>
+          <AxTag tone="warning" variant="outlined">Low Stock</AxTag>
+          <AxTag tone="error" variant="outlined">Out of Stock</AxTag>
+          <AxTag tone="neutral" variant="outlined">Expired</AxTag>
+        </Flex>
+      </div>
+      <div>
+        <AxText variant="body-xs" color="secondary" style={{ marginBottom: 8, display: "block" }}>filled</AxText>
+        <Flex gap={8} wrap="wrap">
+          <AxTag tone="success" variant="filled" dot={false}>Completed</AxTag>
+          <AxTag tone="info" variant="filled" dot={false}>In Transit</AxTag>
+          <AxTag tone="error" variant="filled" dot={false}>Cancelled</AxTag>
+          <AxTag tone="neutral" variant="filled" dot={false}>Pending</AxTag>
+        </Flex>
+      </div>
+      <div>
+        <AxText variant="body-xs" color="secondary" style={{ marginBottom: 8, display: "block" }}>solid fill</AxText>
+        <Flex gap={8} wrap="wrap">
+          <AxTag fill="var(--green-600)">Completed</AxTag>
+          <AxTag fill="var(--cyan-600)">In Progress</AxTag>
+          <AxTag fill="var(--red-600)">Cancelled</AxTag>
+          <AxTag fill="var(--orange-600)">Warning</AxTag>
+          <AxTag fill="var(--primary-600)">Axmed Purple</AxTag>
+        </Flex>
+      </div>
     </Flex>
   ),
 }
@@ -244,6 +217,7 @@ export const CustomColors: Story = {
 // -- Closeable --
 
 export const Closeable: Story = {
+  name: "Feature — Closeable",
   render: () => (
     <Flex gap={8} wrap="wrap">
       <AxTag closable onClose={() => {}}>Kenya</AxTag>
@@ -254,17 +228,29 @@ export const Closeable: Story = {
   ),
 }
 
-// -- Solid Fill --
+// -- Small Sizes --
 
-export const SolidFill: Story = {
-  name: "Solid Fill",
+export const SmallSizes: Story = {
+  name: "Feature — Small Sizes",
   render: () => (
-    <Flex gap={8} wrap="wrap">
-      <AxTag fill="var(--green-600)">Completed</AxTag>
-      <AxTag fill="var(--blue-600)">In Progress</AxTag>
-      <AxTag fill="var(--red-600)">Cancelled</AxTag>
-      <AxTag fill="var(--orange-600)">Warning</AxTag>
-      <AxTag fill="var(--primary-600)">Axmed Purple</AxTag>
+    <Flex vertical gap={16}>
+      <div>
+        <AxText variant="body-xs" color="secondary" style={{ marginBottom: 8, display: "block" }}>badge</AxText>
+        <Flex gap={8} wrap="wrap">
+          <AxTag small color="orange">Be first to bid!</AxTag>
+          <AxTag small tone="info">5 active</AxTag>
+          <AxTag small tone="neutral">+3</AxTag>
+          <AxTag small fill="var(--green-600)">New</AxTag>
+        </Flex>
+      </div>
+      <div>
+        <AxText variant="body-xs" color="secondary" style={{ marginBottom: 8, display: "block" }}>pill</AxText>
+        <Flex gap={8} wrap="wrap">
+          <AxTag small pill tone="warning">Closing soon</AxTag>
+          <AxTag small pill fill="var(--primary)">Featured</AxTag>
+          <AxTag small pill tone="success">Verified</AxTag>
+        </Flex>
+      </div>
     </Flex>
   ),
 }
@@ -272,15 +258,15 @@ export const SolidFill: Story = {
 // -- Category Tags --
 
 export const CategoryTags: Story = {
-  name: "Solid Fill — Categories",
+  name: "Pattern — Category Tags",
   render: () => {
     const categoryColors: Record<string, string> = {
-      Antibiotics: "var(--blue-700)",
-      Antidiabetics: "#722ED1",
+      Antibiotics: "var(--cyan-700)",
+      Antidiabetics: "var(--primary-500)",
       Analgesics: "var(--orange-600)",
-      Antimalarials: "#13C2C2",
+      Antimalarials: "var(--cyan-500)",
       Gastrointestinal: "var(--green-600)",
-      Respiratory: "#EB2F96",
+      Respiratory: "var(--magenta-500)",
     }
 
     return (
@@ -293,37 +279,10 @@ export const CategoryTags: Story = {
   },
 }
 
-// -- Small Badges --
-
-export const SmallBadges: Story = {
-  name: "Small Badges",
-  render: () => (
-    <Flex gap={8} wrap="wrap">
-      <AxTag small color="orange">Be first to bid!</AxTag>
-      <AxTag small tone="info">5 active</AxTag>
-      <AxTag small tone="neutral">+3</AxTag>
-      <AxTag small fill="var(--green-600)">New</AxTag>
-    </Flex>
-  ),
-}
-
-// -- Small Pill --
-
-export const SmallPill: Story = {
-  name: "Small Pill Badges",
-  render: () => (
-    <Flex gap={8} wrap="wrap">
-      <AxTag small pill tone="warning">Closing soon</AxTag>
-      <AxTag small pill fill="var(--primary-600)">Featured</AxTag>
-      <AxTag small pill tone="success">Verified</AxTag>
-    </Flex>
-  ),
-}
-
-// -- Real-world Usage: Order Table Row --
+// -- In Context --
 
 export const InContext: Story = {
-  name: "In Context — Order Row",
+  name: "Example — In Context",
   render: () => (
     <Flex vertical gap={16}>
       <Flex gap={16} align="center" style={{ padding: "12px 16px", background: "var(--neutral-50)", borderRadius: 8 }}>

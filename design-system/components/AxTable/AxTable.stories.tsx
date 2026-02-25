@@ -9,6 +9,7 @@ import {
   InfoCircleOutlined,
   EyeOutlined,
   EditOutlined,
+  InboxOutlined,
 } from "@ant-design/icons"
 import type { ColumnsType } from "antd/es/table"
 
@@ -18,6 +19,7 @@ import AxText from "../AxText"
 import AxButton from "../AxButton"
 import AxTag from "../AxTag"
 import type { AxTagTone } from "../AxTag"
+import AxEmptyState from "../AxEmptyState"
 
 // ---------------------------------------------------------------------------
 // Sample data — pharmaceutical domain
@@ -83,12 +85,12 @@ const statusToneMap: Record<Medication["status"], AxTagTone> = {
 }
 
 const categoryColorMap: Record<string, string> = {
-  Antibiotics: "#2F54EB",
-  Antidiabetics: "#722ED1",
-  Analgesics: "#FA8C16",
-  Antimalarials: "#13C2C2",
+  Antibiotics: "var(--cyan-700)",
+  Antidiabetics: "var(--primary-500)",
+  Analgesics: "var(--orange-600)",
+  Antimalarials: "var(--cyan-500)",
   Gastrointestinal: "var(--green-600)",
-  Respiratory: "#EB2F96",
+  Respiratory: "var(--magenta-500)",
 }
 
 const orderStatusConfig: Record<Order["status"], { tone: AxTagTone; icon: React.ReactNode }> = {
@@ -130,7 +132,7 @@ function buildRowStates(
 // Column definitions
 // ---------------------------------------------------------------------------
 
-const baseColumns: ColumnsType<Medication> = [
+const baseColumns: ColumnsType<any> = [
   {
     title: "Medication",
     dataIndex: "name",
@@ -170,10 +172,10 @@ const baseColumns: ColumnsType<Medication> = [
   },
 ]
 
-const sortableColumns: ColumnsType<Medication> = baseColumns.map((col) => {
-  if (col.key === "name") return { ...col, sorter: (a: Medication, b: Medication) => a.name.localeCompare(b.name) }
-  if (col.key === "unitPrice") return { ...col, sorter: (a: Medication, b: Medication) => a.unitPrice - b.unitPrice }
-  if (col.key === "quantity") return { ...col, sorter: (a: Medication, b: Medication) => a.quantity - b.quantity }
+const sortableColumns: ColumnsType<any> = baseColumns.map((col) => {
+  if (col.key === "name") return { ...col, sorter: (a: any, b: any) => a.name.localeCompare(b.name) }
+  if (col.key === "unitPrice") return { ...col, sorter: (a: any, b: any) => a.unitPrice - b.unitPrice }
+  if (col.key === "quantity") return { ...col, sorter: (a: any, b: any) => a.quantity - b.quantity }
   return col
 })
 
@@ -182,7 +184,7 @@ const sortableColumns: ColumnsType<Medication> = baseColumns.map((col) => {
 // ---------------------------------------------------------------------------
 
 const meta: Meta<typeof AxTable> = {
-  title: "Design System/AxTable",
+  title: "Data Display/AxTable",
   component: AxTable,
   tags: ["autodocs"],
   parameters: { layout: "padded" },
@@ -205,10 +207,27 @@ export default meta
 type Story = StoryObj<typeof AxTable>
 
 // ===========================================================================
+// PLAYGROUND
+// ===========================================================================
+
+export const Playground: Story = {
+  name: "Playground",
+  args: {
+    columns: baseColumns,
+    dataSource: sampleData,
+    pagination: { pageSize: 5, showSizeChanger: true },
+    loading: false,
+    bordered: false,
+    size: "middle",
+  },
+}
+
+// ===========================================================================
 // CORE FEATURES
 // ===========================================================================
 
 export const Basic: Story = {
+  name: "Feature — Basic",
   args: {
     columns: baseColumns,
     dataSource: sampleData,
@@ -217,6 +236,7 @@ export const Basic: Story = {
 }
 
 export const Pagination: Story = {
+  name: "Feature — Pagination",
   args: {
     columns: baseColumns,
     dataSource: sampleData,
@@ -229,6 +249,7 @@ export const Pagination: Story = {
 }
 
 export const Sorting: Story = {
+  name: "Feature — Sorting",
   args: {
     columns: sortableColumns,
     dataSource: sampleData,
@@ -237,6 +258,7 @@ export const Sorting: Story = {
 }
 
 export const ColumnFilters: Story = {
+  name: "Feature — Column Filters",
   render: () => (
     <AxTable<Medication>
       dataSource={sampleData}
@@ -251,7 +273,7 @@ export const ColumnFilters: Story = {
                 { text: "Out of Stock", value: "Out of Stock" },
                 { text: "Expired", value: "Expired" },
               ],
-              onFilter: (value: React.Key | boolean, record: Medication) => record.status === value,
+              onFilter: (value: React.Key | boolean, record: any) => record.status === value,
             }
           : col
       )}
@@ -260,12 +282,13 @@ export const ColumnFilters: Story = {
 }
 
 export const ExpandableRows: Story = {
+  name: "Feature — Expandable Rows",
   args: {
     columns: baseColumns,
     dataSource: sampleData,
     pagination: false,
     expandable: {
-      expandedRowRender: (record: Medication) => (
+      expandedRowRender: (record: any) => (
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16, padding: "16px 24px" }}>
           <div>
             <AxText as="div" variant="body-xs" color="secondary" style={{ marginBottom: 4 }}>Generic Name</AxText>
@@ -304,6 +327,7 @@ export const ExpandableRows: Story = {
 }
 
 export const HorizontalScroll: Story = {
+  name: "Feature — Horizontal Scroll",
   args: {
     dataSource: sampleData,
     pagination: false,
@@ -387,7 +411,7 @@ export const StatusWithIcons: Story = {
       {
         title: "Order",
         key: "order",
-        render: (_: unknown, record: Order) => (
+        render: (_: unknown, record: any) => (
           <div>
             <AxText as="div" variant="body-sm" weight="medium">{record.product}</AxText>
             <AxText as="div" variant="body-xs" color="secondary">{record.supplier} · {record.orderNumber}</AxText>
@@ -433,7 +457,7 @@ export const StatusWithIcons: Story = {
         width: 80,
         render: () => <AxButton variant="link" size="small" icon={<EyeOutlined />}>View</AxButton>,
       },
-    ] as ColumnsType<Order>,
+    ] as ColumnsType<any>,
   },
 }
 
@@ -447,7 +471,7 @@ export const TagsInCells: Story = {
         title: "Medication",
         dataIndex: "name",
         key: "name",
-        render: (name: string, record: Medication) => (
+        render: (name: string, record: any) => (
           <div>
             <AxText as="div" variant="body-sm" weight="medium">{name}</AxText>
             <AxText as="div" variant="body-xs" color="secondary">{record.dosage} · {record.form}</AxText>
@@ -466,7 +490,7 @@ export const TagsInCells: Story = {
           { text: "Gastrointestinal", value: "Gastrointestinal" },
           { text: "Respiratory", value: "Respiratory" },
         ],
-        onFilter: (value: React.Key | boolean, record: Medication) => record.category === value,
+        onFilter: (value: React.Key | boolean, record: any) => record.category === value,
         render: (category: string) => (
           <AxTag fill={categoryColorMap[category]} style={{ margin: 0 }}>{category}</AxTag>
         ),
@@ -510,7 +534,7 @@ export const TooltipHeaders: Story = {
         title: "Medication",
         dataIndex: "name",
         key: "name",
-        render: (name: string, record: Medication) => (
+        render: (name: string, record: any) => (
           <div>
             <AxText as="div" variant="body-sm" weight="medium">{name}</AxText>
             <AxText as="div" variant="body-xs" color="secondary">{record.dosage} · {record.form}</AxText>
@@ -573,7 +597,7 @@ export const CustomCellRenderers: Story = {
         title: "Medication",
         dataIndex: "name",
         key: "name",
-        render: (name: string, record: Medication) => (
+        render: (name: string, record: any) => (
           <Flex gap={12} align="center">
             <Badge color={categoryColorMap[record.category]} />
             <div>
@@ -586,7 +610,7 @@ export const CustomCellRenderers: Story = {
       {
         title: "Dosage & Form",
         key: "dosageForm",
-        render: (_: unknown, record: Medication) => (
+        render: (_: unknown, record: any) => (
           <AxTag>{`${record.dosage} ${record.form}`}</AxTag>
         ),
       },
@@ -610,7 +634,7 @@ export const CustomCellRenderers: Story = {
         title: "Stock Value",
         key: "stockValue",
         align: "right" as const,
-        render: (_: unknown, record: Medication) => {
+        render: (_: unknown, record: any) => {
           const value = record.unitPrice * record.quantity
           return `$${value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
         },
@@ -659,7 +683,7 @@ export const HeaderlessWidget: Story = {
     columns: [
       {
         key: "order",
-        render: (_: unknown, record: Order) => (
+        render: (_: unknown, record: any) => (
           <div>
             <AxText as="div" variant="body-sm" weight="medium">{record.product}</AxText>
             <AxText as="div" variant="body-xs" color="secondary">{record.supplier}</AxText>
@@ -669,8 +693,8 @@ export const HeaderlessWidget: Story = {
       {
         key: "status",
         width: 130,
-        render: (_: unknown, record: Order) => {
-          const config = orderStatusConfig[record.status]
+        render: (_: unknown, record: any) => {
+          const config = orderStatusConfig[record.status as Order["status"]]
           return <AxTag tone={config.tone} icon={config.icon}>{record.status}</AxTag>
         },
       },
@@ -678,13 +702,13 @@ export const HeaderlessWidget: Story = {
         key: "amount",
         width: 100,
         align: "right" as const,
-        render: (_: unknown, record: Order) => (
+        render: (_: unknown, record: any) => (
           <AxText as="span" variant="body-sm" weight="medium">
             ${record.amount.toLocaleString()}
           </AxText>
         ),
       },
-    ] as ColumnsType<Order>,
+    ] as ColumnsType<any>,
   },
 }
 
@@ -704,11 +728,32 @@ export const Loading: Story = {
 
 export const EmptyState: Story = {
   name: "State — Empty",
-  args: {
-    columns: baseColumns,
-    dataSource: [],
-    pagination: false,
-  },
+  render: () => (
+    <AxTable
+      columns={baseColumns}
+      dataSource={[]}
+      pagination={false}
+      locale={{
+        emptyText: (
+          <AxEmptyState
+            size="sm"
+            illustration={
+              <span style={{ fontSize: 32, color: "var(--neutral-300)" }}>
+                <InboxOutlined />
+              </span>
+            }
+            title="No medications found"
+            description="Try adjusting your filters or search term."
+            action={
+              <AxButton size="small" variant="secondary">
+                Clear Filters
+              </AxButton>
+            }
+          />
+        ),
+      }}
+    />
+  ),
 }
 
 // ===========================================================================
@@ -724,7 +769,7 @@ export const CombinedFeatures: Story = {
       .filter((m) => m.status === "Expired" || m.status === "Out of Stock")
       .map((m) => m.key)
 
-    const columns: ColumnsType<Medication> = [
+    const columns: ColumnsType<any> = [
       ...sortableColumns.map((col) => {
         if (col.key === "status") {
           return {
@@ -735,7 +780,7 @@ export const CombinedFeatures: Story = {
               { text: "Out of Stock", value: "Out of Stock" },
               { text: "Expired", value: "Expired" },
             ],
-            onFilter: (value: React.Key | boolean, record: Medication) => record.status === value,
+            onFilter: (value: React.Key | boolean, record: any) => record.status === value,
           }
         }
         return col

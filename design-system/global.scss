@@ -1,0 +1,38 @@
+// Pulls in all design tokens so they are bundled into dist/style.css.
+// Consumers only need: import 'axmed-design-system/style.css'
+
+@use "./tokens/typography";     // emits the :root typography token block
+@use "../styles/colors" as *;   // imports $theme-colors map
+
+// Emit color tokens as CSS custom properties
+:root {
+  @each $key, $value in $theme-colors {
+    #{$key}: $value;
+  }
+}
+
+// Base reset
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family-sans);
+}
+
+// Reset browser UA margins on heading elements so AxText renders without surprises
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}

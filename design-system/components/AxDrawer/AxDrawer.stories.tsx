@@ -20,7 +20,7 @@ import AxTag from "../AxTag"
 // ---------------------------------------------------------------------------
 
 const meta: Meta<typeof AxDrawer> = {
-  title: "Design System/AxDrawer",
+  title: "Overlays/AxDrawer",
   component: AxDrawer,
   tags: ["autodocs"],
   parameters: {

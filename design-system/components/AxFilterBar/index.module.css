@@ -5,8 +5,8 @@
   flex-wrap: wrap;
   gap: 12px;
   padding: 16px;
-  border-bottom: 1px solid var(--neutral-150);
-  font-family: "Figtree", sans-serif;
+  border-bottom: 1px solid var(--neutral-200);
+  font-family: var(--font-family-sans);
 }
 
 .searchInput {
@@ -29,7 +29,7 @@
 }
 
 .sortLabel {
-  font-size: 14px;
+  font-size: var(--font-size-14);
   color: var(--text-secondary);
 }
 
@@ -40,8 +40,8 @@
 
 .resultCount {
   padding: 10px 16px;
-  border-bottom: 1px solid var(--neutral-150);
-  font-size: 14px;
+  border-bottom: 1px solid var(--neutral-200);
+  font-size: var(--font-size-14);
   color: var(--text-secondary);
 }
 

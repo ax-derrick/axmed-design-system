@@ -5,7 +5,7 @@
 
 /* Content panel */
 .axDrawer :global(.ant-drawer-content) {
-  font-family: "Figtree", sans-serif !important;
+  font-family: var(--font-family-sans) !important;
 }
 
 /* Header — clean border, comfortable padding */
@@ -16,20 +16,21 @@
 
 /* Title block */
 .title {
-  font-family: "Figtree", sans-serif;
-  font-size: 18px;
-  font-weight: 600;
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-18);
+  font-weight: var(--font-weight-semibold);
   line-height: 1.4;
   color: var(--text-primary);
 }
 
 /* Description — muted text below the title */
 .description {
-  font-size: 14px;
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-14);
+  font-weight: var(--font-weight-regular);
   line-height: 1.5;
   color: var(--text-secondary);
   margin-top: 4px;
-  font-weight: 400;
 }
 
 /* Body */
@@ -51,8 +52,8 @@
   color: var(--neutral-600) !important;
   opacity: 0.7;
   transition:
-    opacity 0.15s ease,
-    background 0.15s ease;
+    opacity var(--duration-base) var(--ease-out),
+    background var(--duration-base) var(--ease-out);
 }
 
 .axDrawer :global(.ant-drawer-close:hover) {

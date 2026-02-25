@@ -12,6 +12,7 @@ import {
   MedicineBoxOutlined,
   DollarOutlined,
   ClockCircleOutlined,
+  InboxOutlined,
 } from "@ant-design/icons"
 
 import AxCard from "."
@@ -19,13 +20,14 @@ import AxButton from "../AxButton"
 import AxText from "../AxText"
 import AxTag from "../AxTag"
 import AxTable from "../AxTable"
+import AxEmptyState from "../AxEmptyState"
 
 // ---------------------------------------------------------------------------
 // Meta
 // ---------------------------------------------------------------------------
 
 const meta: Meta<typeof AxCard> = {
-  title: "Design System/AxCard",
+  title: "Layout/AxCard",
   component: AxCard,
   tags: ["autodocs"],
   parameters: {
@@ -107,8 +109,8 @@ export const StatCards: Story = {
         trend: "+12%",
         up: true,
         icon: <ShoppingCartOutlined />,
-        iconBg: "var(--blue-50)",
-        iconColor: "var(--blue-600)",
+        iconBg: "var(--cyan-50)",
+        iconColor: "var(--cyan-600)",
       },
       {
         label: "Active RFQs",
@@ -117,7 +119,7 @@ export const StatCards: Story = {
         up: true,
         icon: <FileTextOutlined />,
         iconBg: "var(--primary-50)",
-        iconColor: "var(--primary-600)",
+        iconColor: "var(--primary)",
       },
       {
         label: "Shipments",
@@ -202,13 +204,13 @@ export const NavigationCards: Story = {
   render: () => {
     const sections = [
       {
-        icon: <ShoppingCartOutlined style={{ fontSize: 28, color: "var(--blue-600)" }} />,
+        icon: <ShoppingCartOutlined style={{ fontSize: 28, color: "var(--cyan-600)" }} />,
         title: "Orders",
         description: "Track and manage all purchase orders",
-        bg: "var(--blue-50)",
+        bg: "var(--cyan-50)",
       },
       {
-        icon: <FileTextOutlined style={{ fontSize: 28, color: "var(--primary-600)" }} />,
+        icon: <FileTextOutlined style={{ fontSize: 28, color: "var(--primary)" }} />,
         title: "RFQs",
         description: "Create and respond to requests for quotation",
         bg: "var(--primary-50)",
@@ -286,9 +288,9 @@ export const SelectionCards: Story = {
               style={{
                 flex: 1,
                 cursor: "pointer",
-                borderColor: isSelected ? "var(--primary-600)" : undefined,
+                borderColor: isSelected ? "var(--primary)" : undefined,
                 boxShadow: isSelected
-                  ? "0 0 0 2px var(--primary-300)"
+                  ? "0 0 0 2px var(--primary-focus)"
                   : undefined,
               }}
             >
@@ -303,7 +305,7 @@ export const SelectionCards: Story = {
                     alignItems: "center",
                     justifyContent: "center",
                     fontSize: 20,
-                    color: isSelected ? "var(--primary-600)" : "var(--neutral-600)",
+                    color: isSelected ? "var(--primary)" : "var(--neutral-600)",
                     transition: "all 0.15s ease",
                   }}
                 >
@@ -326,7 +328,7 @@ export const SelectionCards: Story = {
                     position: "absolute",
                     top: 12,
                     right: 12,
-                    color: "var(--primary-600)",
+                    color: "var(--primary)",
                     fontSize: 16,
                   }}
                 />
@@ -420,10 +422,10 @@ export const EntityCardGrid: Story = {
                 alignItems: "center",
                 justifyContent: "center",
                 marginBottom: 12,
-                fontSize: 16,
-                fontWeight: 600,
-                color: "var(--primary-600)",
-                fontFamily: "Figtree, sans-serif",
+                fontSize: "var(--font-size-16)",
+                fontWeight: "var(--font-weight-semibold)",
+                color: "var(--primary)",
+                fontFamily: "var(--font-family-sans)",
               }}
             >
               {user.name.charAt(0)}
@@ -525,8 +527,8 @@ export const DashboardLayout: Story = {
         }}
       >
         {[
-          { label: "Total Orders", value: "142", icon: <ShoppingCartOutlined />, color: "var(--blue-600)", bg: "var(--blue-50)" },
-          { label: "Active RFQs", value: "38", icon: <FileTextOutlined />, color: "var(--primary-600)", bg: "var(--primary-50)" },
+          { label: "Total Orders", value: "142", icon: <ShoppingCartOutlined />, color: "var(--cyan-600)", bg: "var(--cyan-50)" },
+          { label: "Active RFQs", value: "38", icon: <FileTextOutlined />, color: "var(--primary)", bg: "var(--primary-50)" },
           { label: "Total Spend", value: "$284K", icon: <DollarOutlined />, color: "var(--green-600)", bg: "var(--green-50)" },
           { label: "Shipments", value: "24", icon: <TruckOutlined />, color: "var(--orange-600)", bg: "var(--orange-50)" },
         ].map((s) => (
@@ -615,5 +617,33 @@ export const Sizes: Story = {
         </AxCard>
       </div>
     </Flex>
+  ),
+}
+
+// ---------------------------------------------------------------------------
+// Empty state inside a card panel
+// ---------------------------------------------------------------------------
+
+export const EmptyPanel: Story = {
+  name: "Pattern — Empty Card Panel",
+  render: () => (
+    <div style={{ width: 480 }}>
+      <AxCard
+        title="Recent Orders"
+        extra={<AxButton size="small">New Order</AxButton>}
+      >
+        <AxEmptyState
+          size="md"
+          illustration={
+            <span style={{ fontSize: 48, color: "var(--neutral-300)" }}>
+              <InboxOutlined />
+            </span>
+          }
+          title="No orders yet"
+          description="Orders you create will appear here once submitted."
+          action={<AxButton>Create Order</AxButton>}
+        />
+      </AxCard>
+    </div>
   ),
 }

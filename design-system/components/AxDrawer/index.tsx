@@ -55,7 +55,8 @@ const AxDrawer: React.FC<AxDrawerProps> = ({
   placement = "right",
   ...props
 }) => {
-  const resolvedWidth = width ?? sizeWidths[size]
+  // antd v6 deprecated `width` in favour of `size` (accepts numbers too)
+  const resolvedSize = width ?? sizeWidths[size]
 
   const rootClassNames = [
     styles.axDrawer,
@@ -76,7 +77,7 @@ const AxDrawer: React.FC<AxDrawerProps> = ({
   return (
     <AntDrawer
       title={composedTitle}
-      width={resolvedWidth}
+      size={resolvedSize}
       placement={placement}
       {...props}
       rootClassName={rootClassNames}

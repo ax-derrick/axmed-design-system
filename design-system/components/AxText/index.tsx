@@ -24,7 +24,7 @@ type TextVariant = HeadingVariant | BodyVariant
 
 type TextWeight = "regular" | "medium" | "semibold"
 
-type TextColor = "primary" | "secondary" | "link" | "inherit"
+type TextColor = "primary" | "secondary" | "link" | "disabled" | "inherit"
 
 type ElementType = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "span" | "label" | "div"
 
@@ -66,8 +66,10 @@ const defaultElementMap: Record<TextVariant, ElementType> = {
   "heading-2xl": "h3",
   "heading-xl": "h4",
   "heading-lg": "h5",
-  "heading-md": "h6",
-  "heading-sm": "h6",
+  // heading-md/sm are UI labels (14px/13px semibold), not document headings.
+  // Use as="h6" when heading semantics are genuinely needed.
+  "heading-md": "p",
+  "heading-sm": "p",
   "body-xl": "p",
   "body-lg": "p",
   "body-md": "p",

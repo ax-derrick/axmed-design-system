@@ -59,7 +59,7 @@ function getRowKey<RecordType>(
 function InternalAxTable<RecordType extends AnyObject = AnyObject>(
   {
     rowStates,
-    headerBg = "#FAFAFA",
+    headerBg = "var(--neutral-50)",
     className,
     rowClassName,
     ...props

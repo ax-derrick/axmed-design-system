@@ -5,8 +5,8 @@ import type { ThemeConfig } from "antd"
 // CSS variable values are hardcoded from styles/_colors.scss to keep this lightweight.
 const theme: ThemeConfig = {
   token: {
-    colorPrimary: "#392AB0",
-    colorLink: "#008EF0",
+    colorPrimary: "#4738CC",
+    colorLink: "#0099C8",
     fontFamily: "'Figtree', sans-serif",
     fontWeightStrong: 700,
   },
@@ -17,7 +17,7 @@ const theme: ThemeConfig = {
       headerPadding: "0 24px",
     },
     Form: {
-      labelColor: "#101828",
+      labelColor: "#262626",
       labelFontSize: 14,
       itemMarginBottom: 16,
       verticalLabelPadding: 4,
@@ -29,10 +29,9 @@ const theme: ThemeConfig = {
       borderRadius: 8,
     },
     Checkbox: {
-      colorPrimary: "#008EF0",
+      colorPrimary: "#0099C8",
     },
     Modal: {
-      wireframe: true,
       borderRadiusLG: 8,
       titleFontSize: 16,
       fontWeightStrong: 700,
@@ -47,8 +46,8 @@ const theme: ThemeConfig = {
     },
     Typography: {
       fontFamily: "'Figtree', sans-serif",
-      colorTextSecondary: "#475467",
-      colorText: "#101828",
+      colorTextSecondary: "#667085",
+      colorText: "#262626",
       titleMarginBottom: 0,
       titleMarginTop: 0,
       fontSizeHeading1: 48,

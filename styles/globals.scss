@@ -3,6 +3,7 @@
 @use "paddings";
 @use "fonts";
 @use "../design-system/tokens/typography";
+@use "../design-system/tokens/motion";
 @use "./antd-components/tables";
 @use "./antd-components/modals";
 @use "./antd-components/radio";
@@ -19,12 +20,12 @@
     max-width: 100%;
 }
 html{
-    font-family: var(--font-fig-tree)!important;
+    font-family: var(--font-family-sans)!important;
     font-style:normal;
 }
 body{
     margin: 0;
-    font-family: var(--font-fig-tree)!important;
+    font-family: var(--font-family-sans)!important;
     font-style:normal;
 }
 /* Force form elements to inherit font — browsers default these to system fonts */
@@ -43,4 +44,14 @@ a{
 h1,h2,h3,h4,h5,h6{
     margin-block-start: 0!important;
     margin-bottom: 24px;
+}
+/* Focus rings — keyboard navigation (WCAG 2.4.7)
+   :focus-visible only fires for keyboard users, not mouse clicks.
+   Replaces antd's default blue outline with our brand focus token. */
+:focus-visible {
+    outline: var(--focus-ring-width) solid var(--focus-ring-color) !important;
+    outline-offset: var(--focus-ring-offset) !important;
+}
+:focus:not(:focus-visible) {
+    outline: none !important;
 }

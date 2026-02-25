@@ -1,5 +1,6 @@
 .axTable {
-  font-family: "Figtree", sans-serif;
+  font-family: var(--font-family-sans);
+  font-variant-numeric: tabular-nums;
 }
 
 /* Remove default border-radius — tables typically sit inside a parent container
@@ -24,21 +25,26 @@
   padding: 0 !important;
 }
 
+/* Smooth row state transitions — background-color only, no layout reflow */
+.axTable :global(.ant-table-tbody > tr > td) {
+  transition: background-color var(--duration-fast) var(--ease-out) !important;
+}
+
 /* Selected row: blue highlight + left accent */
 .rowSelected {
-  background-color: var(--blue-25) !important;
+  background-color: var(--cyan-50) !important;
 }
 
 .axTable :global(tr).rowSelected > td {
-  background-color: var(--blue-25) !important;
+  background-color: var(--cyan-50) !important;
 }
 
 .axTable :global(tr).rowSelected > td:first-child {
-  box-shadow: inset 3px 0 0 0 var(--blue-600);
+  box-shadow: inset 4px 0 0 0 var(--cyan-600);
 }
 
 .axTable :global(.ant-table-tbody) > :global(tr).rowSelected:hover > td {
-  background-color: var(--blue-25) !important;
+  background-color: var(--cyan-50) !important;
 }
 
 /* Disabled row: dimmed + non-interactive */

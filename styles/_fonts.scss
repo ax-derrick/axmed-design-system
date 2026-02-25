@@ -1,37 +1,37 @@
-/** Font Weights */
+/** Font Weights — mapped to Figtree variable font values */
 
 .fw-400{
-    font-weight: 400!important;
+    font-weight: var(--font-weight-regular)!important; /* 450 on variable font */
 }
 .fw-500{
-    font-weight: 500!important;
+    font-weight: var(--font-weight-medium)!important; /* 550 on variable font */
 }
 .fw-600{
-    font-weight: 600!important;
+    font-weight: var(--font-weight-semibold)!important; /* 650 on variable font */
 }
 .fw-700{
-    font-weight: 700!important;
+    font-weight: var(--font-weight-bold)!important; /* 700 */
 }
 
-/** Font Sizes */
+/** Font Sizes — rem for accessibility */
 .fs-12{
-    font-size: 12px!important;
+    font-size: var(--font-size-12)!important;
 }
 .fs-14{
-    font-size: 14px!important;
+    font-size: var(--font-size-14)!important;
 }
 .fs-16{
-    font-size: 16px!important;
+    font-size: var(--font-size-16)!important;
 }
 .fs-18{
-    font-size: 18px!important;
+    font-size: var(--font-size-18)!important;
 }
 .fs-20{
-    font-size: 20px!important;
+    font-size: var(--font-size-20)!important;
 }
 .fs-24{
-    font-size: 24px!important;
+    font-size: var(--font-size-24)!important;
 }
 .fs-36{
-    font-size: 36px!important;
+    font-size: var(--font-size-36)!important;
 }

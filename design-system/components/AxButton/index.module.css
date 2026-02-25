@@ -1,4 +1,29 @@
 .axButton {
-  font-weight: 500;
-  transition: all 0.2s ease;
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-medium);
+  /* Override antd's default cubic-bezier(0.645, 0.045, 0.355, 1) ease-in-out.
+     Our spring curve (0.16,1,0.3,1) starts fast and decelerates — feels instantly
+     responsive rather than laggy on hover entry. */
+  transition:
+    color var(--duration-base) var(--ease-out),
+    background-color var(--duration-base) var(--ease-out),
+    border-color var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out),
+    opacity var(--duration-base) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out),
+    filter var(--duration-fast) var(--ease-out) !important;
+}
+
+/* Kill antd's box-shadow focus ring — our global :focus-visible outline replaces it */
+.axButton:focus-visible {
+  box-shadow: none !important;
+}
+
+/* Pressed state — physical click feedback.
+   scale() + brightness() are GPU-composited: no layout, no paint.
+   Works across all 6 variants without per-variant color overrides.
+   transition-duration: fast so press snaps in, ease-out so release springs back. */
+.axButton:active:not([disabled]) {
+  transform: scale(0.97) !important;
+  filter: brightness(0.9) !important;
 }
