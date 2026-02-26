@@ -1,0 +1,71 @@
+/* ---------------------------------------------------------------------------
+   AxSteps — progress/timeline indicator.
+   Overrides antd Steps to match design system tokens.
+   --------------------------------------------------------------------------- */
+
+/* ---- Root ---- */
+.axSteps {
+  font-family: var(--font-family-sans);
+}
+
+/* ---- Step title typography ---- */
+.axSteps :global(.ant-steps-item-title) {
+  font-family: var(--font-family-sans) !important;
+  font-weight: var(--font-weight-medium) !important;
+  font-size: var(--font-size-14) !important;
+  color: var(--text-primary) !important;
+}
+
+.sm :global(.ant-steps-item-title) {
+  font-size: var(--font-size-13) !important;
+}
+
+/* ---- Active step ---- */
+.axSteps :global(.ant-steps-item-process .ant-steps-item-title) {
+  font-weight: var(--font-weight-semibold) !important;
+  color: var(--primary) !important;
+}
+
+.axSteps :global(.ant-steps-item-process .ant-steps-item-icon) {
+  background: var(--primary) !important;
+  border-color: var(--primary) !important;
+}
+
+/* ---- Completed step ---- */
+.axSteps :global(.ant-steps-item-finish .ant-steps-item-icon) {
+  border-color: var(--primary) !important;
+}
+
+.axSteps :global(.ant-steps-item-finish .ant-steps-icon) {
+  color: var(--primary) !important;
+}
+
+/* Completed connector tail */
+.axSteps :global(.ant-steps-item-finish > .ant-steps-item-container > .ant-steps-item-tail::after) {
+  background: var(--primary) !important;
+}
+
+/* ---- Waiting step ---- */
+.axSteps :global(.ant-steps-item-wait .ant-steps-item-title) {
+  color: var(--text-secondary) !important;
+}
+
+.axSteps :global(.ant-steps-item-wait .ant-steps-item-icon) {
+  border-color: var(--neutral-300) !important;
+}
+
+.axSteps :global(.ant-steps-item-wait .ant-steps-icon) {
+  color: var(--text-secondary) !important;
+}
+
+/* ---- Description text ---- */
+.axSteps :global(.ant-steps-item-description) {
+  font-family: var(--font-family-sans) !important;
+  font-size: var(--font-size-12) !important;
+  color: var(--text-secondary) !important;
+}
+
+/* ---- Vertical orientation — tighter spacing ---- */
+.axSteps:global(.ant-steps-vertical) :global(.ant-steps-item) {
+  padding-bottom: var(--space-3);
+}

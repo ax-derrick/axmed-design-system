@@ -96,14 +96,14 @@
 /* ---- Mobile ---- */
 @media (max-width: 575.98px) {
   .axDrawer :global(.ant-drawer-header) {
-    padding: 20px 20px 12px !important;
+    padding: var(--space-5) var(--space-5) var(--space-3) !important;
   }
 
   .axDrawer :global(.ant-drawer-body) {
-    padding: 4px 20px 20px !important;
+    padding: var(--space-1) var(--space-5) var(--space-5) !important;
   }
 
   .axDrawer :global(.ant-drawer-footer) {
-    padding: 16px 20px !important;
+    padding: var(--space-4) var(--space-5) !important;
   }
 }

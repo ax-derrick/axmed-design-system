@@ -12,41 +12,45 @@
    Headings
    --------------------------------------------------------------------------- */
 
+/* Fluid headings — clamp(mobile-min, preferred, desktop-max)
+   Scales smoothly between 375px and 1280px viewport.
+   Unitless line-height keeps vertical rhythm proportional. */
+
 .heading-4xl {
-  font-size: var(--font-size-48);
-  line-height: var(--font-line-height-52);
+  font-size: clamp(2rem, 1.5rem + 1.67vw, var(--font-size-48));       /* 32→48px */
+  line-height: 1.1;
   font-weight: var(--font-weight-bold);
   letter-spacing: var(--font-letter-spacing-xs);
   text-wrap: balance;
 }
 
 .heading-3xl {
-  font-size: var(--font-size-36);
-  line-height: var(--font-line-height-48);
+  font-size: clamp(1.625rem, 1.25rem + 1.25vw, var(--font-size-36));  /* 26→36px */
+  line-height: 1.33;
   font-weight: var(--font-weight-bold);
   letter-spacing: var(--font-letter-spacing-xs);
   text-wrap: balance;
 }
 
 .heading-2xl {
-  font-size: var(--font-size-30);
-  line-height: var(--font-line-height-40);
+  font-size: clamp(1.375rem, 1.1rem + 0.89vw, var(--font-size-30));   /* 22→30px */
+  line-height: 1.33;
   font-weight: var(--font-weight-bold);
   letter-spacing: var(--font-letter-spacing-sm);
   text-wrap: balance;
 }
 
 .heading-xl {
-  font-size: var(--font-size-24);
-  line-height: var(--font-line-height-32);
+  font-size: clamp(1.25rem, 1.1rem + 0.5vw, var(--font-size-24));     /* 20→24px */
+  line-height: 1.33;
   font-weight: var(--font-weight-bold);
   letter-spacing: var(--font-letter-spacing-md);
   text-wrap: balance;
 }
 
 .heading-lg {
-  font-size: var(--font-size-20);
-  line-height: var(--font-line-height-24);
+  font-size: clamp(1.125rem, 1.05rem + 0.25vw, var(--font-size-20));  /* 18→20px */
+  line-height: 1.2;
   font-weight: var(--font-weight-semibold);
   letter-spacing: var(--font-letter-spacing-md);
   text-wrap: balance;

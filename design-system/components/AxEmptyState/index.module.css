@@ -10,17 +10,17 @@
 
 /* Size — sm: inside tables and compact cards */
 .sm {
-  padding: 24px 16px;
+  padding: var(--space-6) var(--space-4);
 }
 
 /* Size — md: card panels and drawer bodies */
 .md {
-  padding: 48px 24px;
+  padding: var(--space-12) var(--space-6);
 }
 
 /* Size — lg: full-page zero-states */
 .lg {
-  padding: 80px 32px;
+  padding: var(--space-20) var(--space-8);
 }
 
 /* Illustration wrapper — removes inline-block baseline gap under SVGs */
@@ -31,5 +31,5 @@
 
 /* Extra top margin on the action slot */
 .action {
-  margin-top: 4px;
+  margin-top: var(--space-1);
 }

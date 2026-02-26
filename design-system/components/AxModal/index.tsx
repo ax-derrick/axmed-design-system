@@ -4,6 +4,7 @@ import React from "react"
 import { Modal as AntModal } from "antd"
 import type { ModalProps as AntModalProps } from "antd"
 
+import AxButton from "../AxButton"
 import styles from "./index.module.css"
 
 // ---------------------------------------------------------------------------
@@ -49,10 +50,18 @@ const AxModal: React.FC<AxModalProps> = ({
   size = "md",
   width,
   title,
+  footer,
   rootClassName,
   children,
   centered = true,
   loading,
+  okText = "OK",
+  cancelText = "Cancel",
+  okButtonProps,
+  cancelButtonProps,
+  confirmLoading,
+  onOk,
+  onCancel,
   ...props
 }) => {
   const descId = React.useId()
@@ -76,13 +85,42 @@ const AxModal: React.FC<AxModalProps> = ({
     </div>
   )
 
+  // Build footer with AxButton instead of antd's default Button.
+  // When footer is explicitly null, no footer is rendered.
+  // When footer is a ReactNode, it's used as-is (consumer controls the buttons).
+  // Otherwise we render AxButton-based OK/Cancel matching the standard API.
+  const resolvedFooter =
+    footer !== undefined
+      ? footer
+      : (
+          <>
+            <AxButton
+              variant="secondary"
+              onClick={onCancel as React.MouseEventHandler<HTMLButtonElement>}
+              {...(cancelButtonProps as Omit<typeof cancelButtonProps, "type" | "danger" | "ghost" | "variant">)}
+            >
+              {cancelText}
+            </AxButton>
+            <AxButton
+              variant={danger ? "danger" : "primary"}
+              loading={confirmLoading}
+              onClick={onOk as React.MouseEventHandler<HTMLButtonElement>}
+              {...(okButtonProps as Omit<typeof okButtonProps, "type" | "danger" | "ghost" | "variant">)}
+            >
+              {okText}
+            </AxButton>
+          </>
+        )
+
   return (
     <AntModal
       title={composedTitle}
       width={resolvedWidth}
       centered={centered}
       loading={loading}
+      footer={resolvedFooter}
       aria-describedby={description ? descId : undefined}
+      onCancel={onCancel}
       {...props}
       rootClassName={rootClassNames}
     >

@@ -3,8 +3,8 @@
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: 12px;
-  padding: 16px;
+  gap: var(--space-3);
+  padding: var(--space-4);
   border-bottom: 1px solid var(--neutral-200);
   font-family: var(--font-family-sans);
 }
@@ -18,13 +18,13 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: var(--space-3);
 }
 
 .sortContainer {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-2);
   white-space: nowrap;
 }
 
@@ -39,7 +39,7 @@
 }
 
 .resultCount {
-  padding: 10px 16px;
+  padding: 10px var(--space-4);
   border-bottom: 1px solid var(--neutral-200);
   font-size: var(--font-size-14);
   font-variant-numeric: tabular-nums;

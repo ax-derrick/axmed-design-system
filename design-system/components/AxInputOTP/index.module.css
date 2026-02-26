@@ -9,7 +9,7 @@
 .wrapper {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--space-1);
 }
 
 /* Field label */
@@ -54,7 +54,7 @@
 
 /* Root container */
 .axInputOTP :global(.ant-otp) {
-  gap: 8px;
+  gap: var(--space-2);
 }
 
 /* Each slot */

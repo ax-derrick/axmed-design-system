@@ -1,0 +1,21 @@
+/* ---------------------------------------------------------------------------
+   AxBadge — notification count / dot overlay.
+   Thin wrapper around antd Badge with design token colors.
+   --------------------------------------------------------------------------- */
+
+.axBadge {
+  font-family: var(--font-family-sans);
+}
+
+/* Badge count number — tabular-nums for consistent digit width */
+.axBadge :global(.ant-badge-count) {
+  font-family: var(--font-family-sans) !important;
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--font-weight-medium);
+  box-shadow: 0 0 0 2px var(--neutral-0) !important;
+}
+
+/* Dot — white halo so it pops against any background */
+.axBadge :global(.ant-badge-dot) {
+  box-shadow: 0 0 0 2px var(--neutral-0) !important;
+}

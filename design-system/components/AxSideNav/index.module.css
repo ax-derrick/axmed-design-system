@@ -29,8 +29,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
-  padding: 14px 16px;
+  gap: var(--space-2);
+  padding: 14px var(--space-4);
   border-bottom: 1px solid var(--neutral-200);
   overflow: hidden;
 }
@@ -89,7 +89,7 @@
 /* Center the button when sidebar is collapsed */
 .collapsed .logoArea {
   justify-content: center;
-  padding: 12px 8px;
+  padding: var(--space-3) var(--space-2);
   gap: 0;
 }
 
@@ -106,7 +106,7 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: var(--space-0-5);
 
   /* Hide scrollbar until hover */
   scrollbar-width: thin;
@@ -120,10 +120,10 @@
 .navItem {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--space-3);
   width: 100%;
   min-height: 40px;
-  padding: 8px 12px;
+  padding: var(--space-2) var(--space-3);
   border: none;
   border-radius: var(--radius-md);
   cursor: pointer;
@@ -209,7 +209,7 @@
 .divider {
   height: 1px;
   background: var(--neutral-200);
-  margin: 6px 4px;
+  margin: var(--space-1-5) var(--space-1);
   border: none;
 }
 
@@ -219,7 +219,7 @@
 
 .userArea {
   flex-shrink: 0;
-  padding: 12px;
+  padding: var(--space-3);
   border-top: 1px solid var(--neutral-200);
   overflow: hidden;
 }
@@ -237,7 +237,7 @@
 .collapsed .userArea {
   display: flex;
   justify-content: center;
-  padding: 12px 8px;
+  padding: var(--space-3) var(--space-2);
 }
 
 /* ---------------------------------------------------------------------------
@@ -245,7 +245,7 @@
    --------------------------------------------------------------------------- */
 
 .sectionLabel {
-  padding: 12px 12px 4px;
+  padding: var(--space-3) var(--space-3) var(--space-1);
   font-family: var(--font-family-sans);
   font-size: var(--font-size-12);
   font-weight: var(--font-weight-medium);
@@ -318,13 +318,13 @@
   margin: 0 0 0 21px;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: var(--space-0-5);
 
   /* Left border line — aligns with icon center column (12px pad + 9px = 21px) */
   border-left: 2px solid var(--neutral-200);
 
   /* Gap between border and child item backgrounds — items must NOT touch the line */
-  padding: 2px 0 4px 6px;
+  padding: var(--space-0-5) 0 var(--space-1) var(--space-1-5);
 }
 
 /* ---------------------------------------------------------------------------
@@ -379,7 +379,7 @@
 
 .flyout {
   min-width: 160px;
-  padding: 4px;
+  padding: var(--space-1);
 }
 
 .flyoutTitle {
@@ -397,7 +397,7 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: var(--space-0-5);
 }
 
 .flyoutItem {
