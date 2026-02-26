@@ -1,9 +1,11 @@
 "use client"
 
 import React, { useState } from "react"
-import { Tooltip, Popover } from "antd"
-import { MenuFoldOutlined, MenuUnfoldOutlined, RightOutlined } from "@ant-design/icons"
+import { Tooltip, Popover, Dropdown } from "antd"
+import type { MenuProps } from "antd"
+import { MenuFoldOutlined, MenuUnfoldOutlined, RightOutlined, EllipsisOutlined } from "@ant-design/icons"
 
+import type { ActionItem, ActionDivider } from "../AxActionMenu"
 import styles from "./index.module.css"
 
 // ---------------------------------------------------------------------------
@@ -85,9 +87,45 @@ export type AxSideNavProps = {
    */
   collapsedWidth?: number
 
+  /**
+   * Hide the built-in collapse toggle button in the logo area.
+   * Use when AxHeader provides the toggle instead.
+   * @default false
+   */
+  hideCollapseButton?: boolean
+
+  /**
+   * Profile action menu items shown when clicking the user area.
+   * When provided, wraps the `user` slot with a dropdown menu
+   * (e.g. My Account, Settings, Log Out).
+   */
+  userActions?: (ActionItem | ActionDivider)[]
+
   className?: string
   style?: React.CSSProperties
 }
+
+// ---------------------------------------------------------------------------
+// Internal: convert ActionItem[] → antd MenuProps["items"]
+// ---------------------------------------------------------------------------
+
+const toMenuItems = (
+  actions: (ActionItem | ActionDivider)[],
+): MenuProps["items"] =>
+  actions.map((item, i) => {
+    if ("type" in item && item.type === "divider") {
+      return { type: "divider" as const, key: `divider-${i}` }
+    }
+    const action = item as ActionItem
+    return {
+      key: action.key,
+      label: action.label,
+      icon: action.icon,
+      danger: action.danger,
+      disabled: action.disabled,
+      onClick: action.onClick,
+    }
+  })
 
 // ---------------------------------------------------------------------------
 // Internal: Flyout content for a collapsed NavGroup
@@ -250,6 +288,8 @@ const AxSideNav: React.FC<AxSideNavProps> = ({
   user,
   width = 240,
   collapsedWidth = 64,
+  hideCollapseButton = false,
+  userActions,
   className,
   style,
 }) => {
@@ -258,7 +298,8 @@ const AxSideNav: React.FC<AxSideNavProps> = ({
     .filter(Boolean)
     .join(" ")
 
-  const showLogoArea = logo || onCollapse
+  const showCollapseBtn = onCollapse && !hideCollapseButton
+  const showLogoArea = logo || showCollapseBtn
 
   return (
     <nav
@@ -269,8 +310,19 @@ const AxSideNav: React.FC<AxSideNavProps> = ({
       {/* Logo area — includes collapse toggle button */}
       {showLogoArea && (
         <div className={styles.logoArea}>
-          {logo && <div className={styles.logoContent}>{logo}</div>}
-          {onCollapse && (
+          {logo && (
+            <div
+              className={[
+                styles.logoContent,
+                hideCollapseButton ? styles.logoContentVisible : "",
+              ]
+                .filter(Boolean)
+                .join(" ")}
+            >
+              {logo}
+            </div>
+          )}
+          {showCollapseBtn && (
             <button
               className={styles.collapseBtn}
               onClick={() => onCollapse(!collapsed)}
@@ -353,7 +405,29 @@ const AxSideNav: React.FC<AxSideNavProps> = ({
       </ul>
 
       {/* User profile slot */}
-      {user && <div className={styles.userArea}>{user}</div>}
+      {user && (
+        <div className={styles.userArea}>
+          {userActions && userActions.length > 0 ? (
+            <Dropdown
+              menu={{ items: toMenuItems(userActions) }}
+              trigger={["click"]}
+              placement="topRight"
+              overlayClassName={styles.userMenu}
+            >
+              <div className={styles.userTrigger}>
+                <div className={styles.userTriggerContent}>{user}</div>
+                {!collapsed && (
+                  <span className={styles.userTriggerIcon}>
+                    <EllipsisOutlined />
+                  </span>
+                )}
+              </div>
+            </Dropdown>
+          ) : (
+            user
+          )}
+        </div>
+      )}
     </nav>
   )
 }

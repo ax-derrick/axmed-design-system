@@ -23,6 +23,17 @@ export type AxStatCardProps = {
   icon?: React.ReactNode
 
   /**
+   * Background color for the icon container.
+   * Pass a CSS variable or hex value — icon color auto-contrasts.
+   * Default: var(--primary-100) bg with var(--primary-600) icon color.
+   * Example: iconColor="var(--cyan-100)" or iconColor="#E8F5E9"
+   */
+  iconColor?: {
+    bg: string
+    fg: string
+  }
+
+  /**
    * Trend indicator — e.g. { value: 12, label: "vs last month" }
    * Positive values show green arrow up, negative show red arrow down, zero is neutral.
    */
@@ -64,7 +75,10 @@ const TrendArrow: React.FC<{ direction: "up" | "down" }> = ({ direction }) => (
     height="12"
     viewBox="0 0 12 12"
     fill="none"
-    style={{ transform: direction === "down" ? "rotate(180deg)" : undefined }}
+    style={{
+      transform: direction === "down" ? "rotate(180deg)" : undefined,
+      transition: "transform var(--duration-base) var(--ease-spring)",
+    }}
     aria-hidden="true"
   >
     <path d="M6 2.5L10 7.5H2L6 2.5Z" fill="currentColor" />
@@ -79,6 +93,7 @@ const AxStatCard: React.FC<AxStatCardProps> = ({
   title,
   value,
   icon,
+  iconColor,
   trend,
   action,
   loading = false,
@@ -96,7 +111,7 @@ const AxStatCard: React.FC<AxStatCardProps> = ({
 
   if (loading) {
     return (
-      <div className={rootCls} style={style}>
+      <div className={rootCls} style={style} aria-busy="true">
         <div className={styles.layout}>
           {icon && (
             <div className={styles.iconContainer}>
@@ -132,7 +147,11 @@ const AxStatCard: React.FC<AxStatCardProps> = ({
     <div className={rootCls} style={style}>
       <div className={styles.layout}>
         {icon && (
-          <div className={styles.iconContainer} aria-hidden="true">
+          <div
+            className={styles.iconContainer}
+            aria-hidden="true"
+            style={iconColor ? { background: iconColor.bg, color: iconColor.fg } : undefined}
+          >
             {icon}
           </div>
         )}

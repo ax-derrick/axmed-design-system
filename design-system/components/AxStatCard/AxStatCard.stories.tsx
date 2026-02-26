@@ -33,6 +33,22 @@ const meta: Meta<typeof AxStatCard> = {
       control: "text",
       description: "Metric value",
     },
+    icon: {
+      control: false,
+      description: "Icon displayed in the tinted container",
+    },
+    iconColor: {
+      control: "object",
+      description: "Icon container colors: { bg, fg }",
+    },
+    trend: {
+      control: "object",
+      description: "Trend indicator: { value: number, label?: string }",
+    },
+    action: {
+      control: false,
+      description: "Floating action button: { icon, onClick, label }",
+    },
     loading: {
       control: "boolean",
       description: "Show skeleton loader",
@@ -94,23 +110,27 @@ export const DashboardKPIs: Story = {
         title="Available RFQs to bid"
         value="142"
         icon={<ShoppingOutlined />}
+        iconColor={{ bg: "var(--primary-100)", fg: "var(--primary-600)" }}
         trend={{ value: 12, label: "vs last month" }}
       />
       <AxStatCard
         title="Matching RFQs"
         value="38"
         icon={<FileSearchOutlined />}
+        iconColor={{ bg: "var(--cyan-100)", fg: "var(--cyan-700)" }}
         trend={{ value: -5, label: "vs last month" }}
       />
       <AxStatCard
         title="Non-matching RFQs"
         value="104"
         icon={<InboxOutlined />}
+        iconColor={{ bg: "var(--orange-100)", fg: "var(--orange-600)" }}
       />
       <AxStatCard
         title="Total SKUs in Portfolio"
         value="1,247"
         icon={<AppstoreOutlined />}
+        iconColor={{ bg: "var(--green-100)", fg: "var(--green-700)" }}
         action={{
           icon: <PlusOutlined />,
           onClick: () => console.log("Add SKU"),
@@ -142,23 +162,27 @@ export const BuyerMetrics: Story = {
         title="Active Orders"
         value="24"
         icon={<CheckCircleOutlined />}
+        iconColor={{ bg: "var(--green-100)", fg: "var(--green-700)" }}
         trend={{ value: 8, label: "this week" }}
       />
       <AxStatCard
         title="Pending Quotes"
         value="7"
         icon={<ClockCircleOutlined />}
+        iconColor={{ bg: "var(--orange-100)", fg: "var(--orange-600)" }}
       />
       <AxStatCard
         title="Catalogue Items"
         value="3,891"
         icon={<AppstoreOutlined />}
+        iconColor={{ bg: "var(--cyan-100)", fg: "var(--cyan-700)" }}
         trend={{ value: 0, label: "no change" }}
       />
       <AxStatCard
         title="Total Spend"
         value="$284,500"
         icon={<DollarOutlined />}
+        iconColor={{ bg: "var(--primary-100)", fg: "var(--primary-600)" }}
         trend={{ value: 15, label: "vs last quarter" }}
       />
     </div>

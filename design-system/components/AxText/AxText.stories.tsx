@@ -81,37 +81,37 @@ const sampleParagraphShort =
 // =============================================================================
 
 export const Heading4xl: Story = {
-  name: "heading-4xl",
+  name: "Size — heading-4xl",
   args: { variant: "heading-4xl", children: sampleHeading },
 }
 
 export const Heading3xl: Story = {
-  name: "heading-3xl",
+  name: "Size — heading-3xl",
   args: { variant: "heading-3xl", children: sampleHeading },
 }
 
 export const Heading2xl: Story = {
-  name: "heading-2xl",
+  name: "Size — heading-2xl",
   args: { variant: "heading-2xl", children: sampleHeading },
 }
 
 export const HeadingXl: Story = {
-  name: "heading-xl",
+  name: "Size — heading-xl",
   args: { variant: "heading-xl", children: sampleHeading },
 }
 
 export const HeadingLg: Story = {
-  name: "heading-lg",
+  name: "Size — heading-lg",
   args: { variant: "heading-lg", children: sampleHeading },
 }
 
 export const HeadingMd: Story = {
-  name: "heading-md",
+  name: "Size — heading-md",
   args: { variant: "heading-md", children: sampleHeading },
 }
 
 export const HeadingSm: Story = {
-  name: "heading-sm",
+  name: "Size — heading-sm",
   args: { variant: "heading-sm", children: sampleHeading },
 }
 
@@ -120,7 +120,7 @@ export const HeadingSm: Story = {
 // =============================================================================
 
 export const AllHeadings: Story = {
-  name: "All Headings",
+  name: "Feature — All Headings",
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <AxText variant="heading-4xl">{sampleHeading}</AxText>
@@ -139,22 +139,22 @@ export const AllHeadings: Story = {
 // =============================================================================
 
 export const BodyXlRegular: Story = {
-  name: "body-xl / regular",
+  name: "Size — body-xl / regular",
   args: { variant: "body-xl", weight: "regular", children: sampleParagraph },
 }
 
 export const BodyXlMedium: Story = {
-  name: "body-xl / medium",
+  name: "Size — body-xl / medium",
   args: { variant: "body-xl", weight: "medium", children: sampleParagraph },
 }
 
 export const BodyXlSemibold: Story = {
-  name: "body-xl / semibold",
+  name: "Size — body-xl / semibold",
   args: { variant: "body-xl", weight: "semibold", children: sampleParagraph },
 }
 
 export const BodyXlUnderline: Story = {
-  name: "body-xl / underline",
+  name: "Size — body-xl / underline",
   args: {
     variant: "body-xl",
     weight: "regular",
@@ -168,22 +168,22 @@ export const BodyXlUnderline: Story = {
 // =============================================================================
 
 export const BodyLgRegular: Story = {
-  name: "body-lg / regular",
+  name: "Size — body-lg / regular",
   args: { variant: "body-lg", weight: "regular", children: sampleParagraph },
 }
 
 export const BodyLgMedium: Story = {
-  name: "body-lg / medium",
+  name: "Size — body-lg / medium",
   args: { variant: "body-lg", weight: "medium", children: sampleParagraph },
 }
 
 export const BodyLgSemibold: Story = {
-  name: "body-lg / semibold",
+  name: "Size — body-lg / semibold",
   args: { variant: "body-lg", weight: "semibold", children: sampleParagraph },
 }
 
 export const BodyLgUnderline: Story = {
-  name: "body-lg / underline",
+  name: "Size — body-lg / underline",
   args: {
     variant: "body-lg",
     weight: "regular",
@@ -197,22 +197,22 @@ export const BodyLgUnderline: Story = {
 // =============================================================================
 
 export const BodyMdRegular: Story = {
-  name: "body-md / regular",
+  name: "Size — body-md / regular",
   args: { variant: "body-md", weight: "regular", children: sampleParagraph },
 }
 
 export const BodyMdMedium: Story = {
-  name: "body-md / medium",
+  name: "Size — body-md / medium",
   args: { variant: "body-md", weight: "medium", children: sampleParagraph },
 }
 
 export const BodyMdSemibold: Story = {
-  name: "body-md / semibold",
+  name: "Size — body-md / semibold",
   args: { variant: "body-md", weight: "semibold", children: sampleParagraph },
 }
 
 export const BodyMdUnderline: Story = {
-  name: "body-md / underline",
+  name: "Size — body-md / underline",
   args: {
     variant: "body-md",
     weight: "regular",
@@ -222,7 +222,7 @@ export const BodyMdUnderline: Story = {
 }
 
 export const BodyMdMono: Story = {
-  name: "body-md / mono",
+  name: "Size — body-md / mono",
   args: {
     variant: "body-md",
     weight: "regular",
@@ -236,22 +236,22 @@ export const BodyMdMono: Story = {
 // =============================================================================
 
 export const BodySmRegular: Story = {
-  name: "body-sm / regular",
+  name: "Size — body-sm / regular",
   args: { variant: "body-sm", weight: "regular", children: sampleParagraph },
 }
 
 export const BodySmMedium: Story = {
-  name: "body-sm / medium",
+  name: "Size — body-sm / medium",
   args: { variant: "body-sm", weight: "medium", children: sampleParagraph },
 }
 
 export const BodySmSemibold: Story = {
-  name: "body-sm / semibold",
+  name: "Size — body-sm / semibold",
   args: { variant: "body-sm", weight: "semibold", children: sampleParagraph },
 }
 
 export const BodySmUnderline: Story = {
-  name: "body-sm / underline",
+  name: "Size — body-sm / underline",
   args: {
     variant: "body-sm",
     weight: "regular",
@@ -265,12 +265,12 @@ export const BodySmUnderline: Story = {
 // =============================================================================
 
 export const BodyXsRegular: Story = {
-  name: "body-xs / regular",
+  name: "Size — body-xs / regular",
   args: { variant: "body-xs", weight: "regular", children: sampleParagraph },
 }
 
 export const BodyXsSemibold: Story = {
-  name: "body-xs / semibold",
+  name: "Size — body-xs / semibold",
   args: { variant: "body-xs", weight: "semibold", children: sampleParagraph },
 }
 
@@ -279,7 +279,7 @@ export const BodyXsSemibold: Story = {
 // =============================================================================
 
 export const AllBodySizes: Story = {
-  name: "All Body Sizes",
+  name: "Feature — All Body Sizes",
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: 16, maxWidth: 600 }}>
       {(["body-xl", "body-lg", "body-md", "body-sm", "body-xs"] as const).map((variant) => (
@@ -301,7 +301,7 @@ export const AllBodySizes: Story = {
 // =============================================================================
 
 export const Colors: Story = {
-  name: "Colors",
+  name: "Feature — Colors",
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
       <AxText variant="body-lg" color="primary">primary — #262626</AxText>
@@ -373,7 +373,7 @@ export const OverflowProtection: Story = {
 // =============================================================================
 
 export const MonoText: Story = {
-  name: "Mono (Fira Code)",
+  name: "Feature — Mono",
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
       <AxText variant="body-md" mono>
@@ -395,7 +395,7 @@ export const MonoText: Story = {
 // =============================================================================
 
 export const EllipsisSingleLine: Story = {
-  name: "Ellipsis / Single Line",
+  name: "Pattern — Ellipsis (Single Line)",
   render: () => (
     <div style={{ maxWidth: 200 }}>
       <AxText variant="body-lg" ellipsis>
@@ -407,7 +407,7 @@ export const EllipsisSingleLine: Story = {
 }
 
 export const EllipsisMultiLine: Story = {
-  name: "Ellipsis / Multi Line (2 rows)",
+  name: "Pattern — Ellipsis (Multi Line)",
   render: () => (
     <div style={{ maxWidth: 300 }}>
       <AxText variant="body-lg" ellipsis={{ rows: 2 }}>
@@ -420,7 +420,7 @@ export const EllipsisMultiLine: Story = {
 }
 
 export const EllipsisWithTooltip: Story = {
-  name: "Ellipsis / With Tooltip",
+  name: "Pattern — Ellipsis (With Tooltip)",
   render: () => (
     <div style={{ maxWidth: 200 }}>
       <AxText
@@ -438,7 +438,7 @@ export const EllipsisWithTooltip: Story = {
 // =============================================================================
 
 export const FigmaReferenceSheet: Story = {
-  name: "Figma Reference Sheet",
+  name: "Template — Figma Reference Sheet",
   parameters: { layout: "padded" },
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: 32, maxWidth: 800 }}>

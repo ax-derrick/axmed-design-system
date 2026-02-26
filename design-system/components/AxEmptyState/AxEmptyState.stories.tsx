@@ -266,7 +266,7 @@ export const FullPage: Story = {
 // ---------------------------------------------------------------------------
 
 export const TextOnly: Story = {
-  name: "Variant — Text Only",
+  name: "Feature — Text Only",
   render: () => (
     <div style={{ maxWidth: 480 }}>
       <AxEmptyState

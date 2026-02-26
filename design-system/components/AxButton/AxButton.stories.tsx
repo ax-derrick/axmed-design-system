@@ -58,7 +58,7 @@ export const Playground: Story = {
 // -- Variants --
 
 export const Primary: Story = {
-  name: "Variant — Primary",
+  name: "Feature — Primary",
   args: {
     variant: "primary",
     children: "Primary Button",
@@ -66,7 +66,7 @@ export const Primary: Story = {
 }
 
 export const Secondary: Story = {
-  name: "Variant — Secondary",
+  name: "Feature — Secondary",
   args: {
     variant: "secondary",
     children: "Secondary Button",
@@ -74,7 +74,7 @@ export const Secondary: Story = {
 }
 
 export const Ghost: Story = {
-  name: "Variant — Ghost",
+  name: "Feature — Ghost",
   args: {
     variant: "ghost",
     children: "Ghost Button",
@@ -82,7 +82,7 @@ export const Ghost: Story = {
 }
 
 export const Danger: Story = {
-  name: "Variant — Danger",
+  name: "Feature — Danger",
   args: {
     variant: "danger",
     children: "Danger Button",
@@ -90,7 +90,7 @@ export const Danger: Story = {
 }
 
 export const Link: Story = {
-  name: "Variant — Link",
+  name: "Feature — Link",
   args: {
     variant: "link",
     children: "Link Button",
@@ -98,7 +98,7 @@ export const Link: Story = {
 }
 
 export const Text: Story = {
-  name: "Variant — Text",
+  name: "Feature — Text",
   args: {
     variant: "text",
     children: "Text Button",

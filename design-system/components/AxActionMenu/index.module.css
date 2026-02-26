@@ -1,0 +1,72 @@
+/* ---------------------------------------------------------------------------
+   AxActionMenu — dropdown action menu overlay.
+   Styled via overlayClassName since antd renders menus in a portal.
+   --------------------------------------------------------------------------- */
+
+/* ---- Menu container ---- */
+.axActionMenu :global(.ant-dropdown-menu) {
+  font-family: var(--font-family-sans) !important;
+  border-radius: var(--radius-md) !important;
+  padding: var(--space-1) !important;
+  box-shadow: var(--shadow-lg) !important;
+  border: 1px solid var(--neutral-200) !important;
+}
+
+/* ---- Menu items ---- */
+.axActionMenu :global(.ant-dropdown-menu-item) {
+  font-family: var(--font-family-sans) !important;
+  font-size: var(--font-size-14) !important;
+  font-weight: var(--font-weight-regular) !important;
+  border-radius: var(--radius-sm) !important;
+  padding: var(--space-2) var(--space-3) !important;
+  transition: background-color var(--duration-fast) var(--ease-out) !important;
+}
+
+.axActionMenu :global(.ant-dropdown-menu-item:hover) {
+  background-color: var(--neutral-50) !important;
+}
+
+.axActionMenu :global(.ant-dropdown-menu-item:active) {
+  background-color: var(--neutral-100) !important;
+  transform: scale(0.98) !important;
+}
+
+/* ---- Danger item ---- */
+.axActionMenu :global(.ant-dropdown-menu-item-danger) {
+  color: var(--error) !important;
+}
+
+.axActionMenu :global(.ant-dropdown-menu-item-danger:hover) {
+  background-color: var(--red-50) !important;
+  color: var(--error) !important;
+}
+
+/* ---- Disabled ---- */
+.axActionMenu :global(.ant-dropdown-menu-item-disabled) {
+  color: var(--text-disabled) !important;
+}
+
+/* ---- Divider ---- */
+.axActionMenu :global(.ant-dropdown-menu-item-divider) {
+  margin: var(--space-1) 0 !important;
+  background-color: var(--neutral-100) !important;
+}
+
+/* ---- Mobile: constrain dropdown to viewport ---- */
+@media (max-width: 575.98px) {
+  .axActionMenu :global(.ant-dropdown-menu) {
+    max-width: calc(100vw - var(--space-8)) !important;
+  }
+
+  .axActionMenu :global(.ant-dropdown-menu-item) {
+    padding: var(--space-3) var(--space-3) !important;
+  }
+}
+
+/* ---- Trigger wrapper ---- */
+.trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}

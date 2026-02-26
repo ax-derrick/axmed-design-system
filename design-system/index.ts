@@ -78,8 +78,29 @@ export type { AxPriceCellProps } from "./components/AxTable/cells/PriceCell"
 export { default as AxSideNav } from "./components/AxSideNav"
 export type { AxSideNavProps, NavItem, NavDivider, NavGroup, NavSection } from "./components/AxSideNav"
 
+export { default as AxHeader } from "./components/AxHeader"
+export type { AxHeaderProps, HeaderNavItem } from "./components/AxHeader"
+
 export { default as AxBrand } from "./components/AxBrand"
 export type { AxBrandProps, AxBrandSize, AxBrandVariant, AxBrandTheme } from "./components/AxBrand"
 
 export { default as AxCompanyLogo } from "./components/AxCompanyLogo"
 export type { AxCompanyLogoProps, AxCompanyLogoSize } from "./components/AxCompanyLogo"
+
+export { default as AxBadge } from "./components/AxBadge"
+export type { AxBadgeProps, AxBadgeTone } from "./components/AxBadge"
+
+export { default as AxStatCard } from "./components/AxStatCard"
+export type { AxStatCardProps } from "./components/AxStatCard"
+
+export { default as AxSteps } from "./components/AxSteps"
+export type { AxStepsProps, AxStepsSize } from "./components/AxSteps"
+
+export { default as AxActionMenu } from "./components/AxActionMenu"
+export type { AxActionMenuProps, ActionItem, ActionDivider } from "./components/AxActionMenu"
+
+export { default as AxUploader } from "./components/AxUploader"
+export type { AxUploaderProps, AxUploaderSize } from "./components/AxUploader"
+
+export { default as AxFileItem } from "./components/AxFileItem"
+export type { AxFileItemProps, AxFileItemStatus, AxFileItemSize } from "./components/AxFileItem"

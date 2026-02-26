@@ -343,7 +343,7 @@ export const HorizontalScroll: Story = {
 // ===========================================================================
 
 export const SelectedRows: Story = {
-  name: "Row States — Selected",
+  name: "State — Selected Rows",
   args: {
     columns: baseColumns,
     dataSource: sampleData,
@@ -353,7 +353,7 @@ export const SelectedRows: Story = {
 }
 
 export const DisabledRows: Story = {
-  name: "Row States — Disabled",
+  name: "State — Disabled Rows",
   args: {
     columns: baseColumns,
     dataSource: sampleData,
@@ -363,7 +363,7 @@ export const DisabledRows: Story = {
 }
 
 export const RowSelectionWithState: Story = {
-  name: "Row States — Interactive Selection",
+  name: "State — Interactive Selection",
   render: () => {
     const [selectedKeys, setSelectedKeys] = useState<React.Key[]>([])
 
@@ -387,7 +387,7 @@ export const RowSelectionWithState: Story = {
 // ===========================================================================
 
 export const StatusWithIcons: Story = {
-  name: "Cell Pattern — Status + Icon",
+  name: "Pattern — Status + Icon",
   args: {
     dataSource: orderData,
     pagination: false,
@@ -446,7 +446,7 @@ export const StatusWithIcons: Story = {
 }
 
 export const TagsInCells: Story = {
-  name: "Cell Pattern — Category + Country Tags",
+  name: "Pattern — Category + Country Tags",
   args: {
     dataSource: sampleData,
     pagination: false,
@@ -509,7 +509,7 @@ export const TagsInCells: Story = {
 }
 
 export const TooltipHeaders: Story = {
-  name: "Cell Pattern — Tooltip Column Headers",
+  name: "Pattern — Tooltip Column Headers",
   args: {
     dataSource: sampleData,
     pagination: false,
@@ -572,7 +572,7 @@ export const TooltipHeaders: Story = {
 }
 
 export const CustomCellRenderers: Story = {
-  name: "Cell Pattern — Custom Renderers",
+  name: "Pattern — Custom Renderers",
   args: {
     dataSource: sampleData,
     pagination: false,
@@ -658,7 +658,7 @@ export const CustomCellRenderers: Story = {
 // ===========================================================================
 
 export const HeaderlessWidget: Story = {
-  name: "Layout — Headerless Widget",
+  name: "Feature — Headerless Widget",
   args: {
     dataSource: orderData.slice(0, 4),
     pagination: false,

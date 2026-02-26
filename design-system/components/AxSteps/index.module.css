@@ -34,10 +34,23 @@
 /* ---- Completed step ---- */
 .axSteps :global(.ant-steps-item-finish .ant-steps-item-icon) {
   border-color: var(--primary) !important;
+  transition: border-color var(--duration-base) var(--ease-spring) !important;
 }
 
 .axSteps :global(.ant-steps-item-finish .ant-steps-icon) {
   color: var(--primary) !important;
+  animation: stepCheck var(--duration-base) var(--ease-spring);
+}
+
+@keyframes stepCheck {
+  from {
+    opacity: 0;
+    transform: scale(0) rotate(-45deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
 }
 
 /* Completed connector tail */
@@ -68,4 +81,22 @@
 /* ---- Vertical orientation — tighter spacing ---- */
 .axSteps:global(.ant-steps-vertical) :global(.ant-steps-item) {
   padding-bottom: var(--space-3);
+}
+
+/* ---- Mobile: reduce font sizes and tighten spacing ---- */
+@media (max-width: 575.98px) {
+  .axSteps :global(.ant-steps-item-title) {
+    font-size: var(--font-size-13) !important;
+  }
+
+  .axSteps :global(.ant-steps-item-description) {
+    font-size: var(--font-size-12) !important;
+  }
+
+  .axSteps :global(.ant-steps-item-icon) {
+    width: 28px !important;
+    height: 28px !important;
+    font-size: var(--font-size-13) !important;
+    line-height: 28px !important;
+  }
 }

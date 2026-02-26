@@ -64,7 +64,22 @@
   font-weight: var(--font-weight-semibold);
   transition:
     border-color var(--duration-base) var(--ease-out),
-    box-shadow var(--duration-base) var(--ease-out) !important;
+    box-shadow var(--duration-base) var(--ease-out),
+    transform var(--duration-fast) var(--ease-spring) !important;
+}
+
+/* Digit entered — satisfying pop when a slot is filled */
+.axInputOTP :global(.ant-otp-input:not(:placeholder-shown)) {
+  animation: slotFill var(--duration-fast) var(--ease-spring);
+}
+
+@keyframes slotFill {
+  from {
+    transform: scale(0.85);
+  }
+  to {
+    transform: scale(1);
+  }
 }
 
 /* Kill double focus ring — antd's own focus style is sufficient */
@@ -76,4 +91,18 @@
 .axInputOTP :global(.ant-otp-separator) {
   color: var(--neutral-400);
   font-weight: var(--font-weight-regular);
+}
+
+/* ---- Mobile: tighten gap so slots don't overflow ---- */
+@media (max-width: 575.98px) {
+  .axInputOTP :global(.ant-otp) {
+    gap: var(--space-1);
+  }
+}
+
+/* ---- Touch devices: prevent iOS zoom on focus ---- */
+@media (hover: none) and (pointer: coarse) {
+  .axInputOTP :global(.ant-otp-input) {
+    font-size: var(--font-size-16) !important;
+  }
 }

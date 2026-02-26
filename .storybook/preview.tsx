@@ -21,6 +21,20 @@ const preview: Preview = {
       },
     },
     layout: "centered",
+    options: {
+      storySort: {
+        order: [
+          "Foundations",
+          "Layout",
+          "Navigation",
+          "Actions",
+          "Controls",
+          "Data Display",
+          "Overlays",
+          "Feedback",
+        ],
+      },
+    },
   },
 }
 

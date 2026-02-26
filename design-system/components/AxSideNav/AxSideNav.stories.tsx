@@ -1,6 +1,6 @@
 import { useState } from "react"
 import type { Meta, StoryObj } from "@storybook/react"
-import { Avatar, Flex } from "antd"
+import { Avatar, Badge, Flex } from "antd"
 import {
   AppstoreOutlined,
   FileTextOutlined,
@@ -8,19 +8,22 @@ import {
   ShoppingCartOutlined,
   TeamOutlined,
   DashboardOutlined,
-  BellOutlined,
   UserOutlined,
   InboxOutlined,
   BarChartOutlined,
+  LogoutOutlined,
+  RobotOutlined,
 } from "@ant-design/icons"
 
 import AxSideNav, { type NavGroup, type NavSection, type NavItem, type NavDivider } from "."
+import type { ActionItem, ActionDivider } from "../AxActionMenu"
 import AxBrand from "../AxBrand"
 import AxButton from "../AxButton"
 import AxText from "../AxText"
 import AxTag from "../AxTag"
 import AxFilterBar from "../AxFilterBar"
 import AxTable from "../AxTable"
+import AxHeader from "../AxHeader"
 
 // ---------------------------------------------------------------------------
 // Shared demo data
@@ -79,6 +82,13 @@ function withHandlers(items: AnyItem[], onSelect: (key: string) => void): AnyIte
     return { ...item, onClick: () => onSelect(item.key) }
   })
 }
+
+const USER_ACTIONS: (ActionItem | ActionDivider)[] = [
+  { key: "account", label: "My Account", icon: <UserOutlined /> },
+  { key: "settings", label: "Settings", icon: <SettingOutlined /> },
+  { type: "divider" },
+  { key: "logout", label: "Log Out", icon: <LogoutOutlined />, danger: true },
+]
 
 const DemoUser = () => (
   <Flex
@@ -150,6 +160,7 @@ export const Playground: Story = {
           onCollapse={setCollapsed}
           logo={<AxBrand variant="wordmark" size="md" />}
           user={<DemoUser />}
+          userActions={USER_ACTIONS}
           items={withHandlers(DEMO_ITEMS, setSelected)}
         />
         <div style={{ flex: 1, padding: 24, background: "var(--neutral-50)" }}>
@@ -174,7 +185,7 @@ export const AppShell: Story = {
     const [search, setSearch] = useState("")
 
     const tableData = [
-      { key: "1", order: "ORD-2401", medication: "Amoxicillin 500mg", supplier: "PharmaCorp Ltd", status: "awarded" as const },
+      { key: "1", order: "ORD-2401", medication: "Amoxicillin 500mg", supplier: "PharmaCorp Ltd", status: "success" as const },
       { key: "2", order: "ORD-2402", medication: "Metformin 850mg", supplier: "MediGlobal SA", status: "info" as const },
       { key: "3", order: "ORD-2403", medication: "Ibuprofen 400mg", supplier: "AfriPharma Co", status: "warning" as const },
       { key: "4", order: "ORD-2404", medication: "Paracetamol 500mg", supplier: "PharmaCorp Ltd", status: "neutral" as const },
@@ -182,55 +193,80 @@ export const AppShell: Story = {
 
     return (
       <div style={{ display: "flex", height: "100vh", minHeight: 600 }}>
+        {/* Sidebar */}
         <AxSideNav
           items={withHandlers(DEMO_ITEMS, setSelected)}
           selectedKey={selected}
           collapsed={collapsed}
           onCollapse={setCollapsed}
-          logo={<AxBrand variant="wordmark" size="md" />}
+          hideCollapseButton
+          logo={<AxBrand variant={collapsed ? "icon" : "wordmark"} size="md" />}
           user={<DemoUser />}
+          userActions={USER_ACTIONS}
         />
-        <div style={{ flex: 1, overflow: "auto", display: "flex", flexDirection: "column" }}>
-          <div style={{ padding: "24px 32px 0", borderBottom: "1px solid var(--neutral-200)", background: "#fff" }}>
-            <Flex justify="space-between" align="center" style={{ paddingBottom: 20 }}>
-              <div>
-                <AxText variant="heading-md" weight="semibold">Orders</AxText>
-                <AxText variant="body-sm" color="secondary" style={{ display: "block", marginTop: 2 }}>
-                  Manage and track all procurement orders
-                </AxText>
-              </div>
+
+        {/* Main area */}
+        <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
+          {/* Header */}
+          <AxHeader
+            onSidebarToggle={() => setCollapsed(!collapsed)}
+            sidebarCollapsed={collapsed}
+            right={
               <Flex gap={8} align="center">
-                <AxButton variant="secondary" icon={<BellOutlined />} />
+                <AxButton variant="text" icon={<RobotOutlined />}>
+                  Ask Axmed AI
+                </AxButton>
+                <Badge count={3} size="small">
+                  <AxButton variant="secondary" icon={<ShoppingCartOutlined />}>
+                    Draft Orders
+                  </AxButton>
+                </Badge>
+              </Flex>
+            }
+          />
+
+          {/* Page content */}
+          <main style={{ flex: 1, overflow: "auto", padding: "var(--space-6) var(--space-8)", background: "var(--neutral-50)" }}>
+            <Flex vertical gap={16}>
+              <Flex justify="space-between" align="center">
+                <div>
+                  <AxText variant="heading-lg" weight="semibold">Orders</AxText>
+                  <AxText variant="body-sm" color="secondary" style={{ display: "block", marginTop: 2 }}>
+                    Manage and track all procurement orders
+                  </AxText>
+                </div>
                 <AxButton>New Order</AxButton>
               </Flex>
+              <div>
+                <div style={{ marginBottom: 16 }}>
+                  <AxFilterBar
+                    search={{ placeholder: "Search orders...", value: search, onChange: (e) => setSearch(e.target.value) }}
+                    filters={[{ key: "status", placeholder: "Status", options: [{ value: "success", label: "Awarded" }, { value: "review", label: "In Review" }] }]}
+                  />
+                </div>
+                <AxTable
+                  columns={[
+                    { key: "order", title: "Order", dataIndex: "order" },
+                    { key: "medication", title: "Medication", dataIndex: "medication" },
+                    { key: "supplier", title: "Supplier", dataIndex: "supplier" },
+                    {
+                      key: "status", title: "Status", dataIndex: "status",
+                      render: (tone: "success" | "info" | "warning" | "neutral") => (
+                        <AxTag tone={tone}>{{ success: "Awarded", info: "In Review", warning: "Not Awarded", neutral: "Pending" }[tone]}</AxTag>
+                      ),
+                    },
+                  ]}
+                  dataSource={tableData}
+                  pagination={false}
+                />
+              </div>
             </Flex>
-          </div>
-          <div style={{ flex: 1, padding: "24px 32px" }}>
-            <AxFilterBar
-              search={{ placeholder: "Search orders...", value: search, onChange: (e) => setSearch(e.target.value) }}
-              filters={[{ key: "status", placeholder: "Status", options: [{ value: "awarded", label: "Awarded" }, { value: "review", label: "In Review" }] }]}
-              style={{ marginBottom: 16 }}
-            />
-            <AxTable
-              columns={[
-                { key: "order", title: "Order", dataIndex: "order" },
-                { key: "medication", title: "Medication", dataIndex: "medication" },
-                { key: "supplier", title: "Supplier", dataIndex: "supplier" },
-                {
-                  key: "status", title: "Status", dataIndex: "status",
-                  render: (tone: "awarded" | "info" | "warning" | "neutral") => (
-                    <AxTag tone={tone}>{{ awarded: "Awarded", info: "In Review", warning: "Not Awarded", neutral: "Pending" }[tone]}</AxTag>
-                  ),
-                },
-              ]}
-              dataSource={tableData}
-              pagination={false}
-            />
-          </div>
+          </main>
         </div>
       </div>
     )
   },
+  parameters: { controls: { disable: true } },
 }
 
 // ===========================================================================
@@ -249,6 +285,7 @@ export const Groups: Story = {
           selectedKey={selected}
           logo={<AxBrand variant="wordmark" size="md" />}
           user={<DemoUser />}
+          userActions={USER_ACTIONS}
         />
         <div style={{ width: 1, background: "var(--neutral-300)" }} />
         {/* Collapsed — click a group icon to see the flyout */}
@@ -258,6 +295,7 @@ export const Groups: Story = {
           collapsed={true}
           logo={<AxBrand variant="icon" size="md" />}
           user={<DemoUser />}
+          userActions={USER_ACTIONS}
         />
         <div style={{ flex: 1, background: "var(--neutral-50)", padding: 24 }}>
           <AxText variant="body-sm" color="secondary">
@@ -288,6 +326,7 @@ export const Toggle: Story = {
           onCollapse={setCollapsed}
           logo={<AxBrand variant="wordmark" size="md" />}
           user={<DemoUser />}
+          userActions={USER_ACTIONS}
         />
         <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", background: "var(--neutral-50)" }}>
           <AxText variant="body-sm" color="secondary">

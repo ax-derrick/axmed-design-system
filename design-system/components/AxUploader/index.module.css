@@ -1,0 +1,131 @@
+/* ---------------------------------------------------------------------------
+   AxUploader — drag-and-drop file upload zone.
+   Styled drop zone with design tokens. File-selected state is consumer-owned.
+   --------------------------------------------------------------------------- */
+
+/* ---- Root ---- */
+.axUploader {
+  font-family: var(--font-family-sans);
+}
+
+/* ---- Dragger override ---- */
+.axUploader :global(.ant-upload-drag) {
+  background: var(--neutral-50) !important;
+  border: 2px dashed var(--neutral-300) !important;
+  border-radius: var(--radius-lg) !important;
+  transition:
+    border-color var(--duration-base) var(--ease-out),
+    background-color var(--duration-base) var(--ease-out),
+    transform var(--duration-base) var(--ease-spring) !important;
+}
+
+.axUploader :global(.ant-upload-drag:hover) {
+  border-color: var(--primary) !important;
+  background: var(--primary-50) !important;
+}
+
+/* Drag-over state — zone "reaches out" to receive the file */
+.axUploader :global(.ant-upload-drag-hover) {
+  border-color: var(--primary) !important;
+  background: var(--primary-100) !important;
+  transform: scale(1.02);
+}
+
+/* Disabled */
+.axUploader :global(.ant-upload-drag.ant-upload-disabled) {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ---- Content layout ---- */
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-6);
+}
+
+.sm .content {
+  padding: var(--space-4);
+  gap: var(--space-1);
+}
+
+.lg .content {
+  padding: var(--space-10);
+  gap: var(--space-3);
+}
+
+/* ---- Icon ---- */
+.iconWrapper {
+  font-size: 32px;
+  color: var(--primary-400);
+  line-height: 0;
+}
+
+.sm .iconWrapper {
+  font-size: 24px;
+}
+
+.lg .iconWrapper {
+  font-size: 40px;
+}
+
+/* ---- Description ---- */
+.description {
+  font-size: var(--font-size-14);
+  font-weight: var(--font-weight-regular);
+  color: var(--text-primary);
+  text-align: center;
+}
+
+.sm .description {
+  font-size: var(--font-size-13);
+}
+
+/* ---- "choose file" link ---- */
+.chooseLink {
+  color: var(--text-link);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* ---- Hint ---- */
+.hint {
+  font-size: var(--font-size-13);
+  font-weight: var(--font-weight-regular);
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.sm .hint {
+  font-size: var(--font-size-12);
+}
+
+/* ---- Hide antd's default inner text elements — we render our own ---- */
+.axUploader :global(.ant-upload-drag-icon),
+.axUploader :global(.ant-upload-text),
+.axUploader :global(.ant-upload-hint) {
+  display: none !important;
+}
+
+/* ---- Mobile: reduce padding and icon size ---- */
+@media (max-width: 575.98px) {
+  .content {
+    padding: var(--space-4);
+  }
+
+  .lg .content {
+    padding: var(--space-6);
+  }
+
+  .iconWrapper {
+    font-size: 24px;
+  }
+
+  .description {
+    font-size: var(--font-size-13);
+  }
+}
