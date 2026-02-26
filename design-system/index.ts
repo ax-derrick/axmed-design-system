@@ -48,6 +48,9 @@ export type { AxModalProps } from "./components/AxModal"
 export { default as AxCard } from "./components/AxCard"
 export type { AxCardProps } from "./components/AxCard"
 
+export { DataCard as AxDataCard } from "./components/AxCard"
+export type { AxDataCardProps, AxDataCardField } from "./components/AxCard/DataCard"
+
 export { default as AxDrawer } from "./components/AxDrawer"
 export type { AxDrawerProps } from "./components/AxDrawer"
 

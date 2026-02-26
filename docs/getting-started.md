@@ -138,7 +138,7 @@ import { AxButton, AxCard, AxText, AxTable, AxTag, AxModal } from "axmed-design-
 export default function OrdersPage() {
   return (
     <AxCard title="Recent Orders">
-      <AxText type="secondary">Showing the last 30 days</AxText>
+      <AxText variant="body-sm" color="secondary">Showing the last 30 days</AxText>
 
       <AxTable
         columns={[
@@ -150,7 +150,7 @@ export default function OrdersPage() {
         size="md"
       />
 
-      <AxButton type="primary" size="md">
+      <AxButton variant="primary">
         Export CSV
       </AxButton>
     </AxCard>
@@ -196,9 +196,9 @@ All components use a consistent size scale — never antd's `"small"` / `"defaul
 
 ```tsx
 // Button
-<AxButton type="primary" size="md">Save</AxButton>
-<AxButton type="default" size="md">Cancel</AxButton>
-<AxButton danger>Delete</AxButton>
+<AxButton variant="primary">Save</AxButton>
+<AxButton variant="secondary">Cancel</AxButton>
+<AxButton variant="danger">Delete</AxButton>
 
 // Input
 <AxInput label="Email" placeholder="you@axmed.com" size="md" />
@@ -223,7 +223,7 @@ All components use a consistent size scale — never antd's `"small"` / `"defaul
 />
 
 // Stat Card
-<AxStatCard title="Revenue" value="$12,400" trend={12} />
+<AxStatCard title="Revenue" value="$12,400" trend={{ value: 12 }} />
 
 // Table with loading skeleton
 {loading ? <AxTableSkeleton columns={5} rows={8} /> : <AxTable ... />}

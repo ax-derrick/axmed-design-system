@@ -79,3 +79,10 @@ const AxCard: React.FC<AxCardProps> = ({
 AxCard.displayName = "AxCard"
 
 export default AxCard
+
+// ---------------------------------------------------------------------------
+// Subcomponent re-exports
+// ---------------------------------------------------------------------------
+
+export { default as DataCard } from "./DataCard"
+export type { AxDataCardProps, AxDataCardField } from "./DataCard"

@@ -146,7 +146,6 @@ export const Playground: Story = {
     collapsed: false,
     width: 240,
     collapsedWidth: 64,
-    showMobileNav: false
   },
   render: (args) => {
     const [collapsed, setCollapsed] = useState(args.collapsed ?? false)
@@ -194,6 +193,21 @@ export const AppShell: Story = {
 
     return (
       <div style={{ display: "flex", height: "100vh", minHeight: 600 }}>
+        <style>{`
+          .appShellContent {
+            flex: 1;
+            overflow: auto;
+            padding: var(--space-6) var(--space-8);
+            padding-bottom: 80px;
+            background: var(--neutral-50);
+          }
+          @media (max-width: 767.98px) {
+            .appShellContent {
+              padding: var(--space-4);
+              padding-bottom: 80px;
+            }
+          }
+        `}</style>
         {/* Sidebar */}
         <AxSideNav
           items={withHandlers(DEMO_ITEMS, setSelected)}
@@ -228,7 +242,7 @@ export const AppShell: Story = {
           />
 
           {/* Page content — extra bottom padding on mobile for the fixed bottom nav */}
-          <main style={{ flex: 1, overflow: "auto", padding: "var(--space-6) var(--space-8)", paddingBottom: 80, background: "var(--neutral-50)" }}>
+          <main className="appShellContent">
             <Flex vertical gap={16}>
               <Flex justify="space-between" align="center">
                 <div>
@@ -288,7 +302,6 @@ export const Groups: Story = {
           logo={<AxBrand variant="wordmark" size="md" />}
           user={<DemoUser />}
           userActions={USER_ACTIONS}
-          showMobileNav={false}
         />
         <div style={{ width: 1, background: "var(--neutral-300)" }} />
         {/* Collapsed — click a group icon to see the flyout */}
@@ -299,7 +312,6 @@ export const Groups: Story = {
           logo={<AxBrand variant="icon" size="md" />}
           user={<DemoUser />}
           userActions={USER_ACTIONS}
-          showMobileNav={false}
         />
         <div style={{ flex: 1, background: "var(--neutral-50)", padding: 24 }}>
           <AxText variant="body-sm" color="secondary">
@@ -331,7 +343,6 @@ export const Toggle: Story = {
           logo={<AxBrand variant="wordmark" size="md" />}
           user={<DemoUser />}
           userActions={USER_ACTIONS}
-          showMobileNav={false}
         />
         <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", background: "var(--neutral-50)" }}>
           <AxText variant="body-sm" color="secondary">

@@ -744,6 +744,163 @@ export const EmptyState: Story = {
 // REAL-WORLD EXAMPLE
 // ===========================================================================
 
+// ===========================================================================
+// RESPONSIVE VARIANTS — compare side-by-side, resize viewport to see effects
+// ===========================================================================
+
+export const ResponsiveColumnPriority: Story = {
+  name: "Responsive — Column Priority",
+  render: () => {
+    const priorityColumns: ColumnsType<any> = [
+      {
+        title: "Medication",
+        dataIndex: "name",
+        key: "name",
+        render: (name: string, record: any) => (
+          <div>
+            <AxText as="div" variant="body-sm" weight="medium">{name}</AxText>
+            <AxText as="div" variant="body-xs" color="secondary">{record.dosage} · {record.form}</AxText>
+          </div>
+        ),
+      },
+      {
+        title: "Manufacturer",
+        dataIndex: "manufacturer",
+        key: "manufacturer",
+        responsive: ["lg"] as any,
+      },
+      {
+        title: "Batch No.",
+        dataIndex: "batchNumber",
+        key: "batchNumber",
+        responsive: ["lg"] as any,
+      },
+      {
+        title: "Unit Price",
+        dataIndex: "unitPrice",
+        key: "unitPrice",
+        align: "right" as const,
+        render: (price: number) => `$${price.toFixed(2)}`,
+      },
+      {
+        title: "Qty",
+        dataIndex: "quantity",
+        key: "quantity",
+        align: "right" as const,
+        responsive: ["md"] as any,
+        render: (qty: number) => qty.toLocaleString(),
+      },
+      {
+        title: "Status",
+        dataIndex: "status",
+        key: "status",
+        render: (status: Medication["status"]) => (
+          <AxTag tone={statusToneMap[status]}>{status}</AxTag>
+        ),
+      },
+    ]
+
+    return (
+      <div>
+        <AxText as="p" variant="body-sm" color="secondary" style={{ marginBottom: 16 }}>
+          Resize viewport: below 992px hides Manufacturer & Batch. Below 768px also hides Qty. Expand a row to see hidden data.
+        </AxText>
+        <AxTable
+          columns={priorityColumns}
+          dataSource={sampleData}
+          pagination={false}
+          expandable={{
+            expandedRowRender: (record: any) => (
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4px 24px", padding: "16px 20px", background: "var(--neutral-0)" }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                  <AxText as="span" variant="body-xs" color="secondary" style={{ textTransform: "uppercase", letterSpacing: "0.03em" }}>Manufacturer</AxText>
+                  <AxText as="span" variant="body-sm" weight="medium">{record.manufacturer}</AxText>
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                  <AxText as="span" variant="body-xs" color="secondary" style={{ textTransform: "uppercase", letterSpacing: "0.03em" }}>Batch No.</AxText>
+                  <AxText as="span" variant="body-sm" weight="medium">{record.batchNumber}</AxText>
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: 2, marginTop: 8 }}>
+                  <AxText as="span" variant="body-xs" color="secondary" style={{ textTransform: "uppercase", letterSpacing: "0.03em" }}>Quantity</AxText>
+                  <AxText as="span" variant="body-sm" weight="medium">{record.quantity.toLocaleString()}</AxText>
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: 2, marginTop: 8 }}>
+                  <AxText as="span" variant="body-xs" color="secondary" style={{ textTransform: "uppercase", letterSpacing: "0.03em" }}>Category</AxText>
+                  <AxTag fill={categoryColorMap[record.category]} style={{ margin: 0, width: "fit-content" }}>{record.category}</AxTag>
+                </div>
+              </div>
+            ),
+          }}
+        />
+      </div>
+    )
+  },
+  parameters: { controls: { disable: true } },
+}
+
+export const ResponsiveProgressive: Story = {
+  name: "Responsive — Progressive Reduction",
+  render: () => {
+    // No explicit `responsive` needed — autoResponsive (default: true)
+    // auto-assigns xl → lg → md to middle columns right-to-left.
+    const progressiveColumns: ColumnsType<any> = [
+      {
+        title: "Medication",
+        dataIndex: "name",
+        key: "name",
+        render: (name: string, record: any) => (
+          <div>
+            <AxText as="div" variant="body-sm" weight="semibold">{name}</AxText>
+            <AxText as="div" variant="body-xs" color="secondary">{record.dosage} · {record.form}</AxText>
+          </div>
+        ),
+      },
+      { title: "Manufacturer", dataIndex: "manufacturer", key: "manufacturer" },
+      { title: "Batch No.", dataIndex: "batchNumber", key: "batchNumber" },
+      {
+        title: "Unit Price",
+        dataIndex: "unitPrice",
+        key: "unitPrice",
+        align: "right" as const,
+        render: (price: number) => `$${price.toFixed(2)}`,
+      },
+      {
+        title: "Qty",
+        dataIndex: "quantity",
+        key: "quantity",
+        align: "right" as const,
+        render: (qty: number) => qty.toLocaleString(),
+      },
+      {
+        title: "Status",
+        dataIndex: "status",
+        key: "status",
+        render: (status: Medication["status"]) => (
+          <AxTag tone={statusToneMap[status]}>{status}</AxTag>
+        ),
+      },
+    ]
+
+    return (
+      <div>
+        <AxText as="p" variant="body-sm" color="secondary" style={{ marginBottom: 16 }}>
+          autoResponsive is on by default — middle columns hide right-to-left as the viewport shrinks. Below 576px switches to cards with all data.
+        </AxText>
+        <AxTable
+          columns={progressiveColumns}
+          dataSource={sampleData}
+          pagination={{ pageSize: 5 }}
+        />
+      </div>
+    )
+  },
+  parameters: { controls: { disable: true } },
+}
+
+// ===========================================================================
+// REAL-WORLD EXAMPLE
+// ===========================================================================
+
 export const CombinedFeatures: Story = {
   name: "Example — Inventory Table",
   render: () => {

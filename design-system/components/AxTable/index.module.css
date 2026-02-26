@@ -19,6 +19,14 @@
 
 .axTable :global(.ant-table-content) {
   border: 1px solid var(--neutral-50);
+
+  /* Scroll shadow indicators — appear only when content overflows horizontally.
+     Lea Verou technique: local bg moves with scroll, scroll bg stays fixed. */
+  background:
+    linear-gradient(to right, var(--neutral-0) 30%, transparent) left center / 40px 100% no-repeat local,
+    linear-gradient(to left, var(--neutral-0) 30%, transparent) right center / 40px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, rgba(0, 0, 0, 0.06), transparent) left center / 12px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, rgba(0, 0, 0, 0.06), transparent) right center / 12px 100% no-repeat scroll;
 }
 
 .axTable :global(.ant-table-expanded-row .ant-table-cell) {
@@ -55,4 +63,55 @@
 
 .axTable :global(.ant-table-tbody) > :global(tr).rowDisabled:hover > td {
   background-color: transparent !important;
+}
+
+/* ===========================================================================
+   Mobile card layout — card rendering delegated to AxDataCard.
+   =========================================================================== */
+
+/* Hide table when card view is active on mobile */
+.hideOnMobile {
+  display: none;
+}
+
+/* Card list container */
+.cardList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  font-family: var(--font-family-sans);
+}
+
+/* Expandable detail row — used by column priority strategy */
+.expandedDetail {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-1) var(--space-6);
+  padding: var(--space-4) var(--space-5);
+  background: var(--neutral-0);
+}
+
+.expandedDetailItem {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.expandedDetailLabel {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-11);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.expandedDetailValue {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-14);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary);
 }

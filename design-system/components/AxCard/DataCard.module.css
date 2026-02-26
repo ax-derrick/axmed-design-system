@@ -1,0 +1,121 @@
+/* AxDataCard — compact data card with label-value rows + animated expand */
+
+.dataCard {
+  background: var(--neutral-0);
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  font-family: var(--font-family-sans);
+}
+
+/* Header — primary content, bumped typography (body-md) */
+.header {
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--neutral-100);
+  font-size: var(--font-size-14);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.4;
+  color: var(--text-primary);
+}
+
+/* Body — container for field rows */
+.body {
+  padding: 0;
+}
+
+/* Label-value row */
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-1-5) var(--space-3);
+}
+
+.row + .row {
+  border-top: 1px solid var(--neutral-50);
+}
+
+.label {
+  font-size: var(--font-size-12);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-secondary);
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.value {
+  font-size: var(--font-size-13);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary);
+  text-align: right;
+  min-width: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Overflow section — animated expand/collapse via grid row trick */
+.overflow {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--duration-slow) var(--ease-out);
+}
+
+.overflowOpen {
+  grid-template-rows: 1fr;
+}
+
+.overflowInner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* Fade content in/out alongside the height reveal */
+.overflow .body {
+  opacity: 0;
+  transition: opacity var(--duration-base) var(--ease-out);
+}
+
+.overflowOpen .body {
+  opacity: 1;
+  transition-delay: 80ms;
+}
+
+/* Expand toggle — 3-dot ellipsis at bottom of card */
+.expandBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: var(--space-1) 0;
+  border: none;
+  border-top: 1px solid var(--neutral-100);
+  background: transparent;
+  color: var(--neutral-400);
+  cursor: pointer;
+  transition:
+    color var(--duration-base) var(--ease-out),
+    background-color var(--duration-base) var(--ease-out);
+}
+
+.expandBtn svg {
+  transition: transform var(--duration-slow) var(--ease-out);
+}
+
+.expandBtn:hover {
+  background-color: var(--neutral-50);
+  color: var(--neutral-600);
+}
+
+.expandBtn:active:not([disabled]) {
+  transform: scale(0.97) !important;
+  filter: brightness(0.9) !important;
+}
+
+.expandBtnOpen {
+  color: var(--neutral-600);
+  background-color: var(--neutral-50);
+}
+
+.expandBtnOpen svg {
+  transform: rotate(90deg);
+}
