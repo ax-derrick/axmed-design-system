@@ -1,6 +1,6 @@
 {
   "name": "axmed-design-system",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Axmed Design System — React component library built on antd",
   "license": "MIT",
   "main": "./dist/index.cjs",
