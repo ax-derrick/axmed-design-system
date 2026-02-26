@@ -146,6 +146,7 @@ export const Playground: Story = {
     collapsed: false,
     width: 240,
     collapsedWidth: 64,
+    showMobileNav: false
   },
   render: (args) => {
     const [collapsed, setCollapsed] = useState(args.collapsed ?? false)
@@ -211,6 +212,7 @@ export const AppShell: Story = {
           <AxHeader
             onSidebarToggle={() => setCollapsed(!collapsed)}
             sidebarCollapsed={collapsed}
+            mobileLogo={<AxBrand variant="wordmark" size="md" />}
             right={
               <Flex gap={8} align="center">
                 <AxButton variant="text" icon={<RobotOutlined />}>
@@ -225,8 +227,8 @@ export const AppShell: Story = {
             }
           />
 
-          {/* Page content */}
-          <main style={{ flex: 1, overflow: "auto", padding: "var(--space-6) var(--space-8)", background: "var(--neutral-50)" }}>
+          {/* Page content — extra bottom padding on mobile for the fixed bottom nav */}
+          <main style={{ flex: 1, overflow: "auto", padding: "var(--space-6) var(--space-8)", paddingBottom: 80, background: "var(--neutral-50)" }}>
             <Flex vertical gap={16}>
               <Flex justify="space-between" align="center">
                 <div>
@@ -286,6 +288,7 @@ export const Groups: Story = {
           logo={<AxBrand variant="wordmark" size="md" />}
           user={<DemoUser />}
           userActions={USER_ACTIONS}
+          showMobileNav={false}
         />
         <div style={{ width: 1, background: "var(--neutral-300)" }} />
         {/* Collapsed — click a group icon to see the flyout */}
@@ -296,6 +299,7 @@ export const Groups: Story = {
           logo={<AxBrand variant="icon" size="md" />}
           user={<DemoUser />}
           userActions={USER_ACTIONS}
+          showMobileNav={false}
         />
         <div style={{ flex: 1, background: "var(--neutral-50)", padding: 24 }}>
           <AxText variant="body-sm" color="secondary">
@@ -327,6 +331,7 @@ export const Toggle: Story = {
           logo={<AxBrand variant="wordmark" size="md" />}
           user={<DemoUser />}
           userActions={USER_ACTIONS}
+          showMobileNav={false}
         />
         <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", background: "var(--neutral-50)" }}>
           <AxText variant="body-sm" color="secondary">

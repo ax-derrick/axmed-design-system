@@ -101,6 +101,14 @@ export type AxSideNavProps = {
    */
   userActions?: (ActionItem | ActionDivider)[]
 
+  /**
+   * Show a fixed bottom tab bar on mobile (< 768px) instead of the sidebar.
+   * The first 4 top-level items appear as tabs; overflow items go behind
+   * a "More" menu. The sidebar is hidden on mobile when enabled.
+   * @default true
+   */
+  showMobileNav?: boolean
+
   className?: string
   style?: React.CSSProperties
 }
@@ -290,18 +298,80 @@ const AxSideNav: React.FC<AxSideNavProps> = ({
   collapsedWidth = 64,
   hideCollapseButton = false,
   userActions,
+  showMobileNav = true,
   className,
   style,
 }) => {
   const currentWidth = collapsed ? collapsedWidth : width
-  const rootCls = [styles.sideNav, collapsed ? styles.collapsed : "", className]
+  const rootCls = [
+    styles.sideNav,
+    collapsed ? styles.collapsed : "",
+    showMobileNav ? styles.withMobileNav : "",
+    className,
+  ]
     .filter(Boolean)
     .join(" ")
 
   const showCollapseBtn = onCollapse && !hideCollapseButton
   const showLogoArea = logo || showCollapseBtn
 
+  // -----------------------------------------------------------------------
+  // Mobile bottom nav — extract top-level items for tab bar
+  // -----------------------------------------------------------------------
+
+  const MAX_BOTTOM_TABS = 4
+  const flatItems = items.filter(
+    (item): item is NavItem | NavGroup =>
+      !item.type || item.type === "group",
+  )
+  const bottomTabs = flatItems.slice(0, MAX_BOTTOM_TABS)
+  const overflowItems = flatItems.slice(MAX_BOTTOM_TABS)
+  const hasOverflow = overflowItems.length > 0
+
+  const isItemActive = (item: NavItem | NavGroup): boolean => {
+    if (item.type === "group") {
+      return item.children.some((c) => c.key === selectedKey)
+    }
+    return item.key === selectedKey
+  }
+
+  const getItemOnClick = (item: NavItem | NavGroup): (() => void) | undefined => {
+    if (item.type === "group") {
+      return item.children.find((c) => !c.disabled)?.onClick
+    }
+    return item.onClick
+  }
+
+  const overflowMenuItems: MenuProps["items"] = hasOverflow
+    ? overflowItems.map((item) => {
+        if (item.type === "group") {
+          return {
+            key: item.key,
+            label: item.label,
+            icon: item.icon,
+            children: item.children.map((child) => ({
+              key: child.key,
+              label: child.label,
+              onClick: child.onClick,
+              disabled: child.disabled,
+            })),
+          }
+        }
+        return {
+          key: item.key,
+          label: item.label,
+          icon: item.icon,
+          onClick: item.onClick,
+          disabled: item.disabled,
+        }
+      })
+    : undefined
+
+  const isOverflowActive = overflowItems.some((item) => isItemActive(item))
+  const hasBottomNavItems = showMobileNav && bottomTabs.length > 0
+
   return (
+    <>
     <nav
       className={rootCls}
       style={{ width: currentWidth, minWidth: currentWidth, ...style }}
@@ -429,6 +499,58 @@ const AxSideNav: React.FC<AxSideNavProps> = ({
         </div>
       )}
     </nav>
+
+    {/* Mobile bottom nav — fixed bar at bottom of viewport */}
+    {hasBottomNavItems && (
+      <nav className={styles.bottomNav} aria-label="Main navigation">
+        {bottomTabs.map((item) => {
+          const active = isItemActive(item)
+          return (
+            <button
+              key={item.key}
+              className={[
+                styles.bottomNavItem,
+                active ? styles.bottomNavItemActive : "",
+              ]
+                .filter(Boolean)
+                .join(" ")}
+              onClick={getItemOnClick(item)}
+              aria-current={active ? "page" : undefined}
+            >
+              <span className={styles.bottomNavIcon}>{item.icon}</span>
+              <span className={styles.bottomNavLabel}>{item.label}</span>
+            </button>
+          )
+        })}
+        {hasOverflow && (
+          <Dropdown
+            menu={{
+              items: overflowMenuItems,
+              selectedKeys: selectedKey ? [selectedKey] : [],
+            }}
+            trigger={["click"]}
+            placement="topRight"
+            overlayClassName={styles.moreMenu}
+          >
+            <button
+              className={[
+                styles.bottomNavItem,
+                isOverflowActive ? styles.bottomNavItemActive : "",
+              ]
+                .filter(Boolean)
+                .join(" ")}
+              aria-label="More navigation options"
+            >
+              <span className={styles.bottomNavIcon}>
+                <EllipsisOutlined />
+              </span>
+              <span className={styles.bottomNavLabel}>More</span>
+            </button>
+          </Dropdown>
+        )}
+      </nav>
+    )}
+    </>
   )
 }
 

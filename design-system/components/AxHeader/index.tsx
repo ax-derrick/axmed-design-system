@@ -95,6 +95,13 @@ export type AxHeaderProps = {
    */
   bordered?: boolean
 
+  /**
+   * Logo shown on mobile in place of the sidebar toggle.
+   * Use when the sidebar is replaced by bottom navigation on mobile
+   * and the hamburger toggle is no longer needed.
+   */
+  mobileLogo?: React.ReactNode
+
   /** Additional class name */
   className?: string
   /** Inline styles */
@@ -117,6 +124,7 @@ const AxHeader: React.FC<AxHeaderProps> = ({
   sticky = true,
   height = 56,
   bordered,
+  mobileLogo,
   className,
   style,
 }) => {
@@ -192,20 +200,25 @@ const AxHeader: React.FC<AxHeaderProps> = ({
       {/* Left zone */}
       <div className={styles.left}>
         {onSidebarToggle && (
-          <>
-            <button
-              className={`${styles.toggleBtn} ${styles.desktopOnly}`}
-              onClick={onSidebarToggle}
-              aria-label={
-                sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"
-              }
-            >
-              {sidebarCollapsed ? (
-                <MenuUnfoldOutlined />
-              ) : (
-                <MenuFoldOutlined />
-              )}
-            </button>
+          <button
+            className={`${styles.toggleBtn} ${styles.desktopOnly}`}
+            onClick={onSidebarToggle}
+            aria-label={
+              sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"
+            }
+          >
+            {sidebarCollapsed ? (
+              <MenuUnfoldOutlined />
+            ) : (
+              <MenuFoldOutlined />
+            )}
+          </button>
+        )}
+        {/* Mobile: show logo when sidebar uses bottom nav, else show hamburger */}
+        {mobileLogo ? (
+          <div className={styles.mobileOnly}>{mobileLogo}</div>
+        ) : (
+          onSidebarToggle && (
             <button
               className={`${styles.toggleBtn} ${styles.mobileOnly}`}
               onClick={onSidebarToggle}
@@ -213,7 +226,7 @@ const AxHeader: React.FC<AxHeaderProps> = ({
             >
               <MenuOutlined />
             </button>
-          </>
+          )
         )}
         {left}
       </div>

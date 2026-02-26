@@ -327,6 +327,7 @@ export const AppShell: Story = {
           <AxHeader
             onSidebarToggle={() => setCollapsed(!collapsed)}
             sidebarCollapsed={collapsed}
+            mobileLogo={<AxBrand variant="wordmark" size="md" />}
             right={
               <Space size="middle">
                 <AxButton variant="text" icon={<RobotOutlined />}>
@@ -341,8 +342,8 @@ export const AppShell: Story = {
             }
           />
 
-          {/* Page content */}
-          <main style={{ flex: 1, overflow: "auto", padding: "var(--space-8)", background: "var(--neutral-50)" }}>
+          {/* Page content — extra bottom padding on mobile for bottom nav */}
+          <main style={{ flex: 1, overflow: "auto", padding: "var(--space-8)", paddingBottom: 80, background: "var(--neutral-50)" }}>
             <Flex vertical gap={16}>
               <div>
                 <AxText variant="heading-lg" weight="semibold">Orders</AxText>
