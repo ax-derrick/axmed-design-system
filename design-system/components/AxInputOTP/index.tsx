@@ -20,8 +20,8 @@ export type AxInputOTPProps = {
   length?: number
 
   /**
-   * Preset sizes: "sm", "md" (default), "lg".
-   * Consistent with the rest of the Axmed input API.
+   * Preset sizes: "sm", "md" (default), "lg", "xl".
+   * xl renders 56px slots for hero-style verification flows.
    */
   size?: AxInputOTPSize
 
