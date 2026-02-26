@@ -10,7 +10,7 @@ import styles from "./index.module.css"
 // Props
 // ---------------------------------------------------------------------------
 
-export type AxInputOTPSize = "sm" | "md" | "lg"
+export type AxInputOTPSize = "sm" | "md" | "lg" | "xl"
 
 export type AxInputOTPProps = {
   /**
@@ -58,6 +58,7 @@ const sizeMap: Record<AxInputOTPSize, OTPProps["size"]> = {
   sm: "small",
   md: "middle",
   lg: "large",
+  xl: "large",
 }
 
 // ---------------------------------------------------------------------------
@@ -72,23 +73,24 @@ const AxInputOTP: React.FC<AxInputOTPProps> = ({
   hint,
   error,
   required,
-  rootClassName,
+  className,
   ...props
 }) => {
   const autoId = React.useId()
   const helpId = (error || hint) ? `${autoId}-help` : undefined
   const rootCls = [
     styles.axInputOTP,
+    size === "xl" ? styles.xl : "",
     error ? styles.hasError : "",
-    rootClassName,
+    className,
   ].filter(Boolean).join(" ")
 
   const otpEl = (
     <Input.OTP
       length={length}
       size={sizeMap[size]}
-      mask={masked}
-      rootClassName={rootCls}
+      mask={masked === true ? "•" : masked}
+      className={rootCls}
       aria-invalid={error ? true : undefined}
       aria-describedby={helpId}
       {...props}

@@ -14,7 +14,7 @@ import type { AxInputOTPProps } from "axmed-design-system"
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
 | `length` | `number` | `6` | Number of individual digit/character input slots. |
-| `size` | `"sm" \| "md" \| "lg"` | `"md"` | Input size. Maps internally to antd `small`, `middle`, `large`. |
+| `size` | `"sm" \| "md" \| "lg" \| "xl"` | `"md"` | Input size. `sm`/`md`/`lg` map to antd sizes; `xl` renders 56px slots for hero-style verification flows. |
 | `masked` | `boolean \| string` | -- | Masks entered values. `true` uses the default bullet character. Pass a custom string to use a different mask character. |
 | `label` | `string` | -- | Label displayed above the OTP input. |
 | `hint` | `string` | -- | Helper text displayed below the input (neutral color). |

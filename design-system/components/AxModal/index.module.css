@@ -6,6 +6,7 @@
 /* Overlay / mask */
 .axModal :global(.ant-modal-mask) {
   background: rgba(0, 0, 0, 0.5) !important;
+  transition: opacity var(--duration-slow) var(--ease-out);
 }
 
 /* Content card — clean aesthetic */
@@ -100,7 +101,9 @@
   margin: -6px !important;
   transition:
     opacity var(--duration-base) var(--ease-in),
-    background-color var(--duration-base) var(--ease-in);
+    background-color var(--duration-base) var(--ease-in),
+    transform var(--duration-fast) var(--ease-out),
+    filter var(--duration-fast) var(--ease-out);
 }
 
 .axModal :global(.ant-modal-close:hover) {
@@ -109,7 +112,9 @@
   color: var(--text-primary) !important;
   transition:
     opacity var(--duration-base) var(--ease-out),
-    background-color var(--duration-base) var(--ease-out);
+    background-color var(--duration-base) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out),
+    filter var(--duration-fast) var(--ease-out);
 }
 
 .axModal :global(.ant-modal-close:active) {

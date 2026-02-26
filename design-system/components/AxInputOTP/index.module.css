@@ -1,8 +1,9 @@
 /* =============================================================================
    AxInputOTP — antd Input.OTP wrapper with motion tokens and typography.
-   Targets:
-     .ant-otp          — root flex container
-     .ant-otp-input    — each individual slot <input>
+
+   className is applied directly ON the .ant-otp root element (same node),
+   so root-level styles target .axInputOTP directly (not as a descendant).
+   Child selectors (.ant-otp-input, .ant-otp-separator) remain descendant.
    ============================================================================= */
 
 /* Field wrapper — rendered when label, hint, or error are provided */
@@ -50,14 +51,15 @@
 /* Error state — red borders on all slots */
 .hasError :global(.ant-otp-input) {
   border-color: var(--error) !important;
+  transition: border-color var(--duration-base) var(--ease-out) !important;
 }
 
-/* Root container */
-.axInputOTP :global(.ant-otp) {
+/* Root container — className lands ON the .ant-otp div */
+.axInputOTP {
   gap: var(--space-2);
 }
 
-/* Each slot */
+/* Each slot (descendant of root) */
 .axInputOTP :global(.ant-otp-input) {
   font-family: var(--font-family-sans) !important;
   font-variant-numeric: tabular-nums;
@@ -93,9 +95,20 @@
   font-weight: var(--font-weight-regular);
 }
 
+/* ---- XL size — 56px slots, larger font, wider gap ---- */
+.xl {
+  gap: var(--space-3);
+}
+
+.xl :global(.ant-otp-input) {
+  width: 56px !important;
+  height: 56px !important;
+  font-size: var(--font-size-24) !important;
+}
+
 /* ---- Mobile: tighten gap so slots don't overflow ---- */
 @media (max-width: 575.98px) {
-  .axInputOTP :global(.ant-otp) {
+  .axInputOTP {
     gap: var(--space-1);
   }
 }

@@ -9,6 +9,7 @@
   background: rgba(0, 0, 0, 0.6) !important;
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
+  transition: opacity var(--duration-slow) var(--ease-out);
 }
 
 /* ---- Content panel — edge-to-edge, shadow for depth ---- */
@@ -22,6 +23,7 @@
   box-shadow:
     -8px 0 30px rgba(0, 0, 0, 0.08),
     -1px 0 0 rgba(0, 0, 0, 0.04) !important;
+  transition: transform var(--duration-slow) var(--ease-out) !important;
 }
 
 /* ---- Header — no border, breathing room ---- */
@@ -80,17 +82,25 @@
   box-sizing: content-box !important;
   margin: 0 !important;
   transition:
-    color var(--duration-base) var(--ease-out),
-    background-color var(--duration-base) var(--ease-out);
+    color var(--duration-base) var(--ease-in),
+    background-color var(--duration-base) var(--ease-in),
+    transform var(--duration-fast) var(--ease-out),
+    filter var(--duration-fast) var(--ease-out);
 }
 
 .axDrawer :global(.ant-drawer-close:hover) {
   color: var(--text-primary) !important;
   background-color: var(--neutral-100) !important;
+  transition:
+    color var(--duration-base) var(--ease-out),
+    background-color var(--duration-base) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out),
+    filter var(--duration-fast) var(--ease-out);
 }
 
 .axDrawer :global(.ant-drawer-close:active) {
   transform: scale(0.92) !important;
+  filter: brightness(0.9) !important;
 }
 
 /* ---- Mobile ---- */

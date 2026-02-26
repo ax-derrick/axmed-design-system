@@ -77,7 +77,6 @@ const TrendArrow: React.FC<{ direction: "up" | "down" }> = ({ direction }) => (
     fill="none"
     style={{
       transform: direction === "down" ? "rotate(180deg)" : undefined,
-      transition: "transform var(--duration-base) var(--ease-spring)",
     }}
     aria-hidden="true"
   >

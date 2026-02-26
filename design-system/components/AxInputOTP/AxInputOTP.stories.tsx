@@ -25,7 +25,7 @@ const meta: Meta<typeof AxInputOTP> = {
     },
     size: {
       control: "select",
-      options: ["sm", "md", "lg"],
+      options: ["sm", "md", "lg", "xl"],
       description: "Preset size",
     },
     masked: {
@@ -239,6 +239,10 @@ export const Sizes: Story = {
       <div>
         <AxText variant="body-xs" color="secondary" style={{ marginBottom: 8 }}>lg</AxText>
         <AxInputOTP length={6} size="lg" />
+      </div>
+      <div>
+        <AxText variant="body-xs" color="secondary" style={{ marginBottom: 8 }}>xl</AxText>
+        <AxInputOTP length={6} size="xl" />
       </div>
     </Flex>
   ),
