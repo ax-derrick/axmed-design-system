@@ -1,9 +1,19 @@
 .axButton {
   font-family: var(--font-family-sans);
   font-weight: var(--font-weight-medium);
-  /* Override antd's default cubic-bezier(0.645, 0.045, 0.355, 1) ease-in-out.
-     Our spring curve (0.16,1,0.3,1) starts fast and decelerates — feels instantly
-     responsive rather than laggy on hover entry. */
+  /* Base state uses ease-in so hover LEAVE decelerates away.
+     Hover state overrides to ease-out so hover ENTER springs in. */
+  transition:
+    color var(--duration-base) var(--ease-in),
+    background-color var(--duration-base) var(--ease-in),
+    border-color var(--duration-base) var(--ease-in),
+    box-shadow var(--duration-base) var(--ease-in),
+    opacity var(--duration-base) var(--ease-in),
+    transform var(--duration-fast) var(--ease-out),
+    filter var(--duration-fast) var(--ease-out) !important;
+}
+
+.axButton:hover {
   transition:
     color var(--duration-base) var(--ease-out),
     background-color var(--duration-base) var(--ease-out),

@@ -18,10 +18,10 @@ export type AxDrawerProps = {
   description?: React.ReactNode
 
   /**
-   * Preset widths: "sm" (500px), "md" (600px), "lg" (640px).
+   * Preset widths: "xs" (400px), "sm" (500px), "md" (600px), "lg" (640px).
    * You can still override with `width` for custom sizes.
    */
-  size?: "sm" | "md" | "lg"
+  size?: "xs" | "sm" | "md" | "lg"
 
   /**
    * Show a loading spinner over the drawer body.
@@ -35,6 +35,7 @@ export type AxDrawerProps = {
 // ---------------------------------------------------------------------------
 
 const sizeWidths: Record<NonNullable<AxDrawerProps["size"]>, number> = {
+  xs: 400,
   sm: 500,
   md: 600,
   lg: 640,
@@ -55,6 +56,7 @@ const AxDrawer: React.FC<AxDrawerProps> = ({
   placement = "right",
   ...props
 }) => {
+  const descId = React.useId()
   // antd v6 deprecated `width` in favour of `size` (accepts numbers too)
   const resolvedSize = width ?? sizeWidths[size]
 
@@ -69,7 +71,7 @@ const AxDrawer: React.FC<AxDrawerProps> = ({
     <div>
       <div className={styles.title}>{title}</div>
       {description && (
-        <div className={styles.description}>{description}</div>
+        <div id={descId} className={styles.description}>{description}</div>
       )}
     </div>
   )
@@ -79,10 +81,11 @@ const AxDrawer: React.FC<AxDrawerProps> = ({
       title={composedTitle}
       size={resolvedSize}
       placement={placement}
+      aria-describedby={description ? descId : undefined}
       {...props}
       rootClassName={rootClassNames}
     >
-      <Spin spinning={loading} size="large">
+      <Spin spinning={loading} size="large" aria-busy={loading || undefined}>
         {children}
       </Spin>
     </AntDrawer>

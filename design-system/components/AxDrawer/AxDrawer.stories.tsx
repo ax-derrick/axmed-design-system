@@ -1,6 +1,7 @@
 import { useState } from "react"
 import type { Meta, StoryObj } from "@storybook/react"
 import { Flex, Input, Divider, Avatar } from "antd"
+import AxInput from "../AxInput"
 import {
   UserOutlined,
   EnvironmentOutlined,
@@ -29,8 +30,8 @@ const meta: Meta<typeof AxDrawer> = {
   argTypes: {
     size: {
       control: "select",
-      options: ["sm", "md", "lg"],
-      description: "Preset width: sm (500px), md (600px), lg (640px)",
+      options: ["xs", "sm", "md", "lg"],
+      description: "Preset width: xs (400px), sm (500px), md (600px), lg (640px)",
     },
     loading: {
       control: "boolean",
@@ -214,11 +215,11 @@ export const FormDrawer: Story = {
               { label: "Ibuprofen 400mg", requested: "20,000 units" },
             ].map((item) => (
               <div key={item.label}>
-                <Flex justify="space-between" align="center" style={{ marginBottom: 8 }}>
-                  <AxText variant="body-sm" weight="medium">{item.label}</AxText>
+                <Flex justify="space-between" align="center" style={{ marginBottom: 4 }}>
+                  <span style={{ fontFamily: "var(--font-family-sans)", fontSize: "var(--font-size-13)", fontWeight: "var(--font-weight-medium)", color: "var(--text-primary)" }}>{item.label}</span>
                   <AxText variant="body-xs" color="secondary">Requested: {item.requested}</AxText>
                 </Flex>
-                <Input placeholder="Enter quantity you can supply" suffix="units" />
+                <AxInput placeholder="Enter quantity you can supply" suffix="units" />
               </div>
             ))}
             <div>
@@ -485,10 +486,13 @@ export const Profile: Story = {
 export const Sizes: Story = {
   name: "Feature — Sizes",
   render: () => {
-    const [openSize, setOpenSize] = useState<"sm" | "md" | "lg" | null>(null)
+    const [openSize, setOpenSize] = useState<"xs" | "sm" | "md" | "lg" | null>(null)
 
     return (
       <Flex gap={8}>
+        <AxButton variant="secondary" onClick={() => setOpenSize("xs")}>
+          XSmall (400px)
+        </AxButton>
         <AxButton variant="secondary" onClick={() => setOpenSize("sm")}>
           Small (500px)
         </AxButton>
@@ -499,12 +503,13 @@ export const Sizes: Story = {
           Large (640px)
         </AxButton>
 
-        {(["sm", "md", "lg"] as const).map((s) => (
+        {(["xs", "sm", "md", "lg"] as const).map((s) => (
           <AxDrawer
             key={s}
             title={`${s.toUpperCase()} drawer`}
             description={{
-              sm: "500px — detail views, confirmations",
+              xs: "400px — quick actions, simple confirmations",
+              sm: "500px — detail views, bid summaries",
               md: "600px — forms, multi-step flows",
               lg: "640px — profiles, rich side panels",
             }[s]}
@@ -528,9 +533,10 @@ export const Sizes: Story = {
   },
 }
 
-const sizeLabels = { sm: "500px", md: "600px", lg: "640px" }
+const sizeLabels = { xs: "400px", sm: "500px", md: "600px", lg: "640px" }
 const sizeUseCase = {
-  sm: "detail views and simple confirmations",
+  xs: "quick actions and simple confirmations",
+  sm: "detail views and bid summaries",
   md: "forms and multi-step flows",
   lg: "profiles and content-rich side panels",
 }

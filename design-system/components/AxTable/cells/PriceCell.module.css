@@ -1,0 +1,42 @@
+/* =============================================================================
+   AxPriceCell — locale-aware currency display for table cells and detail views.
+   ============================================================================= */
+
+.cell {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  font-family: var(--font-family-sans);
+}
+
+/* Primary amount */
+.amount {
+  font-size: var(--font-size-13);
+  font-weight: var(--font-weight-semibold);
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+/* Per-unit suffix */
+.unit {
+  font-size: var(--font-size-11);
+  font-weight: var(--font-weight-regular);
+  color: var(--text-secondary);
+  margin-left: 2px;
+}
+
+/* Tier / context label */
+.tier {
+  font-size: var(--font-size-11);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+/* Highlighted tier — e.g. best price / lowest bid */
+.tierHighlighted {
+  color: var(--success);
+}

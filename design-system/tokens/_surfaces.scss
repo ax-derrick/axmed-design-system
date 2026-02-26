@@ -1,0 +1,33 @@
+// =============================================================================
+// Surface Tokens — Axmed Core
+// Shadows, border-radius, and z-index for consistent surface elevation.
+// =============================================================================
+
+:root {
+  // ---------------------------------------------------------------------------
+  // Shadows — three levels + overlay
+  // ---------------------------------------------------------------------------
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-overlay: 0 16px 48px rgba(0, 0, 0, 0.16), 0 4px 12px rgba(0, 0, 0, 0.08);
+
+  // ---------------------------------------------------------------------------
+  // Border radius
+  // ---------------------------------------------------------------------------
+  --radius-sm: 4px;       /* tags, badges */
+  --radius-md: 8px;       /* nav items, buttons, inputs */
+  --radius-lg: 12px;      /* cards, modals, drawers */
+  --radius-full: 9999px;  /* pills, avatars */
+
+  // ---------------------------------------------------------------------------
+  // Z-index scale — fixed levels, never arbitrary values
+  // ---------------------------------------------------------------------------
+  --z-base: 0;
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+}

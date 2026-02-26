@@ -1,6 +1,6 @@
 import { useState } from "react"
 import type { Meta, StoryObj } from "@storybook/react"
-import { Input, Form, Select, Upload, DatePicker, Checkbox, Flex, Alert } from "antd"
+import { Form, Select, Upload, DatePicker, Checkbox, Flex, Alert } from "antd"
 import {
   CheckCircleFilled,
   UploadOutlined,
@@ -8,6 +8,7 @@ import {
 
 import AxModal from "."
 import AxButton from "../AxButton"
+import AxInput from "../AxInput"
 import AxText from "../AxText"
 import AxTag from "../AxTag"
 
@@ -178,14 +179,14 @@ export const FormModal: Story = {
           onOk={() => setOpen(false)}
           onCancel={() => setOpen(false)}
         >
-          <Form layout="vertical">
-            <Form.Item label="Address Name">
-              <Input placeholder="e.g. Main Warehouse" />
-            </Form.Item>
+          <Flex vertical gap={16}>
+            <AxInput label="Address Name" placeholder="e.g. Main Warehouse" />
             <Flex gap={12}>
-              <Form.Item label="Country" style={{ flex: 1 }}>
+              <Flex vertical gap={4} style={{ flex: 1 }}>
+                <span style={{ fontFamily: "var(--font-family-sans)", fontSize: "var(--font-size-13)", fontWeight: "var(--font-weight-medium)", color: "var(--text-primary)" }}>Country</span>
                 <Select
                   placeholder="Select country"
+                  style={{ width: "100%" }}
                   options={[
                     { value: "ke", label: "Kenya" },
                     { value: "ng", label: "Nigeria" },
@@ -193,16 +194,15 @@ export const FormModal: Story = {
                     { value: "tz", label: "Tanzania" },
                   ]}
                 />
-              </Form.Item>
-              <Form.Item label="City" style={{ flex: 1 }}>
-                <Select placeholder="Select city" options={[]} />
-              </Form.Item>
+              </Flex>
+              <Flex vertical gap={4} style={{ flex: 1 }}>
+                <span style={{ fontFamily: "var(--font-family-sans)", fontSize: "var(--font-size-13)", fontWeight: "var(--font-weight-medium)", color: "var(--text-primary)" }}>City</span>
+                <Select placeholder="Select city" options={[]} style={{ width: "100%" }} />
+              </Flex>
             </Flex>
-            <Form.Item label="Address Line" style={{ marginBottom: 8 }}>
-              <Input placeholder="Street address, building, floor..." />
-            </Form.Item>
+            <AxInput label="Address Line" placeholder="Street address, building, floor..." />
             <Checkbox>Use as billing address</Checkbox>
-          </Form>
+          </Flex>
         </AxModal>
       </>
     )

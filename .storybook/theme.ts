@@ -6,7 +6,7 @@ import type { ThemeConfig } from "antd"
 const theme: ThemeConfig = {
   token: {
     colorPrimary: "#4738CC",
-    colorLink: "#0099C8",
+    colorLink: "#007094",
     fontFamily: "'Figtree', sans-serif",
     fontWeightStrong: 700,
   },

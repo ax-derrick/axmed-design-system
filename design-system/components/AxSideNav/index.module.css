@@ -1,0 +1,442 @@
+/* =============================================================================
+   AxSideNav — collapsible sidebar navigation.
+   Custom HTML nav (not antd Menu) for full styling control.
+   ============================================================================= */
+
+/* Root */
+.sideNav {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  background: var(--neutral-0);
+  border-right: 1px solid var(--neutral-200);
+  font-family: var(--font-family-sans);
+
+  /* Width transitions when collapsing — layout-triggering but infrequent
+     (user-initiated). contain limits reflow scope to this subtree. */
+  contain: layout style;
+  transition: width var(--duration-slow) var(--ease-out),
+              min-width var(--duration-slow) var(--ease-out);
+}
+
+/* ---------------------------------------------------------------------------
+   Logo area — contains logo slot + collapse toggle button
+   --------------------------------------------------------------------------- */
+
+.logoArea {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--neutral-200);
+  overflow: hidden;
+}
+
+/* Wrapper for the logo slot — fades out on collapse */
+.logoContent {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  transition: opacity var(--duration-base) var(--ease-out);
+  opacity: 1;
+}
+
+.collapsed .logoContent {
+  opacity: 0;
+  width: 0;
+  flex: 0;
+  pointer-events: none;
+}
+
+/* Collapse toggle button — always visible, icon-only */
+.collapseBtn {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  /* 44px touch target via padding (visual stays 32px) */
+  padding: 6px;
+  box-sizing: content-box;
+  margin: -6px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 15px;
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+
+.collapseBtn:hover {
+  background-color: var(--neutral-100);
+  color: var(--text-primary);
+}
+
+.collapseBtn:active {
+  transform: scale(0.97) !important;
+  filter: brightness(0.9) !important;
+}
+
+/* Center the button when sidebar is collapsed */
+.collapsed .logoArea {
+  justify-content: center;
+  padding: 12px 8px;
+  gap: 0;
+}
+
+/* ---------------------------------------------------------------------------
+   Nav items list
+   --------------------------------------------------------------------------- */
+
+.navItems {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 10px;
+  list-style: none;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  /* Hide scrollbar until hover */
+  scrollbar-width: thin;
+  scrollbar-color: var(--neutral-200) transparent;
+}
+
+/* ---------------------------------------------------------------------------
+   Individual nav item
+   --------------------------------------------------------------------------- */
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 40px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  background: transparent;
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-14);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-secondary);
+  text-align: left;
+  white-space: nowrap;
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+
+.navItem:hover:not(.disabled) {
+  background-color: var(--neutral-100);
+  color: var(--text-primary);
+}
+
+.navItem:active:not(.disabled) {
+  transform: scale(0.98) !important;
+  filter: brightness(0.9) !important;
+}
+
+/* Active / selected item — filled background, Linear-style */
+.navItem.active {
+  background-color: var(--primary-100);
+  color: var(--primary-600);
+  font-weight: var(--font-weight-semibold);
+}
+
+.navItem.active:hover {
+  background-color: var(--primary-100);
+  color: var(--primary-600);
+}
+
+/* Disabled item */
+.navItem.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ---------------------------------------------------------------------------
+   Icon
+   --------------------------------------------------------------------------- */
+
+.icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  font-size: 16px;
+  line-height: 1;
+}
+
+/* ---------------------------------------------------------------------------
+   Label — fades out on collapse
+   --------------------------------------------------------------------------- */
+
+.label {
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  transition: opacity var(--duration-base) var(--ease-out);
+  opacity: 1;
+}
+
+.collapsed .label {
+  opacity: 0;
+  width: 0;
+  flex: 0;
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------------------------
+   Divider
+   --------------------------------------------------------------------------- */
+
+.divider {
+  height: 1px;
+  background: var(--neutral-200);
+  margin: 6px 4px;
+  border: none;
+}
+
+/* ---------------------------------------------------------------------------
+   User profile area (pinned to bottom)
+   --------------------------------------------------------------------------- */
+
+.userArea {
+  flex-shrink: 0;
+  padding: 12px;
+  border-top: 1px solid var(--neutral-200);
+  overflow: hidden;
+}
+
+/* ---------------------------------------------------------------------------
+   Collapsed state — icon-only mode
+   --------------------------------------------------------------------------- */
+
+.collapsed .navItem {
+  justify-content: center;
+  padding: 10px;
+  gap: 0;
+}
+
+.collapsed .userArea {
+  display: flex;
+  justify-content: center;
+  padding: 12px 8px;
+}
+
+/* ---------------------------------------------------------------------------
+   Section label — static, non-interactive group header
+   --------------------------------------------------------------------------- */
+
+.sectionLabel {
+  padding: 12px 12px 4px;
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-12);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  user-select: none;
+}
+
+/* ---------------------------------------------------------------------------
+   NavGroup — collapsible group header
+   --------------------------------------------------------------------------- */
+
+/* .groupHeader inherits all .navItem styles — no extra layout needed.
+   The label's flex:1 naturally pushes the chevron to the right. */
+.groupHeader {
+  /* semantic class, no overrides needed */
+}
+
+/* Chevron indicator — right-aligned via label's flex:1 */
+.chevron {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  font-size: 11px;
+  color: var(--text-secondary);
+  overflow: hidden;
+  transition:
+    transform var(--duration-base) var(--ease-out),
+    opacity var(--duration-base) var(--ease-out);
+  opacity: 1;
+}
+
+.chevronOpen {
+  transform: rotate(90deg);
+}
+
+/* Hide chevron when sidebar is collapsed (same fade pattern as .label) */
+.collapsed .chevron {
+  opacity: 0;
+  width: 0;
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------------------------
+   NavGroup children — smooth height animation via grid-template-rows trick
+   --------------------------------------------------------------------------- */
+
+.groupChildren {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--duration-base) var(--ease-out);
+}
+
+.groupChildrenOpen {
+  grid-template-rows: 1fr;
+}
+
+/* Pure clipping wrapper — grid item. Must have NO border/padding of its own
+   so that overflow: hidden can fully clip the styled list inside to 0 height. */
+.groupChildrenInner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Styled list — lives INSIDE the clipping wrapper so the border-left is
+   clipped cleanly when the grid track collapses to 0fr. */
+.groupChildrenList {
+  list-style: none;
+  margin: 0 0 0 21px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  /* Left border line — aligns with icon center column (12px pad + 9px = 21px) */
+  border-left: 2px solid var(--neutral-200);
+
+  /* Gap between border and child item backgrounds — items must NOT touch the line */
+  padding: 2px 0 4px 6px;
+}
+
+/* ---------------------------------------------------------------------------
+   Child items — text-only, indented
+   --------------------------------------------------------------------------- */
+
+.childItem {
+  display: flex;
+  align-items: center;
+  width: 100%;
+
+  padding: 7px 12px 7px 14px;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  background: transparent;
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-13);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-secondary);
+  text-align: left;
+  white-space: nowrap;
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+
+.childItem:hover:not(.disabled) {
+  background-color: var(--neutral-100);
+  color: var(--text-primary);
+}
+
+.childItem:active:not(.disabled) {
+  transform: scale(0.98) !important;
+  filter: brightness(0.9) !important;
+}
+
+.childItem.active {
+  background-color: var(--primary-100);
+  color: var(--primary-600);
+  font-weight: var(--font-weight-semibold);
+}
+
+.childItem.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ---------------------------------------------------------------------------
+   Popover flyout — shown when sidebar is collapsed and group is clicked
+   --------------------------------------------------------------------------- */
+
+.flyout {
+  min-width: 160px;
+  padding: 4px;
+}
+
+.flyoutTitle {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-12);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-secondary);
+  padding: 6px 10px 4px;
+  white-space: nowrap;
+}
+
+.flyoutList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.flyoutItem {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 7px 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: transparent;
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-13);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-secondary);
+  text-align: left;
+  white-space: nowrap;
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+
+.flyoutItem:hover:not(.disabled) {
+  background-color: var(--neutral-100);
+  color: var(--text-primary);
+}
+
+.flyoutItem:active:not(.disabled) {
+  transform: scale(0.98) !important;
+  filter: brightness(0.9) !important;
+}
+
+.flyoutItem.active {
+  background-color: var(--primary-100);
+  color: var(--primary-600);
+  font-weight: var(--font-weight-semibold);
+}
+
+.flyoutItem.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}

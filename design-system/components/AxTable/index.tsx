@@ -85,6 +85,21 @@ function InternalAxTable<RecordType extends AnyObject = AnyObject>(
     return classes.filter(Boolean).join(" ")
   }
 
+  // Merge ARIA attributes into onRow for accessibility
+  const { onRow: userOnRow, scroll, ...restProps } = props
+  const mergedOnRow: AntTableProps<RecordType>["onRow"] = rowStates
+    ? (record, index) => {
+        const userAttrs = userOnRow?.(record, index) ?? {}
+        const key = getRowKey(record, restProps.rowKey)
+        const state = rowStates[key as string | number]
+        return {
+          ...userAttrs,
+          ...(state === "selected" ? { "aria-selected": true } : {}),
+          ...(state === "disabled" ? { "aria-disabled": true } : {}),
+        } as React.HTMLAttributes<HTMLTableRowElement>
+      }
+    : userOnRow
+
   return (
     <ConfigProvider
       theme={{
@@ -100,7 +115,9 @@ function InternalAxTable<RecordType extends AnyObject = AnyObject>(
     >
       <AntTable<RecordType>
         ref={ref}
-        {...props}
+        scroll={{ x: true, ...scroll }}
+        {...restProps}
+        onRow={mergedOnRow}
         rowClassName={mergedRowClassName}
         className={`${styles.axTable} ${className ?? ""}`}
       />
@@ -125,3 +142,16 @@ const AxTable = React.forwardRef(InternalAxTable) as <
 ;(AxTable as any).Summary = AntTable.Summary
 
 export default AxTable
+
+// ---------------------------------------------------------------------------
+// Subcomponent re-exports
+// ---------------------------------------------------------------------------
+
+export { default as DeadlineCell } from "./cells/DeadlineCell"
+export type { AxDeadlineCellProps } from "./cells/DeadlineCell"
+
+export { default as PriceCell } from "./cells/PriceCell"
+export type { AxPriceCellProps } from "./cells/PriceCell"
+
+export { default as AxTableSkeleton } from "./TableSkeleton"
+export type { AxTableSkeletonProps, SkeletonColumnConfig } from "./TableSkeleton"

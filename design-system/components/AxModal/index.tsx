@@ -52,8 +52,10 @@ const AxModal: React.FC<AxModalProps> = ({
   rootClassName,
   children,
   centered = true,
+  loading,
   ...props
 }) => {
+  const descId = React.useId()
   const resolvedWidth = width ?? sizeWidths[size]
 
   const rootClassNames = [
@@ -69,7 +71,7 @@ const AxModal: React.FC<AxModalProps> = ({
     <div>
       <div className={styles.title}>{title}</div>
       {description && (
-        <div className={styles.description}>{description}</div>
+        <div id={descId} className={styles.description}>{description}</div>
       )}
     </div>
   )
@@ -79,6 +81,8 @@ const AxModal: React.FC<AxModalProps> = ({
       title={composedTitle}
       width={resolvedWidth}
       centered={centered}
+      loading={loading}
+      aria-describedby={description ? descId : undefined}
       {...props}
       rootClassName={rootClassNames}
     >

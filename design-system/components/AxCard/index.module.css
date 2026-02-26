@@ -7,8 +7,8 @@
 /* Root card */
 .axCard {
   border: 1px solid var(--neutral-200) !important;
-  border-radius: 12px !important;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--shadow-sm) !important;
   background: var(--neutral-0) !important;
 }
 
@@ -42,19 +42,26 @@
   padding: 0 !important;
 }
 
-/* Hoverable */
+/* Hoverable — ease-in on base (for hover leave), ease-out on :hover (for hover enter) */
 .axCard:global(.ant-card-hoverable) {
   cursor: pointer;
   transition:
-    box-shadow var(--duration-base) var(--ease-out),
-    border-color var(--duration-base) var(--ease-out) !important;
+    box-shadow var(--duration-base) var(--ease-in),
+    border-color var(--duration-base) var(--ease-in),
+    transform var(--duration-fast) var(--ease-out) !important;
 }
 
 .axCard:global(.ant-card-hoverable:hover) {
-  box-shadow:
-    0 4px 12px rgba(0, 0, 0, 0.08),
-    0 1px 3px rgba(0, 0, 0, 0.06) !important;
+  box-shadow: var(--shadow-md) !important;
   border-color: var(--neutral-300) !important;
+  transition:
+    box-shadow var(--duration-base) var(--ease-out),
+    border-color var(--duration-base) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out) !important;
+}
+
+.axCard:global(.ant-card-hoverable):active {
+  transform: scale(0.99) !important;
 }
 
 /* Title typography */
@@ -64,6 +71,7 @@
   font-weight: var(--font-weight-semibold);
   line-height: 1.4;
   color: var(--text-primary);
+  text-wrap: balance;
 }
 
 /* Description — muted subtitle below title */
@@ -80,5 +88,5 @@
 .footer {
   margin-top: 16px;
   padding-top: 16px;
-  border-top: 1px solid var(--neutral-100);
+  border-top: 1px solid var(--neutral-200);
 }

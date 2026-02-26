@@ -2,6 +2,9 @@
 // Consumers only need: import 'axmed-design-system/style.css'
 
 @use "./tokens/typography";     // emits the :root typography token block
+@use "./tokens/motion";         // emits the :root motion token block + prefers-reduced-motion
+@use "./tokens/spacing";        // emits the :root spacing scale
+@use "./tokens/surfaces";       // emits the :root shadow, radius, z-index tokens
 @use "../styles/colors" as *;   // imports $theme-colors map
 
 // Emit color tokens as CSS custom properties

@@ -1,0 +1,63 @@
+/* =============================================================================
+   AxCountryTags — compact pill tags for country lists with overflow tooltip.
+   ============================================================================= */
+
+.root {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-family-sans);
+}
+
+/* Individual country pill */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--neutral-200);
+  background: var(--neutral-50);
+  color: var(--text-primary);
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.flag {
+  font-style: normal;
+  line-height: 1;
+}
+
+/* "+N more" overflow pill */
+.overflow {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  border: 1px dashed var(--neutral-300);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: default;
+  white-space: nowrap;
+  line-height: 1;
+  transition: border-color var(--duration-base) var(--ease-out);
+}
+
+.overflow:hover {
+  border-color: var(--neutral-400);
+  color: var(--text-primary);
+}
+
+/* Sizes */
+.size-sm .tag,
+.size-sm .overflow {
+  font-size: var(--font-size-11);
+  padding: 1px 6px;
+}
+
+.size-md .tag,
+.size-md .overflow {
+  font-size: var(--font-size-13);
+  padding: 3px 10px;
+}

@@ -1,0 +1,66 @@
+// =============================================================================
+// Breakpoint Tokens — Axmed Core
+// Mobile-first breakpoints for responsive layout.
+// Uses min-width (mobile-first) by default, max-width available via $down.
+// Container query mixin included for component-level responsiveness.
+// =============================================================================
+
+@use "sass:map";
+
+// ---------------------------------------------------------------------------
+// Breakpoint scale
+// ---------------------------------------------------------------------------
+$breakpoints: (
+  sm: 576px,    // large phones (landscape)
+  md: 768px,    // tablets
+  lg: 992px,    // small desktops / landscape tablets
+  xl: 1200px,   // desktops
+  xxl: 1400px,  // wide desktops
+);
+
+// ---------------------------------------------------------------------------
+// Media query mixins — mobile-first (min-width)
+// Usage: @include bp(md) { ... }
+// ---------------------------------------------------------------------------
+@mixin bp($size) {
+  @media (min-width: map.get($breakpoints, $size)) {
+    @content;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Media query mixins — max-width (desktop-first, for overrides)
+// Usage: @include bp-down(md) { ... }  →  @media (max-width: 767.98px)
+// ---------------------------------------------------------------------------
+@mixin bp-down($size) {
+  @media (max-width: calc(map.get($breakpoints, $size) - 0.02px)) {
+    @content;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Container query mixin — component-level responsiveness
+// The parent must have `container-type: inline-size` set.
+// Usage: @include container(md) { ... }
+// ---------------------------------------------------------------------------
+@mixin container($size) {
+  @container (min-width: map.get($breakpoints, $size)) {
+    @content;
+  }
+}
+
+@mixin container-down($size) {
+  @container (max-width: calc(map.get($breakpoints, $size) - 0.02px)) {
+    @content;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Touch device detection — pointer: coarse + no hover
+// Usage: @include touch { font-size: 16px; }
+// ---------------------------------------------------------------------------
+@mixin touch {
+  @media (hover: none) and (pointer: coarse) {
+    @content;
+  }
+}

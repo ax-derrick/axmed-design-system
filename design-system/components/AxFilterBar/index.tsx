@@ -1,10 +1,10 @@
 "use client"
 
 import React from "react"
-import { Input, Select } from "antd"
-import type { InputProps, SelectProps } from "antd"
-import { SearchOutlined } from "@ant-design/icons"
+import { Select } from "antd"
+import type { SelectProps } from "antd"
 
+import AxSearchInput from "../AxInput/SearchInput"
 import styles from "./index.module.css"
 
 // ---------------------------------------------------------------------------
@@ -50,7 +50,7 @@ export type AxFilterBarProps = {
   search?: {
     placeholder?: string
     value?: string
-    onChange?: InputProps["onChange"]
+    onChange?: React.ChangeEventHandler<HTMLInputElement>
     width?: number | string
   } | false
 
@@ -82,17 +82,17 @@ const AxFilterBar: React.FC<AxFilterBarProps> = ({
   extra,
   className,
 }) => {
+  const sortLabelId = sort ? "axFilterBar-sort-label" : undefined
+
   return (
-    <div className={className}>
+    <search className={className} aria-label="Filter results">
       <div className={styles.filterBar}>
         {/* Search */}
         {search !== false && (
-          <Input
+          <AxSearchInput
             placeholder={search?.placeholder ?? "Search..."}
-            prefix={<SearchOutlined style={{ color: "var(--neutral-500)" }} />}
             value={search?.value}
             onChange={search?.onChange}
-            allowClear
             className={styles.searchInput}
             style={search?.width ? { width: search.width } : undefined}
           />
@@ -112,13 +112,14 @@ const AxFilterBar: React.FC<AxFilterBarProps> = ({
               onChange={filter.onChange}
               popupMatchSelectWidth={false}
               style={{ minWidth: filter.width ?? 160 }}
+              aria-label={filter.placeholder ?? filter.key}
             />
           ))}
 
           {sort && (
             <div className={styles.sortContainer}>
               {(sort.showLabel ?? true) && (
-                <span className={styles.sortLabel}>Sort by</span>
+                <span id={sortLabelId} className={styles.sortLabel}>Sort by</span>
               )}
               <Select
                 options={sort.options}
@@ -126,6 +127,8 @@ const AxFilterBar: React.FC<AxFilterBarProps> = ({
                 onChange={sort.onChange}
                 popupMatchSelectWidth={false}
                 style={{ width: sort.width ?? 130 }}
+                aria-label={!(sort.showLabel ?? true) ? "Sort by" : undefined}
+                aria-labelledby={(sort.showLabel ?? true) ? sortLabelId : undefined}
               />
             </div>
           )}
@@ -137,13 +140,13 @@ const AxFilterBar: React.FC<AxFilterBarProps> = ({
 
       {/* Result Count */}
       {resultCount !== undefined && (
-        <div className={styles.resultCount}>
+        <div className={styles.resultCount} role="status" aria-live="polite">
           {typeof resultCount === "number"
             ? `${resultCount} results`
             : resultCount}
         </div>
       )}
-    </div>
+    </search>
   )
 }
 

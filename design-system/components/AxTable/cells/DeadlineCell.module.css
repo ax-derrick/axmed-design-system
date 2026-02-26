@@ -1,0 +1,43 @@
+/* =============================================================================
+   AxDeadlineCell — inline deadline indicator with urgency colour.
+   Designed to be used as a table cell renderer, but works anywhere.
+   ============================================================================= */
+
+.cell {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-13);
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--font-weight-medium);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.icon {
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.label {
+  /* inherits colour from .cell */
+}
+
+/* Tone variants */
+.ok {
+  color: var(--text-secondary);
+}
+
+.warning {
+  color: var(--warning);
+}
+
+.urgent {
+  color: var(--error);
+}
+
+.overdue {
+  color: var(--error);
+  font-weight: var(--font-weight-semibold);
+}

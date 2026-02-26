@@ -20,6 +20,7 @@ import AxButton from "../AxButton"
 import AxTag from "../AxTag"
 import type { AxTagTone } from "../AxTag"
 import AxEmptyState from "../AxEmptyState"
+import AxCountryTags from "../AxTag/CountryTags"
 
 // ---------------------------------------------------------------------------
 // Sample data — pharmaceutical domain
@@ -98,23 +99,6 @@ const orderStatusConfig: Record<Order["status"], { tone: AxTagTone; icon: React.
   "In Transit": { tone: "info", icon: <CarOutlined /> },
   Processing: { tone: "info", icon: <SyncOutlined spin /> },
   Pending: { tone: "neutral", icon: <ClockCircleOutlined /> },
-}
-
-const CountryTags: React.FC<{ countries: string[]; max?: number }> = ({ countries, max = 2 }) => {
-  const visible = countries.slice(0, max)
-  const remaining = countries.length - max
-  return (
-    <Flex gap={4} wrap="wrap">
-      {visible.map((c) => (
-        <AxTag key={c} style={{ margin: 0 }}>{c}</AxTag>
-      ))}
-      {remaining > 0 && (
-        <Tooltip title={countries.slice(max).join(", ")}>
-          <AxTag style={{ margin: 0, cursor: "pointer" }}>+{remaining} more</AxTag>
-        </Tooltip>
-      )}
-    </Flex>
-  )
 }
 
 // Compute rowStates from an array of selected keys and an array of disabled keys
@@ -308,7 +292,7 @@ export const ExpandableRows: Story = {
           </div>
           <div>
             <AxText as="div" variant="body-xs" color="secondary" style={{ marginBottom: 4 }}>Countries</AxText>
-            <CountryTags countries={record.countries} max={3} />
+            <AxCountryTags countries={record.countries} max={3} />
           </div>
           <div>
             <AxText as="div" variant="body-xs" color="secondary" style={{ marginBottom: 4 }}>Total Value</AxText>
@@ -499,7 +483,7 @@ export const TagsInCells: Story = {
         title: "Countries",
         dataIndex: "countries",
         key: "countries",
-        render: (countries: string[]) => <CountryTags countries={countries} />,
+        render: (countries: string[]) => <AxCountryTags countries={countries} />,
       },
       {
         title: "Status",
@@ -573,7 +557,7 @@ export const TooltipHeaders: Story = {
         title: "Countries",
         dataIndex: "countries",
         key: "countries",
-        render: (countries: string[]) => <CountryTags countries={countries} max={2} />,
+        render: (countries: string[]) => <AxCountryTags countries={countries} max={2} />,
       },
       {
         title: "Status",
@@ -810,7 +794,7 @@ export const CombinedFeatures: Story = {
               </div>
               <div>
                 <AxText as="div" variant="body-xs" color="secondary" style={{ marginBottom: 4 }}>Countries</AxText>
-                <CountryTags countries={record.countries} max={3} />
+                <AxCountryTags countries={record.countries} max={3} />
               </div>
             </div>
           ),

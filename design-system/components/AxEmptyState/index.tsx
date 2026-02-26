@@ -77,7 +77,7 @@ const AxEmptyState: React.FC<AxEmptyStateProps> = ({
       className={[css.root, css[size], className ?? ""].filter(Boolean).join(" ")}
     >
       {illustration && (
-        <div className={css.illustration}>{illustration}</div>
+        <div className={css.illustration} aria-hidden="true">{illustration}</div>
       )}
 
       <Flex vertical align="center" gap={4}>

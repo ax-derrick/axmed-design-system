@@ -1,0 +1,105 @@
+/* =============================================================================
+   AxInput — antd Input wrapper with motion tokens and consistent typography.
+   Covers two DOM shapes antd uses:
+     • No affix → className goes on the <input> element itself
+     • With affix (prefix/suffix/allowClear) → className goes on the outer <span>
+   ============================================================================= */
+
+/* Field wrapper — rendered when label, hint, or error are provided */
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}
+
+/* Field label */
+.label {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-13);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary);
+  line-height: 1.4;
+  text-wrap: balance;
+  cursor: default;
+  user-select: none;
+}
+
+/* Required asterisk */
+.required {
+  color: var(--error);
+}
+
+/* Hint — neutral helper text below the input */
+.hint {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-12);
+  color: var(--text-secondary);
+  line-height: 1.4;
+  text-wrap: pretty;
+}
+
+/* Error message — red text below the input */
+.errorText {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-12);
+  color: var(--error);
+  line-height: 1.4;
+  text-wrap: pretty;
+}
+
+/* Root element — font-family inherits down to the inner <input> */
+.axInput {
+  font-family: var(--font-family-sans) !important;
+  transition:
+    border-color var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out) !important;
+}
+
+/* Inner <input> element when inside the affix wrapper */
+.axInput :global(.ant-input) {
+  font-family: var(--font-family-sans) !important;
+  transition:
+    border-color var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out) !important;
+}
+
+/* Prefix / suffix — muted icon color by default */
+.axInput :global(.ant-input-prefix),
+.axInput :global(.ant-input-suffix) {
+  color: var(--neutral-400);
+}
+
+/* Kill our global :focus-visible outline on antd input elements.
+   antd's own border-color + box-shadow focus indicator is sufficient.
+   Without this, both show simultaneously (the ugly double ring). */
+.axInput:focus-visible,
+.axInput :global(.ant-input):focus-visible {
+  outline: none !important;
+}
+
+/* Clear icon */
+.axInput :global(.ant-input-clear-icon) {
+  color: var(--neutral-400);
+  transition:
+    color var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out) !important;
+}
+
+.axInput :global(.ant-input-clear-icon:hover) {
+  color: var(--neutral-600) !important;
+}
+
+.axInput :global(.ant-input-clear-icon):active {
+  transform: scale(0.9) !important;
+  filter: brightness(0.9) !important;
+}
+
+/* iOS Safari zooms the viewport when focusing inputs with font-size < 16px.
+   Bump to 16px on touch devices to prevent this. */
+@media (hover: none) and (pointer: coarse) {
+  .axInput,
+  .axInput :global(.ant-input) {
+    font-size: 16px !important;
+  }
+}

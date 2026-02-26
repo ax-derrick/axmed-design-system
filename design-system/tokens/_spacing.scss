@@ -1,0 +1,22 @@
+// =============================================================================
+// Spacing Tokens — Axmed Core
+// 4px base grid. Use these tokens for margin, padding, gap.
+// Named by multiplier: --space-1 = 1×4px, --space-2 = 2×4px, etc.
+// =============================================================================
+
+:root {
+  --space-0: 0px;
+  --space-0-5: 2px;    /* half-step — dividers, fine adjustments */
+  --space-1: 4px;      /* tight — icon gaps, inline spacing */
+  --space-1-5: 6px;    /* between tight and compact */
+  --space-2: 8px;      /* compact — button padding, tag gaps */
+  --space-3: 12px;     /* default — nav item padding, card internal */
+  --space-4: 16px;     /* comfortable — section padding, modal body */
+  --space-5: 20px;     /* roomy — card padding, drawer header */
+  --space-6: 24px;     /* generous — modal container, drawer body */
+  --space-8: 32px;     /* section — large gap between groups */
+  --space-10: 40px;    /* panel — page section margins */
+  --space-12: 48px;    /* spacious — empty state vertical padding (md) */
+  --space-16: 64px;    /* page — large content separation */
+  --space-20: 80px;    /* hero — empty state vertical padding (lg) */
+}

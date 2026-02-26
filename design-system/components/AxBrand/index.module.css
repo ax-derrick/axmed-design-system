@@ -1,0 +1,21 @@
+/* =============================================================================
+   AxBrand — Axmed wordmark and flame mark icon.
+   Uses the real SVG logo paths; CSS only controls color via currentColor.
+   ============================================================================= */
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+/* Light theme — navy on white/light backgrounds */
+.light {
+  color: var(--primary-600);
+}
+
+/* Dark theme — white on dark/navy backgrounds */
+.dark {
+  color: #ffffff;
+}

@@ -1,0 +1,48 @@
+/* =============================================================================
+   AxTableSkeleton — loading placeholder that mirrors AxTable's visual structure.
+   Uses antd Skeleton.Input for shimmer; prefers-reduced-motion is handled
+   globally in _motion.scss (kills animation-duration across the board).
+   ============================================================================= */
+
+.skeleton {
+  border: 1px solid var(--neutral-100);
+  border-radius: 0;
+  font-family: var(--font-family-sans);
+  overflow: hidden;
+}
+
+/* Header row — slightly darker background, matches AxTable's thead */
+.headerRow {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 0;
+  background: var(--neutral-50);
+  border-bottom: 1px solid var(--neutral-100);
+}
+
+/* Body rows */
+.bodyRow {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border-bottom: 1px solid var(--neutral-50);
+}
+
+.bodyRow:last-child {
+  border-bottom: none;
+}
+
+/* Individual cell — padding matches antd Table's default cell padding */
+.cell {
+  display: flex;
+  align-items: center;
+  padding: 16px 16px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* Ensure Skeleton.Input fills the width constraint naturally */
+.cell :global(.ant-skeleton-input) {
+  border-radius: var(--radius-sm) !important;
+}

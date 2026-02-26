@@ -1,0 +1,79 @@
+/* =============================================================================
+   AxInputOTP — antd Input.OTP wrapper with motion tokens and typography.
+   Targets:
+     .ant-otp          — root flex container
+     .ant-otp-input    — each individual slot <input>
+   ============================================================================= */
+
+/* Field wrapper — rendered when label, hint, or error are provided */
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Field label */
+.label {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-13);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary);
+  line-height: 1.4;
+  text-wrap: balance;
+  cursor: default;
+  user-select: none;
+}
+
+/* Required asterisk */
+.required {
+  color: var(--error);
+}
+
+/* Hint — neutral helper text below the input */
+.hint {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-12);
+  color: var(--text-secondary);
+  line-height: 1.4;
+  text-wrap: pretty;
+}
+
+/* Error message — red text below the input */
+.errorText {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-12);
+  color: var(--error);
+  line-height: 1.4;
+  text-wrap: pretty;
+}
+
+/* Error state — red borders on all slots */
+.hasError :global(.ant-otp-input) {
+  border-color: var(--error) !important;
+}
+
+/* Root container */
+.axInputOTP :global(.ant-otp) {
+  gap: 8px;
+}
+
+/* Each slot */
+.axInputOTP :global(.ant-otp-input) {
+  font-family: var(--font-family-sans) !important;
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--font-weight-semibold);
+  transition:
+    border-color var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out) !important;
+}
+
+/* Kill double focus ring — antd's own focus style is sufficient */
+.axInputOTP :global(.ant-otp-input):focus-visible {
+  outline: none !important;
+}
+
+/* Separator */
+.axInputOTP :global(.ant-otp-separator) {
+  color: var(--neutral-400);
+  font-weight: var(--font-weight-regular);
+}

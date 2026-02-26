@@ -134,3 +134,10 @@ const AxTag: React.FC<AxTagProps> = ({
 AxTag.displayName = "AxTag"
 
 export default AxTag
+
+// ---------------------------------------------------------------------------
+// Subcomponent re-exports
+// ---------------------------------------------------------------------------
+
+export { default as CountryTags } from "./CountryTags"
+export type { AxCountryTagsProps } from "./CountryTags"
