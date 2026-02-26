@@ -121,6 +121,8 @@ const AxModal: React.FC<AxModalProps> = ({
       footer={resolvedFooter}
       aria-describedby={description ? descId : undefined}
       onCancel={onCancel}
+      transitionName="ax-modal"
+      maskTransitionName="ax-modal-mask"
       {...props}
       rootClassName={rootClassNames}
     >

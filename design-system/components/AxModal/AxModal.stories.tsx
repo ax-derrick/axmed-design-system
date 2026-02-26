@@ -7,6 +7,7 @@ import {
 } from "@ant-design/icons"
 
 import AxModal from "."
+import styles from "./index.module.css"
 import AxButton from "../AxButton"
 import AxInput from "../AxInput"
 import AxText from "../AxText"
@@ -139,8 +140,13 @@ export const Success: Story = {
       <>
         <AxButton onClick={() => setOpen(true)}>Submit Order</AxButton>
         <AxModal
-          title="Order submitted successfully"
-          description="Your order has been received and is being reviewed by our team."
+          title={
+            <div style={{ textAlign: "center" }}>
+              <CheckCircleFilled className={styles.successIcon} style={{ fontSize: 40, color: "var(--success)", display: "block", marginBottom: 12 }} />
+              Order submitted successfully
+            </div>
+          }
+          description={<span style={{ display: "block", textAlign: "center" }}>Your order has been received and is being reviewed by our team.</span>}
           open={open}
           size="sm"
           footer={
@@ -149,11 +155,7 @@ export const Success: Story = {
             </AxButton>
           }
           onCancel={() => setOpen(false)}
-        >
-          <div style={{ textAlign: "center", padding: "8px 0" }}>
-            <CheckCircleFilled style={{ fontSize: 48, color: "var(--green-600)" }} />
-          </div>
-        </AxModal>
+        />
       </>
     )
   },

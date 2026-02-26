@@ -9,7 +9,7 @@
   background: rgba(0, 0, 0, 0.6) !important;
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
-  transition: opacity var(--duration-slow) var(--ease-out);
+  transition: opacity var(--duration-drawer) var(--ease-drawer);
 }
 
 /* ---- Content panel — edge-to-edge, shadow for depth ---- */
@@ -23,7 +23,7 @@
   box-shadow:
     -8px 0 30px rgba(0, 0, 0, 0.08),
     -1px 0 0 rgba(0, 0, 0, 0.04) !important;
-  transition: transform var(--duration-slow) var(--ease-out) !important;
+  transition: transform var(--duration-drawer) var(--ease-drawer) !important;
 }
 
 /* ---- Header — no border, breathing room ---- */

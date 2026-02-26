@@ -18,13 +18,16 @@
   --ease-in-out: cubic-bezier(0.45, 0, 0.55, 1);
   // Playful overshoot — success checkmarks, toast entrances, celebrations
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  // iOS sheet slide — aggressive start, long gentle deceleration (Emil Kowalski / Ionic)
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
 
   // ---------------------------------------------------------------------------
   // Durations
   // ---------------------------------------------------------------------------
   --duration-fast: 100ms;   // micro-interactions: row select, checkbox tick
   --duration-base: 150ms;   // default: hover states, close buttons
-  --duration-slow: 250ms;   // overlays entering/leaving (modal, drawer)
+  --duration-slow: 250ms;   // overlays entering/leaving (modal)
+  --duration-drawer: 350ms; // drawer slide — longer than standard, feels right for large surfaces
 
   // ---------------------------------------------------------------------------
   // Focus ring

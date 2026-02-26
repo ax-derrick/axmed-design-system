@@ -6,6 +6,8 @@
 /* Overlay / mask */
 .axModal :global(.ant-modal-mask) {
   background: rgba(0, 0, 0, 0.5) !important;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
   transition: opacity var(--duration-slow) var(--ease-out);
 }
 
@@ -78,7 +80,7 @@
   }
 
   .axModal :global(.ant-modal-footer) {
-    flex-direction: column !important;
+    flex-direction: column-reverse !important;
   }
 
   .axModal :global(.ant-modal-footer .ant-btn) {
@@ -120,6 +122,114 @@
 .axModal :global(.ant-modal-close:active) {
   transform: scale(0.94) !important;
   filter: brightness(0.9) !important;
+}
+
+/* ---- Custom entrance/exit animation (replaces antd's zoom) ---- */
+
+/* Modal content — scale + fade */
+:global(.ax-modal-enter),
+:global(.ax-modal-appear) {
+  opacity: 0;
+  transform: scale(0.95);
+  animation-duration: var(--duration-slow) !important;
+  animation-fill-mode: both !important;
+  animation-timing-function: var(--ease-out) !important;
+  animation-play-state: paused !important;
+}
+
+:global(.ax-modal-enter-active),
+:global(.ax-modal-appear-active) {
+  animation-name: axModalIn !important;
+  animation-play-state: running !important;
+}
+
+:global(.ax-modal-leave) {
+  animation-duration: var(--duration-base) !important;
+  animation-fill-mode: both !important;
+  animation-timing-function: var(--ease-in) !important;
+  animation-play-state: paused !important;
+  pointer-events: none;
+}
+
+:global(.ax-modal-leave-active) {
+  animation-name: axModalOut !important;
+  animation-play-state: running !important;
+}
+
+@keyframes axModalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes axModalOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+/* Mask / backdrop — fade only */
+:global(.ax-modal-mask-enter),
+:global(.ax-modal-mask-appear) {
+  opacity: 0;
+  animation-duration: var(--duration-slow) !important;
+  animation-fill-mode: both !important;
+  animation-timing-function: var(--ease-out) !important;
+  animation-play-state: paused !important;
+}
+
+:global(.ax-modal-mask-enter-active),
+:global(.ax-modal-mask-appear-active) {
+  animation-name: axModalMaskIn !important;
+  animation-play-state: running !important;
+}
+
+:global(.ax-modal-mask-leave) {
+  animation-duration: var(--duration-base) !important;
+  animation-fill-mode: both !important;
+  animation-timing-function: var(--ease-in) !important;
+  animation-play-state: paused !important;
+}
+
+:global(.ax-modal-mask-leave-active) {
+  animation-name: axModalMaskOut !important;
+  animation-play-state: running !important;
+}
+
+@keyframes axModalMaskIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes axModalMaskOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+/* ---- Success icon pop (for success/feedback modals) ---- */
+.successIcon {
+  animation: successPop 400ms var(--ease-spring) 150ms both;
+}
+
+@keyframes successPop {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 /* Danger variant — red primary action button in footer */
