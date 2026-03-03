@@ -133,7 +133,16 @@ Now you can import and use any component:
 ```tsx
 "use client";
 
-import { AxButton, AxCard, AxText, AxTable, AxTag, AxModal } from "axmed-design-system";
+import { AxButton, AxCard, AxText, AxTable, AxTag } from "axmed-design-system";
+
+// Sample data — in a real app this would come from an API
+const orders = [
+  { key: "1", id: "ORD-001", product: "Amoxicillin 500mg", supplier: "PharmaCorp Ltd", quantity: 10000, status: "success", deadline: "2025-04-15", total: "$1,200" },
+  { key: "2", id: "ORD-002", product: "Metformin 850mg", supplier: "MediSource Inc", quantity: 5000, status: "warning", deadline: "2025-03-28", total: "$850" },
+  { key: "3", id: "ORD-003", product: "Ibuprofen 400mg", supplier: "GlobalPharma", quantity: 25000, status: "error", deadline: "2025-03-10", total: "$3,400" },
+  { key: "4", id: "ORD-004", product: "Artemether 20mg", supplier: "AfriMeds Co", quantity: 8000, status: "info", deadline: "2025-05-01", total: "$2,100" },
+  { key: "5", id: "ORD-005", product: "Paracetamol 500mg", supplier: "PharmaCorp Ltd", quantity: 50000, status: "success", deadline: "2025-04-22", total: "$4,750" },
+];
 
 export default function OrdersPage() {
   return (
@@ -143,6 +152,9 @@ export default function OrdersPage() {
       <AxTable
         columns={[
           { title: "Order ID", dataIndex: "id" },
+          { title: "Product", dataIndex: "product" },
+          { title: "Supplier", dataIndex: "supplier" },
+          { title: "Qty", dataIndex: "quantity", render: (q) => q.toLocaleString() },
           { title: "Status", dataIndex: "status", render: (s) => <AxTag tone={s}>{s}</AxTag> },
           { title: "Total", dataIndex: "total" },
         ]}
